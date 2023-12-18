@@ -592,6 +592,7 @@ def panne_e1(mecano_e1, cap_e1, nom_e1) :
 
     print(changement)
     print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano_e1}, de l'équipe {nom_e1} de jouer.")
+    input("\nSUIVANT")
     print(f"\nVotre capitaine à annoncer le cap : {cap_e1}\n")
 
     #intéressant de pouvoir changer de baie_moteur (plus facile / dure) en fonction du vaisseaux choisie. et donc changer de numéro en fonction du vaisseau
@@ -605,7 +606,8 @@ def panne_e1(mecano_e1, cap_e1, nom_e1) :
             choix_meca = int(input(f"{mecano_e1}, choississez une panne dans le cadran du cap (1-6) : "))
 
             if 1 <= choix_meca <= 6 :
-                S1.choisir_une_panne(choix_meca, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cap_e1)
+                cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = S1.choisir_une_panne(choix_meca, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cap_e1)
+                #print(cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
                 break
             
             else :

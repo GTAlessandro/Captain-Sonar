@@ -131,7 +131,7 @@ class SousMarin:
 
     def choisir_une_panne(self, choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap):
 
-                #cadran ouest
+        #cadran ouest
         JAUNE_ARM = cadran_ouest[0]
         JAUNE_SPE = cadran_ouest[1]
         JAUNE_DET = cadran_ouest[2]
@@ -163,100 +163,107 @@ class SousMarin:
         NONE1ERAD = cadran_est[4]
         NONE2ERAD = cadran_est[5]
 
-        if cap_e1 == "OUEST" :
+        print(cap, choix_meca)
+        print("début boucle : ", JAUNE1ARM)
+
+        if cap == "OUEST" :
 
             if choix_meca == 1 :
-                JAUNE_ARM = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷A̷R̷M"
+                cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷A̷R̷M"
 
             elif choix_meca == 2 :
-                JAUNE_SPE = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷S̷P̷E"
+                cadran_ouest[1] = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷S̷P̷E"
 
             elif choix_meca == 3 :
-                JAUNE_DET = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷D̷E̷T"
+                cadran_ouest[2] = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷D̷E̷T"
 
             elif choix_meca == 4 :
-                NONE_ODET = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+                cadran_ouest[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
 
             elif choix_meca == 5 :
-                NONE1ORAD = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                cadran_ouest[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             elif choix_meca == 6 :
-                NONE2ORAD = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
                 print("Sélectionner une panne comprise entre 1 et 6")
 
-        elif cap_e1 == "NORD" :
+        elif cap == "NORD" :
 
             if choix_meca == 1 :
-                VERT__SPE = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷S̷P̷E"
+                cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷S̷P̷E"
         
             elif choix_meca == 2 :
-                VERT__DET = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷D̷E̷T"
+                cadran_nord[1] = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷D̷E̷T"
 
             elif choix_meca == 3 :
-                VERT__ARM = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷A̷R̷M"
+                cadran_nord[2] = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷A̷R̷M"
 
             elif choix_meca == 4 :
-                NONE_NDET = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+                cadran_nord[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
 
             elif choix_meca == 5 :
-                NONE_NARM = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
+                cadran_nord[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
 
             elif choix_meca == 6 :
-                NONE_NRAD = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
                 print("Sélectionner une panne comprise entre 1 et 6")
 
-        elif cap_e1 == "SUD" :
+        elif cap == "SUD" :
 
             if choix_meca == 1 :
-                BLEU__DET = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷D̷E̷T"
+                cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷D̷E̷T"
         
             elif choix_meca == 2 :
-                BLEU__SPE = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷S̷P̷E"
+                cadran_sud[1] = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷S̷P̷E"
 
             elif choix_meca == 3 :
-                BLEU__ARM = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷A̷R̷M"
+                cadran_sud[2] = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷A̷R̷M"
 
             elif choix_meca == 4 :
-                NONE_SARM = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
+                cadran_sud[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
 
             elif choix_meca == 5 :
-                NONE_SSPE = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
+                cadran_sud[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
 
             elif choix_meca == 6 :
-                NONE_SRAD = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
                 print("Sélectionner une panne comprise entre 1 et 6")
 
-        elif cap_e1 == "EST" :
+        elif cap == "EST" :
 
             if choix_meca == 1 :
-                JAUNE1ARM = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷A̷R̷M"
+                cadran_est[0] = " ̷J̷A̷U̷N̷E̷ ̷-̷ ̷A̷R̷M"
         
             elif choix_meca == 2 :
-                VERT1_SPE = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷S̷P̷E"
+                cadran_est[1] = " ̷V̷E̷R̷T̷ ̷ ̷-̷ ̷S̷P̷E"
 
             elif choix_meca == 3 :
-                BLEU1_SPE = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷S̷P̷E"
+                cadran_est[2] = " ̷B̷L̷E̷U̷ ̷ ̷-̷ ̷S̷P̷E"
 
             elif choix_meca == 4 :
-                NONE_EDET = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+                cadran_est[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
 
             elif choix_meca == 5 :
-                NONE1ERAD = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                cadran_est[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             elif choix_meca == 6 :
-                NONE2ERAD = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
         else : 
             print("Sélectionner une panne comprise entre 1 et 6")
+
+        print("fin boucle : ", JAUNE1ARM)
         
         print("\n\nVotre baie moteur après la panne choisis :")
-        S1.afficher_baie_moteur(cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
+        S1.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
+
+        return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
     
     def torpiller(self, cible):
