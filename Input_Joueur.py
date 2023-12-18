@@ -4,19 +4,19 @@
 '''Variable joueur'''
 #===================#
 
-j1 = None #sera toujours égale au nom du joueur 1
-j2 = None #sera toujours égale au nom du joueur 2
-j3 = None #sera toujours égale au nom du joueur 3
-j4 = None #sera toujours égale au nom du joueur 4
-j5 = None #sera toujours égale au nom du joueur 5
-j6 = None #sera toujours égale au nom du joueur 6
-j7 = None #sera toujours égale au nom du joueur 7
-j8 = None #sera toujours égale au nom du joueur 8
+j1 = None #Charles enculer
+j2 = None 
+j3 = None 
+j4 = None 
+j5 = None 
+j6 = None 
+j7 = None 
+j8 = None 
 
 #========================#
 '''Variable nom d'équpe'''
 #========================#
 
-nom_e1 = None #sera toujours égale au nom de l'équipe 1
-nom_e2 = None #sera toujours égale au nom de l'équipe 2
+nom_e1 = None 
+nom_e2 = None 
 
