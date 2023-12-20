@@ -6,6 +6,7 @@ from Var_affichage import equipe, affichage_mode, aff_map, aff_s, start, changem
 
 # Lancement du jeu
 def lancer_jeu() :
+    global nom_e1, nom_e2
     
     print(equipe)
 
@@ -26,10 +27,12 @@ def lancer_jeu() :
     print(aff_map)
 
     #Selection de la map
-    carte = selection_map(j1)
+    carte, derniere_colonne, derniere_ligne = selection_map(j1)
 
     C_e1 = carte[0] #Carte de l'équipe 1
     C_e2 = carte[1] #Carte de l'équipe 2
+
+    print("je suis la carte de l'équipe 1 : ", C_e1)
 
     print(aff_s)
 
@@ -38,8 +41,16 @@ def lancer_jeu() :
 
     print(start)
 
+    #1ere équipe plonge
+    x1, y1 = plongerT(C_e1, sous_marin_e1, capitaine_e1, nom_e1, derniere_colonne, derniere_ligne)
+
+    print(changement)
+
+    #2ème équipe plonge
+    x2, y2 = plongerT(C_e2, sous_marin_e2, capitaine_e2, nom_e2, derniere_colonne, derniere_ligne)
+
     #derniere_colonne et derniere_ligne corresponde aux valeur de la carte
-    x1, y1, x2, y2, derniere_colonne, derniere_ligne = plonger(C_e1, C_e2, sous_marin_e1, capitaine_e1, sous_marin_e2, capitaine_e2) #x1, y1 sont les positions actuelle du sm de l'équipe 1.
+    #x1, y1, x2, y2, derniere_colonne, derniere_ligne = plonger(C_e1, C_e2, sous_marin_e1, capitaine_e1, sous_marin_e2, capitaine_e2) #x1, y1 sont les positions actuelle du sm de l'équipe 1.
 
     premier_tour(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne)#lancement de la boucle du jeu
 
@@ -330,9 +341,9 @@ def selection_map(j1) :
             if choix in cartes_disponibles:
                 carte = cartes_disponibles[choix]
                 print(f"\nVous avez sélectionné la carte {carte[0].nom} :\n")
-                carte[0].Afficher_carte()
+                derniere_colonne, derniere_ligne = carte[0].Afficher_carte()
                 input("\nSUIVANT")
-                return carte
+                return carte, derniere_colonne, derniere_ligne
 
             else :
                 print("\nVeuillez entrée une carte valide.")
@@ -387,13 +398,12 @@ def lettre_to_chiffre(lettre):
             else:
                 lettre = input("\nVeuillez entrer une colonne existante : ")
 
-def plonger(C_e1, C_e2, sous_marin_e1, capitaine_e1, sous_marin_e2, capitaine_e2):
-    global nom_e1, nom_e2
+def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
 
-    print(f"⚠⚠⚠ Attention ⚠⚠⚠ : c'est à l'équipe {nom_e1} de jouer.\n")
-    print(f"Capitaine {capitaine_e1} de l'équipe '{nom_e1}', plongez ! \n")
+    print(f"⚠⚠⚠ Attention ⚠⚠⚠ : c'est à l'équipe {nom_e} de jouer.\n")
+    print(f"Capitaine {capitaine} de l'équipe '{nom_e}', plongez ! \n")
 
-    derniere_colonne, derniere_ligne = C_e1.Afficher_carte()
+    Carte.Afficher_carte()
 
     while True :
         try :
@@ -402,7 +412,7 @@ def plonger(C_e1, C_e2, sous_marin_e1, capitaine_e1, sous_marin_e2, capitaine_e2
             x = int(input("Choississez une ligne : ")) - 1
 
             if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                x1, y1 = C_e1.placer_sous_marin((x,y), sous_marin_e1)
+                x, y = Carte.placer_sous_marin((x,y), sous_marin)
                 input("\nSUIVANT")
                 break
             
@@ -411,32 +421,8 @@ def plonger(C_e1, C_e2, sous_marin_e1, capitaine_e1, sous_marin_e2, capitaine_e2
 
         except ValueError :
             print("Entrez des coordonnées valides.")
-    
-    print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est à l'équipe {nom_e2} de jouer.\n")
-    input("SUIVANT")
-    
-    while True :
-        try :
-            print(f"\nCapitaine {capitaine_e2} de l'équipe '{nom_e2}', plongez ! \n")
-            C_e2.Afficher_carte()
-            y_lettre = input("\nChoississez une colonne : ")
-            x = int(input("Choississez une ligne : ")) - 1
-            y = lettre_to_chiffre(y_lettre)
 
-            if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                x2, y2 = C_e2.placer_sous_marin((x,y), sous_marin_e2)
-                input("\nSUIVANT")
-                break
-            
-            else : 
-                print("Entrez des coordonnées comprisent dans les limites de la map.")
-
-        except ValueError :
-            print("Entrez des coordonnées valides.")
-    
-    return x1, y1, x2, y2, derniere_colonne, derniere_ligne
-
+    return x, y
 
 
 #===============================================================================================#
@@ -467,14 +453,20 @@ def premier_tour(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e
     position_e1 = x1, y1
     position_e2 = x2, y2
 
+    #initialisation des cadrans des sous_marins
+    #intéressant de pouvoir changer de baie_moteur (plus facile / dure) en fonction du vaisseaux choisie. et donc changer de numéro en fonction du vaisseau
+    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = sous_marin_e1.definition_du_cadran()
+    cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2 = sous_marin_e2.definition_du_cadran()
+
     #1) la première équipe se déplace
-    position_e1, cap_e1 = deplacement_e1(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
+    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
 
     #2) le detecteur de la deuxième équipe rentre le déplacement sur son transparent et a la posibilité de chercher le sous-marin
-    placer_transparent_e2(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonne, derniere_ligne)
+    placer_transparent(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonne, derniere_ligne)
 
     #3) le mecano rentre une panne dans le cadran associer au cap
-    panne_e1(mecano_e1, cap_e1, nom_e1)
+    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
+    
 
 
 #==================#
@@ -510,24 +502,24 @@ def faire_surface(carte) :
 '''Déplacement 1er équipe'''
 #==========================#
 
-def deplacement_e1(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1) :
+def deplacement(position, capitaine, Carte, sous_marin, nom) :
     print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine {capitaine_e1} de l'équipe {nom_e1} de jouer.")
+    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine {capitaine} de l'équipe {nom} de jouer.")
     input("\nSUIVANT\n")
-    C_e1.Afficher_carte()
+    Carte.Afficher_carte()
 
     while True :
         try :
             entete_deplacement = int(input("\n  1 - Choisir un cap\n  2 - Faire surface\n\n  Sélectionner une action : "))
 
             if entete_deplacement == 1 :
-                position_e1, cap_e1 = annonce_cap(position_e1, capitaine_e1, C_e1, sous_marin_e1)
+                position, cap = annonce_cap(position, capitaine, Carte, sous_marin)
                 input("\nSUIVANT")
-                return position_e1, cap_e1.upper()
+                return position, cap.upper()
                 
             elif entete_deplacement == 2 :
-                faire_surface(C_e1)
-                break
+                faire_surface(Carte)
+                return position
                 
             else :
                 print("Sélectionner une action comprise entre 1 et 2.")
@@ -540,20 +532,20 @@ def deplacement_e1(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1) :
 '''Placer transparent équipe énnemie'''
 #=====================================#
 
-def placer_transparent_e2(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonne, derniere_ligne) :
+def placer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_ligne) :
     print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détecteur {detecteur_e2}, de l'équipe {nom_e2} de jouer.\n")
+    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détecteur {detecteur}, de l'équipe {nom} de jouer.\n")
     input("\nSUIVANT")
 
-    print(f"\nLe capitaine ennemie à annoncer son cap : '{cap_e1}' !")
+    print(f"\nLe capitaine ennemie à annoncer son cap : '{cap}' !")
 
     while True :
         try :
-            cap_d2 = input(f"\n{detecteur_e2}, entrez le cap ennemi (Nord, Sud, Est, Ouest) : ")
-            cap_d2 = cap_d2.upper()
+            cap = input(f"\n{detecteur}, entrez le cap ennemi (Nord, Sud, Est, Ouest) : ")
+            cap = cap.upper()
 
-            if cap_d2 == "SUD" or cap_d2 == "NORD" or cap_d2 == "OUEST" or cap_d2 == "EST" :
-                C_e2_d2.Afficher_carte()
+            if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
+                Carte.Afficher_carte()
 
                 while True :
                     try :
@@ -563,7 +555,7 @@ def placer_transparent_e2(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonn
                         position = x, y
 
                         if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                            x_transparent_e2, y_transparent_e2 = C_e2_d2.start_trans(cap_d2, position) #ici, x et y corresponde au coordonnée de l'empacement du premier déplacement du sous marin ennemie sur le transparent adverse.
+                            x_transparent, y_transparent = Carte.start_trans(cap, position) #ici, x et y corresponde au coordonnée de l'empacement du premier déplacement du sous marin ennemie sur le transparent adverse.
                             input("\nSUIVANT")
                             break
                         
@@ -588,27 +580,24 @@ def placer_transparent_e2(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonn
 '''Mécano rentre une panne'''
 #===========================#
 
-def panne_e1(mecano_e1, cap_e1, nom_e1) :
+def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
 
     print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano_e1}, de l'équipe {nom_e1} de jouer.")
+    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
     input("\nSUIVANT")
-    print(f"\nVotre capitaine à annoncer le cap : {cap_e1}\n")
-
-    #intéressant de pouvoir changer de baie_moteur (plus facile / dure) en fonction du vaisseaux choisie. et donc changer de numéro en fonction du vaisseau
-    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = S1.definition_du_cadran()
+    print(f"\nVotre capitaine à annoncer le cap : {cap}\n")
 
     # Affichage de la baie moteur
-    S1.afficher_baie_moteur(cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
+    sous_marin.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
 
     while True :
         try :
-            choix_meca = int(input(f"{mecano_e1}, choississez une panne dans le cadran du cap (1-6) : "))
+            choix_meca = int(input(f"{mecano}, choississez une panne dans le cadran du cap (1-6) : "))
 
             if 1 <= choix_meca <= 6 :
-                cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = S1.choisir_une_panne(choix_meca, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cap_e1)
-                #print(cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
-                break
+                cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+                input("\nSUIVANT")
+                return cadran_ouest, cadran_nord, cadran_sud, cadran_est
             
             else :
                 print("Selectionnez une panne entre 1 et 6")
