@@ -2,7 +2,7 @@
 '''Menu.py'''
 #===========#
 
-bonjour = """
+bonjour = """\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 ===============================================================================================================================================
 ===============================================================================================================================================
 ======                                                                                                                                   ======
@@ -222,13 +222,13 @@ regles = """
                          : O :         ~         : N :         ~         : S :         ~         : E :
                          \===/         ~         \===/         ~         \===/         ~         \===/
                     /―――――――――――――\    ~    /―――――――――――――\    ~    /―――――――――――――\    ~    /―――――――――――――\ 
-                    | ̷J̷A̷U̷N̷E - ̷A̷R̷M |    ~    | VERT  - SPE |    ~    | BLEU  - DET |    ~    | JAUNE - DET |
-                    | ̷J̷A̷U̷N̷E - ̷S̷P̷E |    ~    | VERT  - SPE |    ~    | BLEU  - SPE |    ~    | VERT  - SPE |
-                    \ ̷J̷A̷U̷N̷E - ̷D̷E̷T /    ~    \ VERT  - ARM /    ~    \ BLEU  - ARM /    ~    \ BLEU  - ARM /
+                    | ̷J̷A̷U̷N̷E - ̷A̷R̷M |    ~    | VERT  1 SPE |    ~    | BLEU  1 DET |    ~    | JAUNE 1 DET |
+                    | ̷J̷A̷U̷N̷E - ̷S̷P̷E |    ~    | VERT  2 SPE |    ~    | BLEU  2 SPE |    ~    | VERT  2 SPE |
+                    \ ̷J̷A̷U̷N̷E - ̷D̷E̷T /    ~    \ VERT  3 ARM /    ~    \ BLEU  3 ARM /    ~    \ BLEU  3 ARM /
                      |―――――――――――|     ~     |―――――――――――|     ~     |―――――――――――|     ~     |―――――――――――|
-                    / NONE  - DET \    ~    / NONE  - DET \    ~    / NONE  - ARM \    ~    / NONE  - DET \ 
-                    | NONE  - RAD |    ~    | NONE  - ARM |    ~    | NONE  - SPE |    ~    | NONE  - RAD |
-                    | NONE  - RAD |    ~    | NONE  - RAD |    ~    | NONE  - RAD |    ~    | NONE  - RAD |
+                    / NONE  4 DET \    ~    / NONE  4 DET \    ~    / NONE  4 ARM \    ~    / NONE  4 DET \ 
+                    | NONE  5 RAD |    ~    | NONE  5 ARM |    ~    | NONE  5 SPE |    ~    | NONE  5 RAD |
+                    | NONE  6 RAD |    ~    | NONE  6 RAD |    ~    | NONE  6 RAD |    ~    | NONE  6 RAD |
                     \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/
                                        ~                       ~                       ~  
             
@@ -246,12 +246,12 @@ regles = """
                          : O :         ~         : N :         ~         : S :         ~         : E :
                          \===/         ~         \===/         ~         \===/         ~         \===/
                     /―――――――――――――\    ~    /―――――――――――――\    ~    /―――――――――――――\    ~    /―――――――――――――\ 
-                    | JAUNE - ARM |    ~    | VERT  - SPE |    ~    | BLEU  - DET |    ~    | JAUNE - DET | 
-                    | JAUNE - SPE |    ~    | VERT  - SPE |    ~    | BLEU  - SPE |    ~    | VERT  - SPE | 
-                    \ JAUNE - DET /    ~    \ VERT  - ARM /    ~    \ BLEU  - ARM /    ~    \ BLEU  - ARM /
+                    | JAUNE 1 ARM |    ~    | VERT  1 SPE |    ~    | BLEU  1 DET |    ~    | JAUNE 1 DET | 
+                    | JAUNE 2 SPE |    ~    | VERT  2 SPE |    ~    | BLEU  2 SPE |    ~    | VERT  2 SPE | 
+                    \ JAUNE 3 DET /    ~    \ VERT  3 ARM /    ~    \ BLEU  3 ARM /    ~    \ BLEU  3 ARM /
                      |―――――――――――|     ~     |―――――――――――|     ~     |―――――――――――|     ~     |―――――――――――|
-                    / ̷N̷O̷N̷E  - ̷D̷E̷T \    ~    / NONE  - DET \    ~    / NONE  - ARM \    ~    / ̷N̷O̷N̷E  - ̷D̷E̷T \ 
-                    | ̷N̷O̷N̷E  - ̷R̷A̷D |    ~    | ̷N̷O̷N̷E  - ̷A̷R̷M |    ~    | ̷N̷O̷N̷E  - ̷S̷P̷E |    ~    | NONE  - RAD | 
+                    / ̷N̷O̷N̷E  - ̷D̷E̷T \    ~    / NONE  4 DET \    ~    / NONE  4 ARM \    ~    / ̷N̷O̷N̷E  - ̷D̷E̷T \ 
+                    | ̷N̷O̷N̷E  - ̷R̷A̷D |    ~    | ̷N̷O̷N̷E  - ̷A̷R̷M |    ~    | ̷N̷O̷N̷E  - ̷S̷P̷E |    ~    | NONE  5 RAD | 
                     | ̷N̷O̷N̷E  - ̷R̷A̷D |    ~    | ̷N̷O̷N̷E  - ̷R̷A̷D |    ~    | ̷N̷O̷N̷E  - ̷R̷A̷D |    ~    | ̷N̷O̷N̷E  - ̷R̷A̷D | 
                     \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/
                                        ~                       ~                       ~  
@@ -297,7 +297,7 @@ regles = """
         c'est-à-dire 3 annonces de cap, mais également 3 activations de systèmes. Puis le jeu reprend normalement.
 
 ╰┈➤ SIMULTANE :
-        A DECIDER ENCOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOORE
+        Indisponible pour le moment.
 
         🚨IMPORTANT🚨 :
             L'ENNEMI, LUI, CONTINUE À JOUER PENDANT QUE VOUS ÊTES IMMOBILISÉS EN SURFACE POUR RÉPARATIONS !
@@ -451,7 +451,7 @@ regles = """
 '''Debut_jeu.py'''
 #================#
 
-equipe = '''
+equipe = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     ___________            .__               
     \_   _____/ ________ __|__|_____   ____  
      |    __)_ / ____/  |  \  \____ \_/ __ \ 
@@ -460,7 +460,7 @@ equipe = '''
             \/    |__|        |__|        \/
         '''
 
-affichage_mode = '''
+affichage_mode = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
        _____             .___           .___            __              
       /     \   ____   __| _/____     __| _/____       |__| ____  __ __ 
      /  \ /  \ /  _ \ / __ |/ __ \   / __ |/ __ \      |  |/ __ \|  |  \ 
@@ -473,7 +473,7 @@ affichage_mode = '''
     2 - Mode simultané (INDISPONIBLE)\n
                 '''
 
-aff_map = '''
+aff_map = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
        _____                 
       /     \  _____  ______  
@@ -491,7 +491,7 @@ aff_map = '''
 
     '''
 
-aff_s = '''
+aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
   _________                                _____                 .__        
  /   _____/ ____  __ __  ______           /     \  _____  _______|__| ____  
@@ -520,7 +520,7 @@ aff_s = '''
         spéciale = Leurre
     '''
 
-start = '''
+start = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     =========================================== QUE LA PARTIE COMMENCE ! =================================================
    
    

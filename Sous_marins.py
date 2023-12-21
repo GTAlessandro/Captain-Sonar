@@ -101,6 +101,7 @@ class SousMarin:
         NONE2ERAD = cadran_est[5]
 
         baie_moteur = f'''
+        ============================================= Baie moteur ====================================================
 
                      /===\         ~         /===\         ~         /===\         ~         /===\ 
                      : O :         ~         : N :         ~         : S :         ~         : E :
@@ -187,7 +188,7 @@ class SousMarin:
                 cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
-                print("Sélectionner une panne comprise entre 1 et 6")
+                print("Sélectionner une panne du cadran OUEST comprise entre 1 et 6")
 
         elif cap == "NORD" :
 
@@ -210,7 +211,7 @@ class SousMarin:
                 cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
-                print("Sélectionner une panne comprise entre 1 et 6")
+                print("Sélectionner une panne du cadran NORD comprise entre 1 et 6")
 
         elif cap == "SUD" :
 
@@ -233,7 +234,7 @@ class SousMarin:
                 cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
-                print("Sélectionner une panne comprise entre 1 et 6")
+                print("Sélectionner une panne du cadran SUD comprise entre 1 et 6")
 
         elif cap == "EST" :
 
@@ -255,8 +256,41 @@ class SousMarin:
             elif choix_meca == 6 :
                 cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
-        else : 
-            print("Sélectionner une panne comprise entre 1 et 6")
+            else : 
+                print("Sélectionner une panne du cadran EST comprise entre 1 et 6")
+
+        # Si le sous marin fait surface, toute les pannes sont réparées.
+        elif cap == "AUCUN" :
+            cadran_ouest[0] = " JAUNE 1 ARM"
+            cadran_ouest[1] = " JAUNE 2 SPE"
+            cadran_ouest[2] = " JAUNE 3 DET"
+            cadran_ouest[3] = " NONE  4 DET"
+            cadran_ouest[4] = " NONE  5 RAD"
+            cadran_ouest[5] = " NONE  6 RAD"
+
+            cadran_nord[0] = " VERT  1 SPE"
+            cadran_nord[1] = " VERT  2 DET"
+            cadran_nord[2] = " VERT  3 ARM"
+            cadran_nord[3] = " NONE  4 DET"
+            cadran_nord[4] = " NONE  5 ARM"
+            cadran_nord[5] = " NONE  6 RAD"
+
+            cadran_sud[0] = " BLEU  1 DET"
+            cadran_sud[1] = " BLEU  2 SPE"
+            cadran_sud[2] = " BLEU  3 ARM"
+            cadran_sud[3] = " NONE  4 ARM"
+            cadran_sud[4] = " NONE  5 SPE"
+            cadran_sud[5] = " NONE  6 RAD"
+
+            cadran_est[0] = " JAUNE 1 ARM"
+            cadran_est[1] = " VERT  2 SPE"
+            cadran_est[2] = " BLEU  3 SPE"
+            cadran_est[3] = " NONE  4 DET"
+            cadran_est[4] = " NONE  5 RAD"
+            cadran_est[5] = " NONE  6 RAD"
+
+            print("\n\nVous faite surface ! Toute vos pannes sont réparés !")
+
 
         # Si toute les pannes des couleurs sont cochés, alors tout est réparé
         if cadran_est[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" :
@@ -336,8 +370,8 @@ class SousMarin:
             print("\n\nToute les pannes RAD ont été cochées, toute vos pannes RAD sont réparés mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
+            
         
-        print("\n\n========== Baie moteur ==========")
         S1.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
 
         return cadran_ouest, cadran_nord, cadran_sud, cadran_est

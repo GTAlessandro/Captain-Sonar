@@ -4,7 +4,7 @@
 '''Variable joueur'''
 #===================#
 
-j1 = None #Charles enculer
+j1 = None
 j2 = None 
 j3 = None 
 j4 = None 

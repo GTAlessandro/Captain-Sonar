@@ -32,8 +32,6 @@ def lancer_jeu() :
     C_e1 = carte[0] #Carte de l'équipe 1
     C_e2 = carte[1] #Carte de l'équipe 2
 
-    print("je suis la carte de l'équipe 1 : ", C_e1)
-
     print(aff_s)
 
     #Selection des sous_marins
@@ -70,12 +68,10 @@ def entre_nombre_joueur():
                 return nb_joueur
 
             else :
-                print("\nLe nombre de joueur doit être compris entre 2 et 8, recommencez.\n")
-                input("SUIVANT")
+                print("\n❌ Le nombre de joueur doit être compris entre 2 et 8, recommencez.\n\n\n")
 
         except ValueError :
-            print("\nVeuillez rentrer un chiffre valide compris entre 2 et 8, recommencez.\n")
-            input("SUIVANT")
+            print("\n❌ Veuillez rentrer un chiffre valide compris entre 2 et 8, recommencez.\n\n\n")
 
 
 
@@ -101,7 +97,7 @@ def def_ekip(nb_joueur):
         nom_e2 = input(f"{j2}, veuilllez rentrer le nom de votre équipe : ")
 
         #Récapitulatif
-        print(f"\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second, Mécano et Détecteur : {j1}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second, Mécano et Détecteur : {j2}\n")
+        print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second, Mécano et Détecteur : {j1}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second, Mécano et Détecteur : {j2}\n")
         input("\nSUIVANT")
 
         return j1, nom_e1, j2, nom_e2
@@ -115,12 +111,12 @@ def def_ekip(nb_joueur):
         nom_e1 = input(f"{j1}, veuilllez rentrer le nom de votre équipe : ")
         
         #Définition équipe 2
-        j2 = input("\nJoueur 2, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuilllez rentrer votre nom : ")
+        j2 = input("\n\nJoueur 2, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuilllez rentrer votre nom : ")
         nom_e2 = input(f"{j2}, veuilllez rentrer le nom de votre équipe : ")
         j3 = input(f"Joueur 3, vous faite partie de l'équipe {nom_e2}, vous serez le détecteur a bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
-        print(f"\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second, Mécano et Détecteur : {j1}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j2}\nDétecteur : {j3}\n")
+        print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second, Mécano et Détecteur : {j1}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j2}\nDétecteur : {j3}\n")
         input("\nSUIVANT")
 
         return j1, nom_e1, j2, nom_e2, j3
@@ -135,12 +131,12 @@ def def_ekip(nb_joueur):
         j2 = input(f"Joueur 2, vous faite partie de l'équipe {nom_e1}, vous serez le détecteur a bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
-        j3 = input("\nJoueur 3, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuilllez rentrer votre nom : ")
+        j3 = input("\n\nJoueur 3, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuilllez rentrer votre nom : ")
         nom_e2 = input(f"{j3}, veuilllez rentrer le nom de votre équipe :")
         j4 = input(f"Joueur 4, vous faite partie de l'équipe {nom_e2}, vous serez le détecteur a bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
-        print(f"\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j3}\nDétecteur : {j4}\n")
+        print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j3}\nDétecteur : {j4}\n")
         input("\nSUIVANT")
 
         return j1, nom_e1, j2, nom_e2, j3, j4
@@ -155,13 +151,13 @@ def def_ekip(nb_joueur):
         j2 = input(f"Joueur 2, vous faite partie de l'équipe {nom_e1}, vous serez le détecteur a bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
-        j3 = input("\nJoueur 3, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuilllez rentrer votre nom : ")
+        j3 = input("\n\nJoueur 3, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuilllez rentrer votre nom : ")
         nom_e2 = input(f"{j3}, veuilllez rentrer le nom de votre équipe : ")
         j4 = input(f"Joueur 4, vous faite partie de l'équipe {nom_e2}, vous serez le Mécano a bord. Veuillez rentrer votre nom : ")
         j5 = input(f"Joueur 5, vous faite partie de l'équipe {nom_e2}, vous serez le Détecteur a bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
-        print(f"\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j3}\nMécano : {j4}\nDétecteur : {j5}")
+        print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j3}\nMécano : {j4}\nDétecteur : {j5}")
         input("\nSUIVANT")
 
         return j1, j2, j3, j4, j5, nom_e1, nom_e2
@@ -177,13 +173,13 @@ def def_ekip(nb_joueur):
         j3 = input(f"Joueur 3, vous faite partie de l'équipe {nom_e1}, vous serez le Détecteur a bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
-        j4 = input("\nJoueur 4, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuilllez rentrer votre nom : ")
+        j4 = input("\n\nJoueur 4, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuilllez rentrer votre nom : ")
         nom_e2 = input(f"{j4}, veuilllez rentrer le nom de votre équipe : ")
         j5 = input(f"Joueur 5, vous faite partie de l'équipe {nom_e2}, vous serez le Mécano a bord. Veuillez rentrer votre nom : ")
         j6 = input(f"Joueur 6, vous faite partie de l'équipe {nom_e2}, vous serez le Détecteur a bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
-        print(f"\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j4}\nMécano : {j5}\nDétecteur : {j6}")
+        print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j4}\nMécano : {j5}\nDétecteur : {j6}")
         input("\nSUIVANT")
 
         return j1, j2, j3, j4, j5, j6, nom_e1, nom_e2
@@ -199,14 +195,14 @@ def def_ekip(nb_joueur):
         j3 = input(f"Joueur 3, vous faite partie de l'équipe {nom_e1}, vous serez le Détecteur a bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
-        j4 = input("\nJoueur 4, vous êtes le Capitaine de votre équipe. Veuilllez rentrer votre nom : ")
+        j4 = input("\n\nJoueur 4, vous êtes le Capitaine de votre équipe. Veuilllez rentrer votre nom : ")
         nom_e2 = input(f"{j4}, veuilllez rentrer le nom de votre équipe : ")
         j5 = input(f"Joueur 5, vous faite partie de l'équipe {nom_e2}, vous serez le Second a bord. Veuillez rentrer votre nom : ")
         j6 = input(f"Joueur 6, vous faite partie de l'équipe {nom_e2}, vous serez le Mécano a bord. Veuillez rentrer votre nom : ")
         j7 = input(f"Joueur 7, vous faite partie de l'équipe {nom_e2}, vous serez le Détecteur a bord. Veuillez rentrer votre nom : ")
         
         #Récapitulatif
-        print(f"\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine :{j4}\nSecond : {j5}\nMécano : {j6}\nDétecteur : {j7}")
+        print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine :{j4}\nSecond : {j5}\nMécano : {j6}\nDétecteur : {j7}")
         input("\nSUIVANT")
 
         return j1, j2, j3, j4, j5, j6, nom_e1, nom_e2, j7
@@ -223,14 +219,14 @@ def def_ekip(nb_joueur):
         j4 = input(f"Joueur 4, vous faite partie de l'équipe {nom_e1}, vous serez le Détecteur a bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
-        j5 = input("\nJoueur 5, vous êtes le Capitaine de votre équipe. Veuilllez rentrer votre nom : ")
+        j5 = input("\n\nJoueur 5, vous êtes le Capitaine de votre équipe. Veuilllez rentrer votre nom : ")
         nom_e2 = input(f"{j5}, veuilllez rentrer le nom de votre équipe : ")
         j6 = input(f"Joueur 6, vous faite partie de l'équipe {nom_e2}, vous serez le Second a bord. Veuillez rentrer votre nom : ")
         j7 = input(f"Joueur 7, vous faite partie de l'équipe {nom_e2}, vous serez le Mécano a bord. Veuillez rentrer votre nom : ")
         j8 = input(f"Joueur 8, vous faite partie de l'équipe {nom_e2}, vous serez le Détecteur a bord. Veuillez rentrer votre nom : ")
         
         #Récapitulatif
-        print(f"\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine : {j1}\nSecond : {j2}\nMécano : {j3}\nDétecteur : {j4}\n\n===== EQUIPE {nom_e2} =====\nCapitaine : {j5}\nSecond : {j6}\nMécano : {j7}\nDétecteur : {j8}")
+        print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine : {j1}\nSecond : {j2}\nMécano : {j3}\nDétecteur : {j4}\n\n===== EQUIPE {nom_e2} =====\nCapitaine : {j5}\nSecond : {j6}\nMécano : {j7}\nDétecteur : {j8}")
         input("\nSUIVANT")
 
         return j1, j2, j3, j4, j5, j6, nom_e1, nom_e2, j7, j8
@@ -315,10 +311,10 @@ def selection_mode(j1):
                 selection_mode(j1)
             
             else :
-                print("\nVeuillez sélectionner une option valide.")
+                print("\n❌ Veuillez sélectionner une option valide.\n\n\n")
 
         except ValueError :
-            print("\nEntrez un mode de jeu valide (1 ou 2).")
+            print("\n❌ Entrez un mode de jeu valide (1 ou 2).\n\n\n")
 
 
 
@@ -346,10 +342,10 @@ def selection_map(j1) :
                 return carte, derniere_colonne, derniere_ligne
 
             else :
-                print("\nVeuillez entrée une carte valide.")
+                print("\n❌ Veuillez entrée une carte existante.\n\n")
                 
         except ValueError :
-            print("\nVeuillez entrée une carte valide.")
+            print("\n❌ Veuillez entrée une carte valide.\n\n")
 
 
 
@@ -365,24 +361,35 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
         2: S2,
     }
 
-    while True :
-        try :
+    sous_marin_e1 = None
+    sous_marin_e2 = None
+
+    while sous_marin_e1 is None:
+        try:
             choix_e1 = int(input(f"{capitaine_e1}, sélectionnez votre sous-marin : "))
-            choix_e2 = int(input(f"{capitaine_e2}, sélectionnez votre sous-marin : "))
+            sous_marin_e1 = sous_marins_disponibles.get(choix_e1)
 
-            if choix_e1 and choix_e2 in sous_marins_disponibles:
-                sous_marin_e1 = sous_marins_disponibles[choix_e1]
-                sous_marin_e2 = sous_marins_disponibles[choix_e2]
-                print(f"\n{capitaine_e1}, vous avez sélectionné le sous-marins {sous_marin_e1.nom}.")
-                print(f"\n{capitaine_e2}, vous avez sélectionné le sous-marins {sous_marin_e2.nom}.")
-                input("\nSUIVANT")
-                return sous_marin_e1, sous_marin_e2
+            if sous_marin_e1 is None:
+                print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
-            else :
-                print("\nVeuillez choisir un sous-marin valide (1-2).\n")
-                
-        except ValueError :
-            print("\nVeuillez choisir un sous-marin valide (1-2).\n")
+        except ValueError:
+            print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+
+    while sous_marin_e2 is None:
+        try:
+            choix_e2 = int(input(f"\n{capitaine_e2}, sélectionnez votre sous-marin : "))
+            sous_marin_e2 = sous_marins_disponibles.get(choix_e2)
+
+            if sous_marin_e2 is None:
+                print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+
+        except ValueError:
+            print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+
+    print(f"\n{capitaine_e1}, vous avez sélectionné le sous-marin {sous_marin_e1.nom}.")
+    print(f"\n{capitaine_e2}, vous avez sélectionné le sous-marin {sous_marin_e2.nom}.")
+
+    return sous_marin_e1, sous_marin_e2
 
 
 
@@ -396,7 +403,7 @@ def lettre_to_chiffre(lettre):
             if len(lettre) == 1:
                 return ord(lettre.upper()) - ord('A')
             else:
-                lettre = input("\nVeuillez entrer une colonne existante : ")
+                lettre = input("Veuillez entrer une colonne existante : ")
 
 def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
 
@@ -417,10 +424,10 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
                 break
             
             else : 
-                print("\nEntrez des coordonnées comprisent dans les limites de la map.")
+                print("\n❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
 
         except ValueError :
-            print("Entrez des coordonnées valides.")
+            print("\n❌ Entrez des coordonnées valides.\n\n")
 
     return x, y
 
@@ -462,11 +469,15 @@ def premier_tour(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e
     position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
 
     #2) le detecteur de la deuxième équipe rentre le déplacement sur son transparent et a la posibilité de chercher le sous-marin
-    placer_transparent(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonne, derniere_ligne)
+    #placer_transparent(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonne, derniere_ligne)
 
     #3) le mecano rentre une panne dans le cadran associer au cap
     cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
-    
+    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
+    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
+    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
+    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
+    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
 
 
 #==================#
@@ -474,7 +485,6 @@ def premier_tour(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e
 #==================#
 
 def annonce_cap(position, capitaine, carte, sous_marin) : 
-
     while True :
         try :
             cap = input(f"\n{capitaine}, annoncez un cap à votre équipe (OUEST, NORD, EST, SUD): ")
@@ -485,18 +495,20 @@ def annonce_cap(position, capitaine, carte, sous_marin) :
                 return position, cap #nouvelle position contenant x, y
 
             else :
-                print("Annoncez un cap valide !")
+                print("❌ Annoncez un cap valide !\n\n\n")
 
         except ValueError :
-            print("Entrez une valeur valide.")
+            print("❌ Entrez une valeur valide.\n\n\n")
 
 #=================#
 '''Faire surface'''
 #=================#
 
-def faire_surface(carte) :
+def faire_surface(carte, sous_marin) :
     print("\nVous faite surface et passer votre tour 3 fois.\n")
+    #continuer la fonction pour faire en sorte que l'équipe passe son tour 3 fois
     carte.reset_chemin()
+
 
 #==========================#
 '''Déplacement 1er équipe'''
@@ -518,14 +530,15 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
                 return position, cap.upper()
                 
             elif entete_deplacement == 2 :
-                faire_surface(Carte)
-                return position
+                faire_surface(Carte, sous_marin)
+                cap = "AUCUN"
+                return position, cap
                 
             else :
-                print("Sélectionner une action comprise entre 1 et 2.")
+                print("\n❌ Sélectionner une action comprise entre 1 et 2.\n\n\n")
 
         except ValueError :
-            print("Sélectionner une action valide.")
+            print("\n❌ Sélectionner une action valide.\n\n\n")
 
 
 #=====================================#
@@ -533,47 +546,52 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
 #=====================================#
 
 def placer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_ligne) :
-    print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détecteur {detecteur}, de l'équipe {nom} de jouer.\n")
-    input("\nSUIVANT")
+    # Si le capitaine ennemie a annoncer un cap
+    if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détecteur {detecteur}, de l'équipe {nom} de jouer.\n")
+        input("\nSUIVANT")
 
-    print(f"\nLe capitaine ennemie à annoncer son cap : '{cap}' !")
+        print(f"\nLe capitaine ennemie à annoncer son cap : '{cap}' !")
 
-    while True :
-        try :
-            cap = input(f"\n{detecteur}, entrez le cap ennemi (Nord, Sud, Est, Ouest) : ")
-            cap = cap.upper()
+        while True :
+            try :
+                cap = input(f"\n{detecteur}, entrez le cap ennemi (Nord, Sud, Est, Ouest) : ")
+                cap = cap.upper()
 
-            if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
-                Carte.Afficher_carte()
+                if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
+                    Carte.Afficher_carte()
 
-                while True :
-                    try :
-                        y_lettre = input("\nChoississez une colonne pour placer le cap ennemie : ")
-                        y = lettre_to_chiffre(y_lettre)
-                        x = int(input("Choississez une ligne pour placer le cap ennemie : ")) - 1
-                        position = x, y
+                    while True :
+                        try :
+                            y_lettre = input("\nChoississez une colonne pour placer le cap ennemie : ")
+                            y = lettre_to_chiffre(y_lettre)
+                            x = int(input("Choississez une ligne pour placer le cap ennemie : ")) - 1
+                            position = x, y
 
-                        if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                            x_transparent, y_transparent = Carte.start_trans(cap, position) #ici, x et y corresponde au coordonnée de l'empacement du premier déplacement du sous marin ennemie sur le transparent adverse.
-                            input("\nSUIVANT")
-                            break
-                        
-                        else : 
-                            print("\nEntrez des coordonnées comprisent dans les limites de la map.")
+                            if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                                x_transparent, y_transparent = Carte.start_trans(cap, position) #ici, x et y corresponde au coordonnée de l'empacement du premier déplacement du sous marin ennemie sur le transparent adverse.
+                                input("\nSUIVANT")
+                                return x_transparent, y_transparent
+                            
+                            else : 
+                                print("\n❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
 
-                    except ValueError :
-                        print("Entrez des coordonnées valides.")
-                        
-                break
+                        except ValueError :
+                            print("\n❌ Entrez des coordonnées valides.\n\n")
+                            
+                    break
 
-            else :
-                print("Annoncez un cap valide !")
+                else :
+                    print("❌ Annoncez un cap valide !\n\n")
 
-        except ValueError :
-            print("Entrez une valeur valide.")
+            except ValueError :
+                print("❌ Entrez une valeur valide.\n\n")
 
-    return 
+        return 
+
+    else :
+        print(f"Le capitaine ennemie a fait surface et n'annoncera pas de cap pendant 3 tours !")
 
 
 #===========================#
@@ -581,28 +599,38 @@ def placer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_li
 #===========================#
 
 def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
+    if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
+        input("\nSUIVANT")
+        print(f"\nVotre capitaine à annoncer le cap : {cap}\n")
 
-    print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
-    input("\nSUIVANT")
-    print(f"\nVotre capitaine à annoncer le cap : {cap}\n")
+        # Affichage de la baie moteur
+        sous_marin.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
 
-    # Affichage de la baie moteur
-    sous_marin.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
+        while True :
+            try :
+                choix_meca = int(input(f"{mecano}, choississez une panne dans le cadran du cap (1-6) : "))
 
-    while True :
-        try :
-            choix_meca = int(input(f"{mecano}, choississez une panne dans le cadran du cap (1-6) : "))
+                if 1 <= choix_meca <= 6 :
+                    cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+                    input("\nSUIVANT")
+                    return cadran_ouest, cadran_nord, cadran_sud, cadran_est
+                
+                else :
+                    print("❌ Selectionnez une panne entre 1 et 6.\n\n")
 
-            if 1 <= choix_meca <= 6 :
-                cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
-                input("\nSUIVANT")
-                return cadran_ouest, cadran_nord, cadran_sud, cadran_est
-            
-            else :
-                print("Selectionnez une panne entre 1 et 6")
+            except ValueError :
+                    print("❌ Entrez une panne valide.\n\n")
 
-        except ValueError :
-                print("Entrez une panne valide.")
+    else :
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
+        input("\nSUIVANT")
+        print(f"\n\nLe capitaine ennemie a fait surface et n'annoncera pas de cap pendant 3 tours !\nLe mecano n'a pas besoin de choisir une panne et celle-ci sont toutes réparées.")
+        choix_meca = "AUCUN"
+        cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+        input("\nSUIVANT")
+        return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
 
