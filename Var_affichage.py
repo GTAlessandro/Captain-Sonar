@@ -335,6 +335,35 @@ regles = """
         On ne peut pas activer deux systèmes à la suite. 
         Le Capitaine est obligé d'annoncer un nouveau cap entre deux activations de systèmes.
 
+    Voici a quoi ressemble l'interface système du second :
+
+            ――――――――――――――         ~     ―――――――――――――― 
+            |1 - Torpille|         ~     | 1 - Drone  |
+            ――――――――――――――         ~     ――――――――――――――
+            |     /\     |         ~     |            | 
+            |    /  \    |         ~     |     .--.   |
+            |    |  |    |         ~     | ~\ ( | o)  |
+            |    |  |    | - 0     ~     | ~X>------  | - 0
+            |   / == \   | - 0     ~     | ~/(      ) | - 0
+            |   |/**\|   | - 0     ~     |    '-__-'  | - 0
+            ――――――――――――――         ~     ―――――――――――――― 
+
+            ――――――――――――――
+            |  2 - Mine  |
+            ――――――――――――――
+            |            |
+            |    _--_    | 
+            |   (\||/)   |
+            |   ―-II-―   | - 0
+            |   (/||\)   | - 0
+            |    '――'    | - 0
+            ――――――――――――――  
+
+
+
+
+
+
 ╰┈➤ SYSTEME D'ARMEMENT :
     ➟ LARGAGE D'UNE TORPILLE 🚀 :
         La distance maximal ainsi que les dégats d'une torpille dépend du sous-marin utilisé. 

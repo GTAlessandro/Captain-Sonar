@@ -64,7 +64,7 @@ class Carte :
                 self.carte[x][y] = "—"
                 y -= 1
                 self.carte[x][y] = sous_marin.nom[0]
-                print("\nVoici votre nouvel emplacement : ")
+                print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
             else : 
@@ -77,7 +77,7 @@ class Carte :
                 self.carte[x][y] = "—"
                 y += 1
                 self.carte[x][y] = sous_marin.nom[0]
-                print("\nVoici votre nouvel emplacement : ")
+                print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
             else : 
@@ -90,7 +90,7 @@ class Carte :
                 self.carte[x][y] = "|" 
                 x -= 1   
                 self.carte[x][y] = sous_marin.nom[0]
-                print("\nVoici votre nouvel emplacement : ")
+                print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
             else : 
@@ -103,7 +103,7 @@ class Carte :
                 self.carte[x][y] = "|"
                 x += 1
                 self.carte[x][y] = sous_marin.nom[0]
-                print("\nVoici votre nouvel emplacement : ")
+                print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
             else : 

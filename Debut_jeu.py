@@ -47,10 +47,11 @@ def lancer_jeu() :
     #2ème équipe plonge
     x2, y2 = plongerT(C_e2, sous_marin_e2, capitaine_e2, nom_e2, derniere_colonne, derniere_ligne)
 
-    #derniere_colonne et derniere_ligne corresponde aux valeur de la carte
-    #x1, y1, x2, y2, derniere_colonne, derniere_ligne = plonger(C_e1, C_e2, sous_marin_e1, capitaine_e1, sous_marin_e2, capitaine_e2) #x1, y1 sont les positions actuelle du sm de l'équipe 1.
+    # Le détecteur place sur le transparent l'endroit ou le sous marin ennemie a plonger
+    x_t_e1, y_t_e1 = placer_transparent(detecteur_e1, nom_e1, C_e1_d1, derniere_colonne, derniere_ligne)
+    x_t_e2, y_t_e2 = placer_transparent(detecteur_e2, nom_e2, C_e2_d2, derniere_colonne, derniere_ligne)
 
-    premier_tour(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne)#lancement de la boucle du jeu
+    jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2)#lancement de la boucle du jeu
 
 
 #===================================#
@@ -431,12 +432,45 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
 
     return x, y
 
+#=====================================#
+'''Placer transparent équipe énnemie'''
+#=====================================#
+
+def placer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_ligne) :
+    # Si le capitaine ennemie a annoncer un cap
+    if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détecteur {detecteur}, de l'équipe {nom} de jouer.\n")
+        input("\nSUIVANT")
+
+        print(f"\nLe capitaine ennemie à annoncer son cap : '{cap}' !")
+
+        while True :
+            try :
+                y_lettre = input("\nChoississez une colonne pour placer le cap ennemie : ")
+                y = lettre_to_chiffre(y_lettre)
+                x = int(input("Choississez une ligne pour placer le cap ennemie : ")) - 1
+                position = x, y
+
+                if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                    x_transparent, y_transparent = Carte.start_trans(cap, position) #ici, x et y corresponde au coordonnée de l'empacement du premier déplacement du sous marin ennemie sur le transparent adverse.
+                    input("\nSUIVANT")
+                    return x_transparent, y_transparent
+                            
+                else : 
+                    print("\n❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
+
+            except ValueError :
+                print("\n❌ Entrez des coordonnées valides.\n\n")
+
+    else :
+        print(f"Le capitaine ennemie a fait surface et n'annoncera pas de cap pendant 3 tours !")
 
 #===============================================================================================#
-'''========================================1ER TOUR==========================================='''
+'''============================================TOUR==========================================='''
 #===============================================================================================#
 
-def premier_tour(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne) :
+def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2) :
     
     global nom_e1, nom_e2
 
@@ -468,16 +502,11 @@ def premier_tour(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e
     #1) la première équipe se déplace
     position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
 
-    #2) le detecteur de la deuxième équipe rentre le déplacement sur son transparent et a la posibilité de chercher le sous-marin
-    #placer_transparent(detecteur_e2, nom_e2, cap_e1, C_e2_d2, derniere_colonne, derniere_ligne)
+    #2) le mecano rentre une panne dans le cadran associer au cap
+    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
 
-    #3) le mecano rentre une panne dans le cadran associer au cap
-    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
-    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
-    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
-    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
-    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
-    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
+    #3) le second augmente la jauge d'un système
+    
 
 
 #==================#
@@ -541,10 +570,51 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
             print("\n❌ Sélectionner une action valide.\n\n\n")
 
 
-#=====================================#
-'''Placer transparent équipe énnemie'''
-#=====================================#
+#===========================#
+'''Mécano rentre une panne'''
+#===========================#
 
+def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
+    if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
+        input("\nSUIVANT")
+        print(f"\nVotre capitaine à annoncer le cap : {cap}\n")
+
+        # Affichage de la baie moteur
+        sous_marin.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
+
+        while True :
+            try :
+                choix_meca = int(input(f"{mecano}, choississez une panne dans le cadran du cap (1-6) : "))
+
+                if 1 <= choix_meca <= 6 :
+                    cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+                    input("\nSUIVANT")
+                    return cadran_ouest, cadran_nord, cadran_sud, cadran_est
+
+                else :
+                    print("❌ Selectionnez une panne entre 1 et 6.\n\n")
+
+            except ValueError :
+                    print("❌ Entrez une panne valide.\n\n")
+
+    else :
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
+        input("\nSUIVANT")
+        print(f"\n\nLe capitaine ennemie a fait surface et n'annoncera pas de cap pendant 3 tours !\nLe mecano n'a pas besoin de choisir une panne et celle-ci sont toutes réparées.")
+        
+        choix_meca = "AUCUN"
+        
+        cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+        
+        input("\nSUIVANT")
+
+        return cadran_ouest, cadran_nord, cadran_sud, cadran_est
+
+
+#garder pour le déplacement du transparent :
 def placer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_ligne) :
     # Si le capitaine ennemie a annoncer un cap
     if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
@@ -592,45 +662,3 @@ def placer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_li
 
     else :
         print(f"Le capitaine ennemie a fait surface et n'annoncera pas de cap pendant 3 tours !")
-
-
-#===========================#
-'''Mécano rentre une panne'''
-#===========================#
-
-def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
-    if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
-        print(changement)
-        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
-        input("\nSUIVANT")
-        print(f"\nVotre capitaine à annoncer le cap : {cap}\n")
-
-        # Affichage de la baie moteur
-        sous_marin.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
-
-        while True :
-            try :
-                choix_meca = int(input(f"{mecano}, choississez une panne dans le cadran du cap (1-6) : "))
-
-                if 1 <= choix_meca <= 6 :
-                    cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
-                    input("\nSUIVANT")
-                    return cadran_ouest, cadran_nord, cadran_sud, cadran_est
-                
-                else :
-                    print("❌ Selectionnez une panne entre 1 et 6.\n\n")
-
-            except ValueError :
-                    print("❌ Entrez une panne valide.\n\n")
-
-    else :
-        print(changement)
-        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au mécano {mecano}, de l'équipe {nom} de jouer.")
-        input("\nSUIVANT")
-        print(f"\n\nLe capitaine ennemie a fait surface et n'annoncera pas de cap pendant 3 tours !\nLe mecano n'a pas besoin de choisir une panne et celle-ci sont toutes réparées.")
-        choix_meca = "AUCUN"
-        cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
-        input("\nSUIVANT")
-        return cadran_ouest, cadran_nord, cadran_sud, cadran_est
-
-
