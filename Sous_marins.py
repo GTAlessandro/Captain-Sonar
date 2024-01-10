@@ -12,7 +12,7 @@ class SousMarin:
         self.d1 = detection1 #sonar de tout les adjectifs, Magnétométrie, Capteurs électromagnétiques, Imagerie acoustique, gravimétrie
         self.d2 = detection2 #Détection optique, Capteurs infrarouges, Surveillance satellite
         self.spe = speciale #fade up, leurre, explosion
-        self.pos = None
+        self.pos = position
     
     def infos(self):
         print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}\n- Armement : {self.a1}, {self.a2} \n- Moyen de detection : {self.d1}, {self.d2}\n- Spéciale : {self.spe}\n- Difficulté : {self.baie}\n")
@@ -119,16 +119,16 @@ class SousMarin:
         '''
 
         baie_moteur = baie_moteur.replace('DET', '\033[38;5;208mDET\033[0m')\
-                .replace('SPE', '\033[95mSPE\033[0m')\
-                .replace('ARM', '\033[91mARM\033[0m')\
-                .replace('J̷A̷U̷N̷E', '\033[38;5;228mJ̷A̷U̷N̷E\033[0m')\
-                .replace('JAUNE', '\033[38;5;228mJAUNE\033[0m')\
-                .replace('BLEU', '\033[94mBLEU\033[0m')\
-                .replace('V̷E̷R̷T', '\033[92mV̷E̷R̷T\u200D\033[0m')\
-                .replace('B̷L̷E̷U', '\033[94mB̷L̷E̷U\u200D\033[0m')\
-                .replace('VERT', '\033[92mVERT\033[0m')\
-                .replace('NONE', '\033[38;5;52mNONE\033[0m')\
-                .replace('RAD', '\033[38;5;52mRAD\033[0m')
+                                  .replace('SPE', '\033[95mSPE\033[0m')\
+                                  .replace('ARM', '\033[91mARM\033[0m')\
+                                  .replace('J̷A̷U̷N̷E', '\033[38;5;228mJ̷A̷U̷N̷E\033[0m')\
+                                  .replace('JAUNE', '\033[38;5;228mJAUNE\033[0m')\
+                                  .replace('BLEU', '\033[94mBLEU\033[0m')\
+                                  .replace('V̷E̷R̷T', '\033[92mV̷E̷R̷T\u200D\033[0m')\
+                                  .replace('B̷L̷E̷U', '\033[94mB̷L̷E̷U\u200D\033[0m')\
+                                  .replace('VERT', '\033[92mVERT\033[0m')\
+                                  .replace('NONE', '\033[38;5;52mNONE\033[0m')\
+                                  .replace('RAD', '\033[38;5;52mRAD\033[0m')
                 
         print(baie_moteur)
 
@@ -377,6 +377,85 @@ class SousMarin:
         return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
     
+    def def_capacite(self) :
+        a1 = "0"
+        a2 = "0"
+        a3 = "0"
+        a4 = "0"
+        a5 = "0"
+        a6 = "0"
+
+        b1 = "0"
+        b2 = "0"
+        b3 = "0"
+        b4 = "0"
+        b5 = "0"
+        b6 = "0"
+
+        c1 = "0"
+        c2 = "0"
+        c3 = "0"
+        c4 = "0"
+        c5 = "0"
+        c6 = "0"
+
+        d1 = "0"
+        d2 = "0"
+        d3 = "0"
+        d4 = "0"
+        d5 = "0"
+        d6 = "0"
+
+        e1 = "0"
+        e2 = "0"
+        e3 = "0"
+        e4 = "0"
+        e5 = "0"
+        e6 = "0"
+
+        f1 = "0"
+        f2 = "0"
+        f3 = "0"
+        f4 = "0"
+        f5 = "0"
+        f6 = "0"
+
+        self.a1 = [a1, a2, a3, a4, a5, a6]
+        self.a2
+
+    def afficher_capacite():
+
+        capacite = f'''            
+            ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
+            | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Silence  |
+            ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
+            |      __      |          ~          |              |          ~          |              | - {e6}
+            |     /  \     |          ~          |      .--.    |          ~          |     .--.     | - {e5}
+            |     |  |     |          ~          |  ~\ ( | o)   | - {c4}      ~          |    (o  o)    | - {e4}
+            |     |  |     | - {a3}      ~          |  ~X>------   | - {c3}      ~          |   /_ O  _\   | - {e3}
+            |    / == \    | - {a2}      ~          |  ~/(      )  | - {c2}      ~          |     \   \    | - {e2}
+            |    |/**\|    | - {a1}      ~          |     '-__-'   | - {c1}      ~          |      `~~~'   | - {e1}
+            ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
+
+            ――――――――――――――――          ~          ――――――――――――――――          ~
+            |   2 - Mine   |          ~          |   4 - Sonar  |          ~
+            ――――――――――――――――          ~          ――――――――――――――――          ~
+            |              |          ~          |    ______    |          ~
+            |     _--_     |          ~          |   /     /\   |          ~
+            |    (\||/)    |          ~          |  /    °/  \  |          ~
+            |    ―-II-―    | - {b3}      ~          | |     /    | | - {d3}      ~
+            |    (/||\)    | - {b2}      ~          |  \        /  | - {d2}      ~
+            |     '――'     | - {b1}      ~          |   \______/   | - {d1}      ~
+            ――――――――――――――――          ~          ――――――――――――――――          ~
+            '''
+
+        capacite = capacite.replace('Drone', '\033[38;5;208mDrone\033[0m')\
+                           .replace('Silence', '\033[95mSilence\033[0m')\
+                           .replace('Sonar', '\033[38;5;208mSonar\033[0m')\
+                           .replace('Torpille', '\033[91mTorpille\033[0m')\
+                           .replace('Mine', '\033[91mMine\033[0m')\
+
+
     def torpiller(self, cible):
         if self == S1 :
             print(f"\nLe sous-marin {self.nom} tire une torpille sur le sous-marin {cible.nom} et prend 2 de dégats\n")

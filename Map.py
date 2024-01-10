@@ -4,12 +4,13 @@
 #===============#
 
 class Carte :
-    def __init__(self, nom, hauteur, largeur, difficulte, terrain) :
+    def __init__(self, nom, hauteur, largeur, difficulte, terrain, pos_cible) :
         self.nom = nom
         self.hauteur = hauteur
         self.largeur = largeur
         self.difficulte = difficulte
         self.terrain = terrain
+        self.pos_cible = pos_cible
         self.carte = [['.' for _ in range(largeur)] for _ in range(hauteur)] #gpt : premier tableau affiche . le nombre de fois = largeur et la valeur _ après le for = la largeur aussi prend
 
     #on affiche la carte
@@ -64,6 +65,7 @@ class Carte :
                 self.carte[x][y] = "—"
                 y -= 1
                 self.carte[x][y] = sous_marin.nom[0]
+                sous_marin.pos = x, y
                 print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
@@ -77,6 +79,7 @@ class Carte :
                 self.carte[x][y] = "—"
                 y += 1
                 self.carte[x][y] = sous_marin.nom[0]
+                sous_marin.pos = x, y
                 print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
@@ -90,6 +93,7 @@ class Carte :
                 self.carte[x][y] = "|" 
                 x -= 1   
                 self.carte[x][y] = sous_marin.nom[0]
+                sous_marin.pos = x, y
                 print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
@@ -103,6 +107,7 @@ class Carte :
                 self.carte[x][y] = "|"
                 x += 1
                 self.carte[x][y] = sous_marin.nom[0]
+                sous_marin.pos = x, y
                 print("\nVoici votre nouvel emplacement : \n")
                 self.Afficher_carte()
                 return x, y #nouvelle position
@@ -117,13 +122,14 @@ class Carte :
             return x, y
 
     #on place le premier cap sur le transparent
-    def start_trans(self, cap, position):
+    def start_trans(self, position):
         x, y = position #la première valeur place le sous marin de colonne, la deuxième de ligne
         self.carte[x][y] = "X"   #le sous marin est signaler par la première valeur de son nom.
         y_l = chiffre_to_lettre(y)
         
         print("\n-> Premier cap ennemie placer en : ", y_l ,x+1, "\n")
-        
+
+        self.pos_cible = x, y
         self.Afficher_carte()
         
         return x, y
@@ -134,9 +140,13 @@ class Carte :
 
         if cap == "NORD" or cap == "SUD":
             self.carte[x][y] = "|"
+            self.pos_cible = x, y
+            return x, y
 
         elif cap == "EST" or cap == "OUEST":
             self.carte[x][y] = "—"
+            self.pos_cible = x, y
+            return x, y
 
         else:
             print("Cap invalide.")
@@ -150,17 +160,17 @@ class Carte :
 '''Création des cartes'''
 #=======================#
 
-C1_e1 = Carte("Mer Noir", 15, 15, 1, "Vide") #Carte mer noir de l'équipe numéro 1
-C1_e1_d1 = Carte("Transparent Mer Noir", 15, 15, 1, "Vide") #Carte transparent mer noir équipe
+C1_e1 = Carte("Mer Noir", 15, 15, 1, "Vide", None) #Carte mer noir de l'équipe numéro 1
+C1_e1_d1 = Carte("Transparent Mer Noir", 15, 15, 1, "Vide", None) #Carte transparent mer noir équipe
 
-C1_e2 = Carte("Mer Noir", 15, 15, 1, "Vide") #Carte mer noir de l'équipe numéro 2
-C1_e2_d2 = Carte("Transparent Mer Noir", 15, 15, 1, "Vide") #Carte transparent mer noir équipe 2
+C1_e2 = Carte("Mer Noir", 15, 15, 1, "Vide", None) #Carte mer noir de l'équipe numéro 2
+C1_e2_d2 = Carte("Transparent Mer Noir", 15, 15, 1, "Vide", None) #Carte transparent mer noir équipe 2
 
-C2_e1 = Carte("Mer Rouge", 15, 15, 2, "île") #Carte numéro 2
-C2_e1_d1 = Carte("Transparent Mer Rouge", 15, 15, 1, "Vide") #Carte transparent mer rouge équipe 1
+C2_e1 = Carte("Mer Rouge", 15, 15, 2, "île", None) #Carte numéro 2
+C2_e1_d1 = Carte("Transparent Mer Rouge", 15, 15, 1, "Vide", None) #Carte transparent mer rouge équipe 1
 
-C2_e2 = Carte("Mer Rouge", 15, 15, 2, "île") #Carte numéro 2
-C2_e2_d2 = Carte("Transparent Mer Rouge", 15, 15, 1, "Vide") #Carte transparent mer rouge équipe 2
+C2_e2 = Carte("Mer Rouge", 15, 15, 2, "île", None) #Carte numéro 2
+C2_e2_d2 = Carte("Transparent Mer Rouge", 15, 15, 1, "Vide", None) #Carte transparent mer rouge équipe 2
 
 
 #convertie un chiffre en lettre, 0 = A etc...
