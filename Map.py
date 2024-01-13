@@ -29,7 +29,7 @@ class Carte :
         
         return derniere_colonne, derniere_ligne
     
-    #on place le sous marin
+    
     def placer_sous_marin(self, position, sous_marin):
         
         x, y = position

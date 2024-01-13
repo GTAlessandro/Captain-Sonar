@@ -188,7 +188,7 @@ class SousMarin:
                 cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
-                print("Sélectionner une panne du cadran OUEST comprise entre 1 et 6")
+                print("Sélectionnez une panne du cadran OUEST comprise entre 1 et 6")
 
         elif cap == "NORD" :
 
@@ -211,7 +211,7 @@ class SousMarin:
                 cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
-                print("Sélectionner une panne du cadran NORD comprise entre 1 et 6")
+                print("Sélectionnez une panne du cadran NORD comprise entre 1 et 6")
 
         elif cap == "SUD" :
 
@@ -234,7 +234,7 @@ class SousMarin:
                 cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
-                print("Sélectionner une panne du cadran SUD comprise entre 1 et 6")
+                print("Sélectionnez une panne du cadran SUD comprise entre 1 et 6")
 
         elif cap == "EST" :
 
@@ -257,7 +257,7 @@ class SousMarin:
                 cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
 
             else : 
-                print("Sélectionner une panne du cadran EST comprise entre 1 et 6")
+                print("Sélectionnez une panne du cadran EST comprise entre 1 et 6")
 
         # Si le sous marin fait surface, toute les pannes sont réparées.
         elif cap == "AUCUN" :
@@ -289,7 +289,7 @@ class SousMarin:
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
 
-            print("\n\nVous faite surface ! Toute vos pannes sont réparés !")
+            print("\n\nVous faite surface ! Toute vos pannes sont réparées !")
 
 
         # Si toute les pannes des couleurs sont cochés, alors tout est réparé
@@ -322,7 +322,7 @@ class SousMarin:
             cadran_ouest[3] = " NONE  4 DET"
             cadran_ouest[4] = " NONE  5 RAD"
             cadran_ouest[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran OUEST ont été cochées, toute vos pannes de ce cadran sont réparés mais vous subissez un de dégât !")
+            print("\n\nToute les pannes du cadran OUEST ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -333,7 +333,7 @@ class SousMarin:
             cadran_nord[3] = " NONE  4 DET"
             cadran_nord[4] = " NONE  5 ARM"
             cadran_nord[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran NORD ont été cochées, toute vos pannes de ce cadran sont réparés mais vous subissez un de dégât !")
+            print("\n\nToute les pannes du cadran NORD ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -344,7 +344,7 @@ class SousMarin:
             cadran_sud[3] = " NONE  4 ARM"
             cadran_sud[4] = " NONE  5 SPE"
             cadran_sud[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran SUD ont été cochées, toute vos pannes de ce cadran sont réparés mais vous subissez un de dégât !")
+            print("\n\nToute les pannes du cadran SUD ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -355,11 +355,11 @@ class SousMarin:
             cadran_est[3] = " NONE  4 DET"
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran SUD ont été cochées, toute vos pannes de ce cadran sont réparés mais vous subissez un de dégât !")
+            print("\n\nToute les pannes du cadran SUD ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
-        # Si toute les pannes RAD sont cochées, alors elles sont réparés et le sous-marin perd 1 pv
+        # Si toute les pannes RAD sont cochées, alors elles sont réparées et le sous-marin perd 1 pv
         if cadran_ouest[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_ouest[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_nord[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_sud[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_est[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_est[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D":
             cadran_ouest[4] = " NONE  5 RAD"
             cadran_ouest[5] = " NONE  6 RAD"
@@ -367,7 +367,7 @@ class SousMarin:
             cadran_sud[5] = " NONE  6 RAD"
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes RAD ont été cochées, toute vos pannes RAD sont réparés mais vous subissez un de dégât !")
+            print("\n\nToute les pannes RAD ont été cochées, toute vos pannes RAD sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
             
@@ -563,6 +563,7 @@ class SousMarin:
                             .replace('Sonar', '\033[38;5;208mSonar\033[0m')\
                             .replace('Torpille', '\033[91mTorpille\033[0m')\
                             .replace('Mine', '\033[91mMine\033[0m')\
+                            .replace('#', '\033[92m#\033[0m')\
                             
         print(capacite)
 

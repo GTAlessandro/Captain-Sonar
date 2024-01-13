@@ -77,18 +77,18 @@ regles = """
 
                                       ⏸️ ==========MISE EN PLACE========== ⏸️
 
-    Séléctionner 'Paramètre' pour changer les réglages de la partie,
+    Sélectionner 'Paramètres' pour changer les réglages de la partie,
     puis 'Commencer la partie' dans le menu du jeu pour lancer le jeu.
 
-    1) Définir le nombres de joueurs.
+    1) Définir le nombre de joueurs.
 
     2) Sélection de son équipe et définition du nom de son sous-marin.
 
-    3) Répartition des rôles en fonction du nombre de joueur :
-        Équipe de 4 : Le chiffre parfait, chaque joueur endosse un rôle différent.
+    3) Répartition des rôles en fonction du nombre de joueurs :
+        Équipe de 4 : le chiffre parfait, chaque joueur endosse un rôle différent.
         Équipe de 3 : un joueur cumule le rôle de Capitaine et de Second.
         Équipe de 2 : un joueur cumule le rôle de Capitaine, de Second et de Mécano.
-        Équipe de 1 : un joueur cumule tout les rôles.
+        Équipe de 1 : un joueur cumule tous les rôles.
 
     4) Sélection du mode de jeu.
 
@@ -96,7 +96,7 @@ regles = """
 
     6) Sélection du sous-marin.
 
-    7) Les capitaines choississent leur point de départ sur la map.
+    7) Les capitaines choisissent leur point de départ sur la map.
 
     8) La partie commence.
             
@@ -106,25 +106,25 @@ regles = """
 ╰┈➤ Le Capitaine 👨‍✈️ :
             Le Capitaine est l'élément central de tout l'équipage. En plus d'être responsable de la
             trajectoire prise par le sous-marin, il doit être le lien entre tous les postes.
-            En début de partie, le Capitaine choisis la case Mer de son choix pour définir sa position de départ. 
-            Puis, dès que le départ est donné (les deux capitaines doivent crier « PLONGEZ ! »), 
+            En début de partie, le Capitaine choisit la case Mer de son choix pour définir sa position de départ. 
+            Puis dès que le départ est donné (Les deux capitaines doivent crier « PLONGEZ ! »), 
             chaque Capitaine choisis des ordres de cap, en traçant sa route sur la carte par la suite.
             Le Capitaine peut déplacer son bâtiment d'UNE SEULE CASE À LA FOIS dans l'une des 4 DIRECTIONS 
             (EST, OUEST, NORD ou SUD).
-            Vous ne pouvez pas coupez votre propre route, ni revenir sur le tracé de celle-ci.
+            Vous ne pouvez pas couper votre propre route, ni revenir sur le tracé de celle-ci.
             Vous ne pouvez pas traverser une île.
             Le Capitaine efface son tracé uniquement quand il est en surface (voir dans FAIRE SURFACE).
 
         ➟ JEU AU TOUR PAR TOUR :
-            Chaque Capitaine choisis un cap à tour de rôle pous décider de la direction du vaisseau.
+            Chaque Capitaine choisis un cap à tour de rôle pour décider de la direction du vaisseau.
             Quand c'est a votre tour de jouer, la partie est en pause pour l'adversaire.
 
-        ➟ JEU EN SIMULTANE :
+        ➟ JEU EN SIMULTANÉ :
             Chaque Capitaine choisis son cap à la vitesse de son choix.
             La partie ne se met en pause que quand l'adversaire utilise une compétence.
 
         🚨IMPORTANT🚨:
-            Quelque soit le mode de jeu, Le Capitaine doit attendre que Le Second et Le Mécano aient annoncé «OK» 
+            Quel que soit le mode de jeu, le Capitaine doit attendre que Le Second et Le Mécano aient annoncé «OK» 
             après avoir rempli leur tâche pour émettre un nouvel ordre (voir LE SECOND et LE MÉCANO)
           • Il est interdit de couper sa propre route, ni de revenir sur le tracé de sa propre route.
           • Il est interdit de traverser une île.
@@ -146,7 +146,7 @@ regles = """
         (ou en suivant les consignes du Capitaine, en fonction de ses besoins). 
         Puis il écrit «OK» afin que le Capitaine puisse donner un nouvel ordre.
         Quand une jauge est remplie, le Second le dit. Le Capitaine sait ainsi qu'il dispose de la compétence.
-        Le capitaine est le seul a pouvoir activer le système d'armements contrairement aux système de détection 
+        Le capitaine est le seul à pouvoir activer le système d'armements contrairement aux systèmes de détection 
         qui peuvent eux être activés soit par le capitaine soit par le Second.
 
         🚨IMPORTANT🚨:
@@ -154,14 +154,14 @@ regles = """
             (voir ACTIVATION DES SYSTÈMES).
 
         ➟ DEGATS 💥:
-            La vie du sous-marin correspond au nombre de point de dégat qu'un sous-marin peut encaisser.
-            À chaque Dégât sur le sous-marin, seul Le Second peut voir le nombre de point de vie restant,
-            car tout les autres postes sont trop occupé a réaliser leur rôle.
+            La vie du sous-marin correspond au nombre de points de dégâts qu'un sous-marin peut encaisser.
+            À chaque dégât sur le sous-marin, seul le Second peut voir le nombre de points de vie restant,
+            car tous les autres postes sont trop occupé à réaliser leur rôle.
             Si la vie du sous-marin tombe à 0, le sous-marin est neutralisé et la partie est perdue.
 
 ╰┈➤ Le Mécano 👨‍🔧:
         Le Mécano est chargé de répercuter les pannes du sous-marin qui apparaissent suite aux ordres donnés.
-        Certaines pannes neutralisent des systèmes du sous-marin, d'autres peuvent provoquer un Dégât.
+        Certaines pannes neutralisent des systèmes du sous-marin, d'autres peuvent provoquer un dégât.
         
         ➟ PANNE ⚠️ : 
             Pour chaque ordre de cap donné par le Capitaine de son équipe, 
@@ -170,7 +170,7 @@ regles = """
             Le Mécano peut cocher un voyant de son choix dans les Circuits Centraux ou dans le Réacteur.
             Si au moins 1 symbole d'un système est coché, il n'est pas possible d'activer ce système.
                             
-                IMPORTANT ! Un symbole représente 1 systèmes composé des deux compétences.
+                IMPORTANT ! Un symbole représente 1 système composé des compétences.
                                         ARM = Système d'armement
                                         DET = Système de détection
                                         SPE = Système spéciale
@@ -186,7 +186,7 @@ regles = """
             Exemple :
                 Le Capitaine a donnée trop d'ordre à l'Ouest,
                 et TOUS les voyants du cadran O sont cochés.
-                Le navire prend un point de dégat et toute les pannes sont réparés.
+                Le navire prend un point de dégât et toutes les pannes sont réparés.
 
                                          /===\       
                                          : O :         
@@ -202,7 +202,7 @@ regles = """
                                     \―――――――――――――/  
 
        💡 CONSEIL💡 : 
-            Pour éviter les catastrophes, le Mécano doit interpeler le Capitaine 
+            Pour éviter les catastrophes, le Mécano doit interpeller le Capitaine 
             pour lui demander de ne pas donner d'ordres de cap dangereux pour la machine.
 
         ➟ REPARATION DES CIRCUITS 🔧 : 
@@ -218,6 +218,7 @@ regles = """
                 Le Mécano doit alors interpeller le Capitaine en lui demandant de faire
                 si possible route à l'Est pour pouvoir compléter le circuit jaune et bénéficier d'une autoréparation.
 
+
                          /===\         ~         /===\         ~         /===\         ~         /===\ 
                          : O :         ~         : N :         ~         : S :         ~         : E :
                          \===/         ~         \===/         ~         \===/         ~         \===/
@@ -232,6 +233,7 @@ regles = """
                     \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/
                                        ~                       ~                       ~  
             
+
             Les pannes des Circuits Centraux peuvent également être réparées en faisant Surface (voir dans FAIRE SURFACE).
 
         ➟ REPARATION DU REACTEUR 🔧 :
@@ -256,7 +258,7 @@ regles = """
                     \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/
                                        ~                       ~                       ~  
 
-                    Ici, il y a beaucoup de pannes dans le Réacteur (partie sans couleur inférieur).
+                    Ici, il y a beaucoup de pannes dans le Réacteur (partie sans couleur inférieure).
                     Tous les systèmes sont hors service et il y a 5 voyants Radiations cochés sur 6. 
                     Il devient très urgent de faire surface pour réparer l'intégralité du sous-marin !
                 
@@ -270,7 +272,7 @@ regles = """
         (sachant qu'on ne peut ni croiser sa propre route, ni traverser les îles).
         
         Donc plus le Détecteur écoutera le Capitaine adverse, plus il aura d'informations et de tracés, 
-        et plus il aura de chances de localiser la position du sous-marin ennemi. 
+        et plus il aura de chances de localiser la position du sous-marin ennemie. 
         Bien entendu, il DOIT communiquer régulièrement avec son Capitaine 
         pour lui faire part de ses progrès sur la localisation de l'ennemi.
 
@@ -289,11 +291,11 @@ regles = """
     Pour faire surface, le Capitaine doit lever le poing et entrer "SURFACE !". 
     Puis, il donne immédiatement le numéro du secteur où il fait surface à l'ennemi.
 
-    Les règles de surface varient si vous jouez en mode Tour par Tour ou si vous jouez en mode Simultané :
+    Les règles de surface varient si vous jouez en mode Tour par Tour ou si vous jouez en mode simultané :
 
 ╰┈➤ TOUR PAR TOUR :
         Au lieu d'annoncer un cap, le capitaine utilise son tour pour annoncer qu'il fait surface. 
-        Puis le TOUTES les pannes du sous-marin dont effacer. L'équipage adverse peut ensuite jouer trois coups d'affilée, 
+        Puis le TOUTES les pannes du sous-marin sont effacer. L'équipage adverse peut ensuite jouer trois coups d'affilée, 
         c'est-à-dire 3 annonces de cap, mais également 3 activations de systèmes. Puis le jeu reprend normalement.
 
 ╰┈➤ SIMULTANE :
@@ -311,20 +313,20 @@ regles = """
 
     Lorsque la jauge d'un des systèmes est remplie, le Second doit l'annoncer au Capitaine. 
     À compter de cet instant, le Capitaine peut déclencher ce système tout moment. Le Capitaine peut déclencher TOUS les systèmes.
-    Le Second lui peut déclencher de sa propre initiative uniquements les systèmes de Drones et de Sonar.
+    Le Second lui peut déclencher de sa propre initiative uniquement les systèmes de Drones et de Sonar.
 
 ╰┈➤ DECLENCHEMENT D'UN SYSTEME 💻 :
 
         le Capitaine ou le Second doivent :
         1)  Demander au Mécano si aucun voyant du symbole correspondant au système n'est en panne, 
             sinon il faut le réparer pour pouvoir l'activer.
-            RAPPEL : Pour activer un système, aucun voyant correspondant au symbole du Système choisi ne doit être coché !
+            RAPPEL : pour activer un système, aucun voyant correspondant au symbole du Système choisi ne doit être coché !
         
-        2)  En mode tour par tour le Capitaine peut activer un système après chacun de ses déplacements s'il le souhaite. 
-            En mode simultané il doit entrer et crier « STOP ! » en levant le poing 
+        2)  En mode tour par tour, le Capitaine peut activer un système après chacun de ses déplacements s'il le souhaite. 
+            En mode simultané, il doit entrer et crier « STOP ! » en levant le poing 
             (tous les autres joueurs, des 2 équipages, DOIVENT écouter et ne pourrons effectuer aucune action).
 
-        3)  Déclenché un système (par exemple : « JE LARGUE UNE MINE ! »).
+        3)  Déclencher un système (par exemple : « JE LARGUE UNE MINE ! »).
 
         4)  Résoudre l'effet de cette activation (voir ci-dessous).
 
@@ -335,7 +337,7 @@ regles = """
         On ne peut pas activer deux systèmes à la suite. 
         Le Capitaine est obligé d'annoncer un nouveau cap entre deux activations de systèmes.
 
-    Voici a quoi ressemble l'interface système du second pour le sous-marin Tigre :
+    Voici à quoi ressemble l'interface système du second pour le sous-marin Tigre :
 
             ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
             | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Silence  |
@@ -362,18 +364,18 @@ regles = """
 
 ╰┈➤ SYSTEME D'ARMEMENT :
     ➟ LARGAGE D'UNE TORPILLE 🚀 :
-        La distance maximal ainsi que les dégats d'une torpille dépend du sous-marin utilisé. 
+        La distance maximale ainsi que les dégâts d'une torpille dépend du sous-marin utilisé. 
         Il devra choisir le point d'impact en écrivant la case sur laquelle il l'envoie.
         Les torpilles ne peuvent pas se déplacer en diagonale. 
-        Une fois tiré, toute la jauge de torpille est effacer est retombe a 0.
+        Une fois tiré, toute la jauge de torpille est effacer est retombe à 0.
         
         🚨IMPORTANT🚨 :
             Si le point d'impact de votre torpille se trouve à une case de votre sous-marin, 
             vous subirez des dégâts réduit dépendant de la puissance de la torpille !
         
-        Les possibilités et les conséquences sont les mêmes que pour l'explosion d'une Mine. Puis la partie reprend normalement.
+        Les possibilités et les conséquences sont les mêmes que pour l'explosion d'une mine. Puis la partie reprend normalement.
         Si votre torpille explose par hasard sur la même case qu'une mine (amie ou ennemie), 
-        celle-ci explose en même temps que la torpille cumulant les dégats de la zone d'effet. 
+        celle-ci explose en même temps que la torpille cumulant les dégâts de la zone d'effet. 
 
     ➟ LARGAGE D'UNE MINE 💣 :
         Le Capitaine largue une M (Mine) sur une case adjacente à son sous-marin. 
@@ -384,25 +386,25 @@ regles = """
         EXPLOSION D'UNE MINE 💣 :
             TIGRE :
                 Le Capitaine peut déclencher une mine posée précédemment s'il pense que le sous-marin ennemi est proche.
-                Pour celà il met la partie en pause et doit choisir l'option : « STOP, JE FAIS EXPLOSER LA MINE ! » 
-                et annonçe la case sur laquelle est disposée la mine (par exemple « STOP, JE FAIS EXPLOSER LA MINE : G7! »
+                Pour cela il met la partie en pause et doit choisir l'option : « STOP, JE FAIS EXPLOSER LA MINE ! » 
+                et annonce la case sur laquelle est disposée la mine (par exemple « STOP, JE FAIS EXPLOSER LA MINE : G7! »).
 
             🚨IMPORTANT🚨 :
                 On ne tient pas compte de la jauge MINE lors de l'explosion 
                 (peu importe son niveau de remplissage, on ne l'efface pas). 
-                En effet la jauge a déjà été remplie et effacée lors du LARGAGE de la mine.
+                En effet, la jauge a déjà été remplie et effacée lors du LARGAGE de la mine.
             
             Il y a alors trois possibilités (comme pour le tir d'une torpille) :
                 1) La Mine explose à PLUS D'UNE CASE du sous-marin ennemi : 
                     Le Capitaine adverse annonce « RAS ! », et la partie reprend normalement.
 
                 2) La Mine explose sur UNE CASE ADJACENTE du sous-marin ennemi (MÊME EN DIAGONALE) :
-                    Le Capitaine adverse annonce « IMPACT INDIRECT ! » Les dégats dépendent du type de mine.
-                    La vie du sous-marin baisse en fonction des dégats pris. Puis la partie reprend normalement.
+                    Le Capitaine adverse annonce « IMPACT INDIRECT ! » Les dégâts dépendent du type de mine.
+                    La vie du sous-marin baisse en fonction des dégâts pris. Puis la partie reprend normalement.
 
                 3) La Mine explose EXACTEMENT SUR LA MÊME CASE où se trouve le sous-marin ennemi :
-                    Le Capitaine adverse annonce « IMPACT DIRECT » Les dégats dépendent du type de mine. 
-                    La vie du sous-marin baisse en fonction des dégats pris. Ensuite la partie reprend normalement, 
+                    Le Capitaine adverse annonce « IMPACT DIRECT » Les dégâts dépendent du type de mine. 
+                    La vie du sous-marin baisse en fonction des dégâts pris. Ensuite, la partie reprend normalement, 
                     mais vous savez maintenant où se trouve l'ennemi !
 
             🚨IMPORTANT🚨 :
@@ -423,7 +425,7 @@ regles = """
         ➟ ACTIVATION DU SONAR 🔍:
             TIGRE :
                 Les effets du sonar peuvent varier d'un sous-marin à un autre, pour le sous-marin TIGRE :
-                Lorsque vous activez votre Sonar, l'équipage adverse doit vous donner DEUX coordonnées sur sa position : 
+                Lorsque vous activez votre sonar, l'équipage adverse doit vous donner DEUX coordonnées sur sa position : 
                 Le Capitaine peut choisir par exemple parmi la ligne, la colonne ou le secteur où se situe son sous-marin.
               • UNE SEULE de ces deux coordonnées DOIT être fausse.
               • Les deux coordonnées DOIVENT être différentes (ligne, colonne ou secteur).
@@ -432,25 +434,25 @@ regles = """
 
 ╰┈➤ SYSTEME SPECIALE 🌟 :
         ➟ ACTIVATION DU SILENCE POUR LE TIGRE :
-            Lorsque vous activez le Silence vous pouvez déplacer le sous-marin librement, EN LIGNE DROITE, 
+            Lorsque vous activez le silence, vous pouvez déplacer le sous-marin librement, EN LIGNE DROITE, 
             sans donner l'ordre de cap à l'adversaire.
           • Le déplacement doit être OBLIGATOIREMENT en ligne droite et il peut être de 0 à 4 cases
-          • L'odre du cap ne sera pas divulgé à l'adversaire. 
+          • L'ordre du cap ne sera pas divulgué à l'adversaire. 
             La jauge de Silence est alors réinitialisée (puisqu'elle vient d'être utilisée).
 
         ➟ LARGAGE DU LEURRE POUR L'ECUREILLE :
-            Lorsque vous larguez le leurre il se déplacera dans la direction opposé à la votre.
-            Vous pouvez charger le leurre d'une mine et la faire exploser a votre bon vouloir.
+            Lorsque vous larguez le leurre, il se déplacera dans la direction opposé à la vôtre.
+            Vous pouvez charger le leurre d'une mine et la faire exploser à votre bon vouloir.
             L'ennemie ne saura pas faire la différence entre votre vrai sous-marin et le leurre largué.
-          • Vous ne pouvez larger qu'un leurre à la fois  
-          • Le leurre possède 2PV et fonctionne comme un sous-marin.
-          • Le leurre se déplace tout seul dans la direction opposée a la votre
-            (Si vous choississez le cap NORD, le leurre partira au cap SUD) 
+          • Vous ne pouvez larguer qu'un leurre à la fois.
+          • Le leurre possède 2 PV et fonctionne comme un sous-marin.
+          • Le leurre se déplace tout seul dans la direction opposée a la vôtre
+            (Si vous choisissez le cap NORD, le leurre partira au cap SUD) 
           • L'ennemie recevra deux directions de cap et ne pourra faire la distinction entre le sous-marin et le leurre.
           • Vous pouvez charger une mine dans le leurre, cette mine fonctionne de la même manière que les autres.
           • Si le leurre essaye de traverser une île, il explose sur place. 
           • Si le leurre est chargé d'une mine et qu'il explose par n'importe quel moyen,
-            alors l'explosion infligera 1 point de dégat aux sous-marin alentour.
+            alors l'explosion infligera 1 point de dégat aux sous-marins alentour.
             La jauge du leurre est réinitialisée une fois le leurre détruit.
             (A VOIR SI C PAS TROP FUMER EN LE NERFANT UN PEU)
         
@@ -461,15 +463,15 @@ regles = """
 
                                         🏁 ==========FIN DU JEU========== 🏁
 
-            LORSQU'UN DES DEUX SOUS-MARINS A PERDU TOUTE SES VIE IL EXPLOSE ET C'EST LA FIN DU JEU.
-                            C'EST L'ÉQUIPAGE ADVERSE QUI GAGNE LA PARTIE !
+                LORSQU'UN DES DEUX SOUS-MARINS A PERDU TOUTE SES VIE, IL EXPLOSE ET C'EST LA FIN DU JEU.
+                                   C'EST L'ÉQUIPAGE ADVERSE QUI GAGNE LA PARTIE !
 
    💡 CONSEILS AVISÉS💡:
       • Vous l'aurez compris, la clé du succès réside dans une communication intense entre les différents membres d'équipage. 
         Si personne ne parle, si personne n'écoute… Vous êtes perdus d'avance !
       • Un excellent détecteur est également déterminant. Ce n'est pas pour rien qu'on les appelle, 
-                                            LES OREILLES D'OR !
-                                                   👂
+                                                LES OREILLES D'OR !
+                                                         👂
 """
 
 #================#
