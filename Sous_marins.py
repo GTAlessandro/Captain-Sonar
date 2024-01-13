@@ -372,12 +372,12 @@ class SousMarin:
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
             
         
-        S1.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
+        self.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
 
         return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
     
-    def def_capacite(self) :
+    def def_capacitee(self) :
         a1 = "0"
         a2 = "0"
         a3 = "0"
@@ -420,25 +420,96 @@ class SousMarin:
         f5 = "0"
         f6 = "0"
 
-        self.a1 = [a1, a2, a3, a4, a5, a6]
-        self.a2 = [b1, b2, b3, b4, b5, b6]
-        self.d1 = [c1, c2, c3, c4, c5, c6]
-        self.d2 = [d1, d2, d3, d4, d5, d6]
-        self.spe = [e1, e2, e3, e4, e5, e6]
+        arme1 = [a1, a2, a3, a4, a5, a6]
+        arme2 = [b1, b2, b3, b4, b5, b6]
+        dete1 = [c1, c2, c3, c4, c5, c6]
+        dete2 = [d1, d2, d3, d4, d5, d6]
+        spe = [e1, e2, e3, e4, e5, e6]
 
-        return self.a1, self.a2, self.d1, self.d2, self.spe
+        return arme1, arme2, dete1, dete2, spe
 
-    def afficher_capacite():
+
+    def charger_capacitee(self, choix, arme1, arme2, dete1, dete2, spe):
+        
         if choix == 1 :
-            a1 = "#"
-            
-        if self.name == "Tigre" :
+            for i in range(len(arme1)) :
+                if arme1[i] == "0" :
+                    arme1[i] = "#"
+                    break
+        
+        elif choix == 2 :
+            for i in range(len(arme2)) :
+                if arme2[i] == "0" :
+                    arme2[i] = "#"
+                    break
 
+        elif choix == 3 :
+            for i in range(len(dete1)) :
+                if dete1[i] == "0" :
+                    dete1[i] = "#" 
+                    break
+
+        elif choix == 4 :
+            for i in range(len(dete2)) :
+                if dete2[i] == "0" :
+                    dete2[i] = "#" 
+                    break
+
+        elif choix == 5 :
+            for i in range(len(spe)) :
+                if spe[i] == "0" :
+                    spe[i] = "#" 
+                    break
+
+        self.afficher_capacitee(arme1, arme2, dete1, dete2, spe)
+
+        return arme1, arme2, dete1, dete2, spe
+
+    def afficher_capacitee(self, arme1, arme2, dete1, dete2, spe) :
+        a1 = arme1[0]
+        a2 = arme1[1]
+        a3 = arme1[2]
+        a4 = arme1[3]
+        a5 = arme1[4]
+        a6 = arme1[5]
+
+        b1 = arme2[0]
+        b2 = arme2[1]
+        b3 = arme2[2]
+        b4 = arme2[3]
+        b5 = arme2[4]
+        b6 = arme2[5]
+
+        c1 = dete1[0]
+        c2 = dete1[1]
+        c3 = dete1[2]
+        c4 = dete1[3]
+        c5 = dete1[4]
+        c6 = dete1[5]
+
+        d1 = dete2[0]
+        d2 = dete2[1]
+        d3 = dete2[2]
+        d4 = dete2[3]
+        d5 = dete2[4]
+        d6 = dete2[5]
+
+        e1 = spe[0]
+        e2 = spe[1]
+        e3 = spe[2]
+        e4 = spe[3]
+        e5 = spe[4]
+        e6 = spe[5]
+
+
+        if self.nom == "Tigre" :
             capacite = f'''            
+            ============================================= Capacitées ====================================================
+
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
                 | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Silence  |
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
-                |      __      |          ~          |              |          ~          |              | - {e6}
+                |      /\      |          ~          |              |          ~          |              | - {e6}
                 |     /  \     |          ~          |      .--.    |          ~          |     .--.     | - {e5}
                 |     |  |     |          ~          |  ~\ ( | o)   | - {c4}      ~          |    (o  o)    | - {e4}
                 |     |  |     | - {a3}      ~          |  ~X>------   | - {c3}      ~          |   /_ O  _\   | - {e3}
@@ -450,22 +521,50 @@ class SousMarin:
                 |   2 - Mine   |          ~          |   4 - Sonar  |          ~
                 ――――――――――――――――          ~          ――――――――――――――――          ~
                 |              |          ~          |    ______    |          ~
-                |     _--_     |          ~          |   /     /\   |          ~
-                |    (\||/)    |          ~          |  /    °/  \  |          ~
-                |    ―-II-―    | - {b3}      ~          | |     /    | | - {d3}      ~
-                |    (/||\)    | - {b2}      ~          |  \        /  | - {d2}      ~
-                |     '――'     | - {b1}      ~          |   \______/   | - {d1}      ~
+                |    _.--._    |          ~          |   /     /\   |          ~
+                |   ( \||/ )   | - {b4}      ~          |  /    °/  \  |          ~
+                |    ―-II-―    | - {b3}      ~          | (     /    ) | - {d3}      ~
+                |   ( /||\ )   | - {b2}      ~          |  \        /  | - {d2}      ~
+                |    '-――-'    | - {b1}      ~          |   \______/   | - {d1}      ~
                 ――――――――――――――――          ~          ――――――――――――――――          ~
                 '''
 
-            capacite = capacite.replace('Drone', '\033[38;5;208mDrone\033[0m')\
+        
+        if self.nom == "Ecureille" :
+            capacite = f'''            
+            ============================================= Capacitées ====================================================
+
+            ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
+            | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Leurre   |
+            ――――――――――――――――          ~          ――――――――――――――――          ~          ___/|―――――――――――
+            |      __      |          ~          |     .--.     |          ~          |   |  /|      | - {e6}
+            |     /  \     |          ~          |    ( | o)    |          ~          |   | /_/ ,    | - {e5}
+            |     |  |     |          ~          |  *>------    | - {c4}      ~          |   |/o \/|    | - {e4}
+            |     |  |     | - {a3}      ~           |   (      )   | - {c3}      ~          |    \<_/\|    | - {e3}
+            |    / __ \    | - {a2}      ~           |    |/^^\|    | - {c2}      ~          |     \ \ `    | - {e2}
+            |    |/**\|    | - {a1}      ~           |     ****     | - {c1}      ~          |      \|      | - {e1}
+            ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
+
+            ――――――――――――――――          ~          ――――――――――――――――          ~
+            |   2 - Mine   |          ~          |   4 - Sonar  |          ~
+            ――――――――――――――――          ~          ――――――――――――――――          ~ 
+            |              |          ~          |    ______    |          ~
+            |     _--_     |          ~          |   /     /\   |          ~
+            |    ( || )    |          ~          |  /    °/  \  |          ~
+            |    ―-II-―    | - {b3}      ~          | |     /    | | - {d3}      ~
+            |    ( || )    | - {b2}      ~          |  \        /  | - {d2}      ~
+            |     '――'     | - {b1}      ~          |   \______/   | - {d1}      ~
+            ――――――――――――――――          ~          ――――――――――――――――          ~
+            '''
+
+        capacite = capacite.replace('Drone', '\033[38;5;208mDrone\033[0m')\
                             .replace('Silence', '\033[95mSilence\033[0m')\
+                            .replace('Leurre', '\033[95mLeurre\033[0m')\
                             .replace('Sonar', '\033[38;5;208mSonar\033[0m')\
                             .replace('Torpille', '\033[91mTorpille\033[0m')\
                             .replace('Mine', '\033[91mMine\033[0m')\
-            
-            print(capacite)
-            return self.a1, self.a2, self.d1, self.d2, self.spe
+                            
+        print(capacite)
 
 
     def torpiller(self, cible):

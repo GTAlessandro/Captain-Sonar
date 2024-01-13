@@ -71,7 +71,7 @@ regles = """
 
                                        🎮 ==========BUT DU JEU=========== 🎮
 
-    Vous incarner un sous-marin. Le premier qui fait couler le sous-marin adverse remporte la partie.
+    Vous incarnez un sous-marin. Le premier qui fait couler le sous-marin adverse remporte la partie.
         
 
 
@@ -366,7 +366,6 @@ regles = """
         Il devra choisir le point d'impact en écrivant la case sur laquelle il l'envoie.
         Les torpilles ne peuvent pas se déplacer en diagonale. 
         Une fois tiré, toute la jauge de torpille est effacer est retombe a 0.
-        Si une torpille explose sur la même case qu'une mine, la mine est détruite.
         
         🚨IMPORTANT🚨 :
             Si le point d'impact de votre torpille se trouve à une case de votre sous-marin, 
@@ -383,11 +382,10 @@ regles = """
         Les effets de la mine dépendent du type de mine largué.
 
         EXPLOSION D'UNE MINE 💣 :
-            Le Capitaine peut déclencher une mine posée précédemment s'il pense que le sous-marin ennemi est proche.
-            Pour celà il met la partie en pause et doit choisir l'option : « STOP, JE FAIS EXPLOSER LA MINE ! » 
-            et annonçe la case sur laquelle est disposée la mine (par exemple « STOP, JE FAIS EXPLOSER LA MINE : G7! »
-            Certaine mine n'ont pas besoin d'être déclanché car elles exploseront au contact d'un sous-marin.
-            Les dégats ainsi que les effets d'une mine dépendent du sous-marin utilisé.
+            TIGRE :
+                Le Capitaine peut déclencher une mine posée précédemment s'il pense que le sous-marin ennemi est proche.
+                Pour celà il met la partie en pause et doit choisir l'option : « STOP, JE FAIS EXPLOSER LA MINE ! » 
+                et annonçe la case sur laquelle est disposée la mine (par exemple « STOP, JE FAIS EXPLOSER LA MINE : G7! »
 
             🚨IMPORTANT🚨 :
                 On ne tient pas compte de la jauge MINE lors de l'explosion 
@@ -413,22 +411,24 @@ regles = """
 
 ╰┈➤ SYSTEME DE DETECTION :
         ➟ LARGAGE D'UN DRONE 🤖:
-            Les effets du drone varient d'un sous-marin à l'autre, pour le sous-marin TIGRE :
-            Un drone permet de demander à l'équipage adverse une information sur le secteur dans lequel il se trouve 
-            (la carte est découpée en 9 secteurs en mode simultané et en 4 secteurs en tour par tour).
-          • Le Capitaine interroge donc l'adversaire sur un secteur (« ÊTES VOUS EN SECTEUR : 5 ? »).
-          • Le Capitaine adverse DOIT répondre sans tricher par OUI ou par NON.
-            La jauge de Drone est ensuite totalement réinitialiser (puisqu'elle vient d'être utilisée).
-            Puis la partie reprend normalement.
+            TIGRE :
+                Les effets du drone varient d'un sous-marin à l'autre, pour le sous-marin TIGRE :
+                Un drone permet de demander à l'équipage adverse une information sur le secteur dans lequel il se trouve 
+                (la carte est découpée en 9 secteurs en mode simultané et en 4 secteurs en tour par tour).
+              • Le Capitaine interroge donc l'adversaire sur un secteur (« ÊTES VOUS EN SECTEUR : 5 ? »).
+              • Le Capitaine adverse DOIT répondre sans tricher par OUI ou par NON.
+                La jauge de Drone est ensuite totalement réinitialiser (puisqu'elle vient d'être utilisée).
+                Puis la partie reprend normalement.
 
         ➟ ACTIVATION DU SONAR 🔍:
-            Les effets du sonar peuvent varier d'un sous-marin à un autre, pour le sous-marin TIGRE :
-            Lorsque vous activez votre Sonar, l'équipage adverse doit vous donner DEUX coordonnées sur sa position : 
-            Le Capitaine peut choisir par exemple parmi la ligne, la colonne ou le secteur où se situe son sous-marin.
-          • UNE SEULE de ces deux coordonnées DOIT être fausse.
-          • Les deux coordonnées DOIVENT être différentes (ligne, colonne ou secteur).
-            La jauge de Sonar est alors réinitialisée (puisqu'elle vient d'être utilisée).
-            Puis la partie reprend normalement.
+            TIGRE :
+                Les effets du sonar peuvent varier d'un sous-marin à un autre, pour le sous-marin TIGRE :
+                Lorsque vous activez votre Sonar, l'équipage adverse doit vous donner DEUX coordonnées sur sa position : 
+                Le Capitaine peut choisir par exemple parmi la ligne, la colonne ou le secteur où se situe son sous-marin.
+              • UNE SEULE de ces deux coordonnées DOIT être fausse.
+              • Les deux coordonnées DOIVENT être différentes (ligne, colonne ou secteur).
+                La jauge de Sonar est alors réinitialisée (puisqu'elle vient d'être utilisée).
+                Puis la partie reprend normalement.
 
 ╰┈➤ SYSTEME SPECIALE 🌟 :
         ➟ ACTIVATION DU SILENCE POUR LE TIGRE :

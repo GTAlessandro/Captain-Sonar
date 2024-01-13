@@ -56,9 +56,18 @@ def lancer_jeu() :
     #8) Le détecteur place sur le transparent l'endroit ou le sous marin ennemie a plonger
     x_t_e1, y_t_e1 = start_transparent(detecteur_e1, nom_e1, C_e1_d1, derniere_colonne, derniere_ligne)
     x_t_e2, y_t_e2 = start_transparent(detecteur_e2, nom_e2, C_e2_d2, derniere_colonne, derniere_ligne)
+    
+    #initialisation des cadrans des sousmarins
+    #intéressant de pouvoir changer de baie_moteur (plus facile / dure) en fonction du vaisseaux choisie. et donc changer de numéro en fonction du vaisseau
+    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = sous_marin_e1.definition_du_cadran()
+    cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2 = sous_marin_e2.definition_du_cadran()
+
+    #initialisation des compétences des sous marins
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = sous_marin_e1.def_capacitee()
+    arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2 = sous_marin_e1.def_capacitee()
 
     #9) Début de la boucle
-    jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2)#lancement de la boucle du jeu
+    jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2, arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2)#lancement de la boucle du jeu
 
 
 #======================================#
@@ -76,10 +85,10 @@ def entre_nombre_joueur():
                 return nb_joueur
 
             else :
-                print("\n❌ Le nombre de joueur doit être compris entre 2 et 8, recommencez.\n\n\n")
+                print("❌ Le nombre de joueur doit être compris entre 2 et 8, recommencez.\n\n\n")
 
         except ValueError :
-            print("\n❌ Veuillez rentrer un chiffre valide compris entre 2 et 8, recommencez.\n\n\n")
+            print("❌ Veuillez rentrer un chiffre valide compris entre 2 et 8, recommencez.\n\n\n")
 
 
 
@@ -319,10 +328,10 @@ def selection_mode(j1):
                 selection_mode(j1)
             
             else :
-                print("\n❌ Veuillez sélectionner une option valide.\n\n\n")
+                print("❌ Veuillez sélectionner une option valide.\n\n\n")
 
         except ValueError :
-            print("\n❌ Entrez un mode de jeu valide (1 ou 2).\n\n\n")
+            print("❌ Entrez un mode de jeu valide (1 ou 2).\n\n\n")
 
 
 
@@ -350,10 +359,10 @@ def selection_map(j1) :
                 return carte, derniere_colonne, derniere_ligne
 
             else :
-                print("\n❌ Veuillez entrée une carte existante.\n\n")
+                print("❌ Veuillez entrée une carte existante.\n\n")
                 
         except ValueError :
-            print("\n❌ Veuillez entrée une carte valide.\n\n")
+            print("❌ Veuillez entrée une carte valide.\n\n")
 
 
 
@@ -378,10 +387,10 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
             sous_marin_e1 = sous_marins_disponibles.get(choix_e1)
 
             if sous_marin_e1 is None:
-                print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+                print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
         except ValueError:
-            print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+            print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
     while sous_marin_e2 is None:
         try:
@@ -389,10 +398,10 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
             sous_marin_e2 = sous_marins_disponibles.get(choix_e2)
 
             if sous_marin_e2 is None:
-                print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+                print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
         except ValueError:
-            print("\n❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+            print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
     print(f"\n{capitaine_e1}, vous avez sélectionné le sous-marin {sous_marin_e1.nom}.")
     print(f"\n{capitaine_e2}, vous avez sélectionné le sous-marin {sous_marin_e2.nom}.")
@@ -408,8 +417,10 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
 #convertie une lettre en chiffre, A = 0, B = 1 etc ...
 def lettre_to_chiffre(lettre):
         while True:
-            if len(lettre) == 1:
+            if len(lettre) == 1 and lettre.isalpha():
                 return ord(lettre.upper()) - ord('A')
+            elif lettre.isdigit():
+                lettre = input("Veuillez entrer une lettre existante : ")
             else:
                 lettre = input("Veuillez entrer une colonne existante : ")
 
@@ -432,10 +443,10 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
                 break
             
             else : 
-                print("\n❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
+                print("❌ Entrez des coordonnées juste ou comprisent dans les limites de la map.\n\n")
 
         except ValueError :
-            print("\n❌ Entrez des coordonnées valides.\n\n")
+            print("❌ Entrez des coordonnées valides.\n\n")
 
     return x, y
 
@@ -449,14 +460,14 @@ def start_transparent(detecteur, nom, Carte, derniere_colonne, derniere_ligne) :
     print(changement)
     print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au DETECTEUR {detecteur}, de l'équipe {nom} de jouer.\n")
     input("\nSUIVANT\n")
-    print("Vous pourrez modifier la position du sous-marin plus tard !\nVoici votre transparent :\n")
+    print("\nVoici votre transparent :\n")
     
     #Start du transparent
     Carte.Afficher_carte()
+    print("\nPlacer le sous marin ennemie sur votre transparent.\nVous pourrez modifier la position du sous-marin plus tard !")
 
     while True :
         try :
-            print("\nPlacer le sous marin ennemie sur votre transparent.")
             y_lettre = input("\nChoississez une colonne : ")
             y = lettre_to_chiffre(y_lettre)
             x = int(input("Choississez une ligne : ")) - 1
@@ -468,10 +479,10 @@ def start_transparent(detecteur, nom, Carte, derniere_colonne, derniere_ligne) :
                 return x_transparent, y_transparent
                             
             else : 
-                print("\n❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
+                print("❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
 
         except ValueError :
-            print("\n❌ Entrez des coordonnées valides.\n\n")
+            print("❌ Entrez des coordonnées valides.\n\n")
 
 
 
@@ -479,10 +490,11 @@ def start_transparent(detecteur, nom, Carte, derniere_colonne, derniere_ligne) :
 '''9) =====================================DEBUT BOUCLE======================================='''
 #===============================================================================================#
 
-def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2) :
+def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2, arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2) :
     
     global nom_e1, nom_e2
 
+    # Définition des rôles
     capitaine_e1 = capitaine[0]
     capitaine_e2 = capitaine[1]
 
@@ -500,13 +512,9 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     C_e1_d1 = carte[2] #Transparent de l'équipe 1
     C_e2_d2 = carte[3] #Transparent de l'équipe 2
 
+    #définition des positions des sous marins
     position_e1 = x1, y1
     position_e2 = x2, y2
-
-    #initialisation des cadrans des sous_marins
-    #intéressant de pouvoir changer de baie_moteur (plus facile / dure) en fonction du vaisseaux choisie. et donc changer de numéro en fonction du vaisseau
-    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = sous_marin_e1.definition_du_cadran()
-    cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2 = sous_marin_e2.definition_du_cadran()
 
     #1) la première équipe se déplace
     position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
@@ -515,6 +523,7 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
 
     #3) le second augmente la jauge d'un système
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
 
     #4) le detecteur adverse rentre le cap ennemie
 
@@ -577,10 +586,10 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
                 return position, cap
                 
             else :
-                print("\n❌ Sélectionner une action comprise entre 1 et 2.\n\n\n")
+                print("❌ Sélectionner une action comprise entre 1 et 2.\n\n\n")
 
         except ValueError :
-            print("\n❌ Sélectionner une action valide.\n\n\n")
+            print("❌ Sélectionner une action valide.\n\n\n")
 
 
 #==============================#
@@ -631,7 +640,27 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
 '''3) Le second augmente la jauge d'un système'''
 #===============================================#
 
+def choix_capacitee(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
+    print(changement)
+    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au second {second}, de l'équipe {nom} de jouer.")
+    input("\nSUIVANT")
 
+    sous_marin.afficher_capacitee(arme1, arme2, dete1, dete2, spe)
+
+    while True :
+        try :
+            choix_second = int(input(f"\n{second}, choississez une compétence à charger (1-5) : "))
+            if 1 <= choix_second <= 5 :
+                arme1, arme2, dete1, dete2, spe = sous_marin.charger_capacitee(choix_second, arme1, arme2, dete1, dete2, spe)
+                return arme1, arme2, dete1, dete2, spe
+            
+            else :
+                print("Veuillez entré un chiffre compris entre 1 et 5.")
+
+        except ValueError : 
+            print("Veuillez choisir un chiffre compris dans les compétences du vaisseau.")
+            
+            
 
 #==========================================#
 '''4) déplacer transparent équipe énnemie'''
@@ -659,10 +688,10 @@ def deplacer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_
                     return x_transparent, y_transparent
                             
                 else : 
-                    print("\n❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
+                    print("❌ Entrez des coordonnées comprisent dans les limites de la map.\n\n")
 
             except ValueError :
-                print("\n❌ Entrez des coordonnées valides.\n\n")
+                print("❌ Entrez des coordonnées valides.\n\n")
 
     else :
         print(f"Le capitaine ennemie a fait surface et n'annoncera pas de cap pendant 3 tours !")
