@@ -516,7 +516,7 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     position_e1 = x1, y1
     position_e2 = x2, y2
 
-    #1) la première équipe se déplace
+    #1) le capitaine déplace son vaisseau
     position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
 
     #2) le mecano rentre une panne dans le cadran associer au cap
@@ -524,8 +524,22 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
 
     #3) le second augmente la jauge d'un système
     arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
 
-    #4) le detecteur adverse rentre le cap ennemi
+
+    #4) l'équipe peut déclencher une compétence
+    declenchement_competencees(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1)
+
+    #5) le detecteur adverse rentre le cap ennemi
 
 
     
@@ -608,9 +622,10 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
 
         while True :
             try :
-                choix_meca = int(input(f"{mecano}, choisissez une panne dans le cadran du cap annoncé par le capitaine (1-6) : "))
+                choix_meca = int(input(f"{mecano}, choisissez une panne dans le cadran du cap '{cap}' annoncé par le capitaine (1-6) : "))
 
                 if 1 <= choix_meca <= 6 :
+                    print(f"\n\n\n\n\n\n\n\n\n\nVous avez choisis la panne {choix_meca} du cadran '{cap}' :")
                     cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
                     input("\nSUIVANT")
                     return cadran_ouest, cadran_nord, cadran_sud, cadran_est
@@ -650,8 +665,25 @@ def choix_capacitee(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
     while True :
         try :
             choix_second = int(input(f"\n{second}, choisissez une compétence à charger (1-5) : "))
+            
             if 1 <= choix_second <= 5 :
-                arme1, arme2, dete1, dete2, spe = sous_marin.charger_capacitee(choix_second, arme1, arme2, dete1, dete2, spe)
+                mince, arme1, arme2, dete1, dete2, spe = sous_marin.charger_capacitee(choix_second, arme1, arme2, dete1, dete2, spe)
+                
+                while mince != True :
+                    try : 
+                        choix_second = int(input(f"\n{second}, choisissez une compétence qui n'est pas déjà chargée (1-5) : "))
+                        
+                        if 1 <= choix_second <= 5 :
+                            mince = True
+                            mince, arme1, arme2, dete1, dete2, spe = sous_marin.charger_capacitee(choix_second, arme1, arme2, dete1, dete2, spe)
+                        
+                        else :
+                            print("Veuillez entrer un chiffre compris entre 1 et 5.")
+
+                    except ValueError : 
+                        print("Veuillez choisir un chiffre compris dans les compétences du vaisseau.")    
+
+                input("\nSUIVANT")
                 return arme1, arme2, dete1, dete2, spe
             
             else :
@@ -660,10 +692,32 @@ def choix_capacitee(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
         except ValueError : 
             print("Veuillez choisir un chiffre compris dans les compétences du vaisseau.")
             
-            
+
+#====================================#
+'''4) déclenchement de compétencee'''
+#====================================#
+
+def declenchement_competencees(arme1, arme2, dete1, dete2, spe, sous_marin) :
+
+    print("\n\nVoulez-vous déclancher une compétence ?\n1 - non\n2 - oui")
+
+    while True :
+        try : 
+            choix = input("Sélectionnez une option (1 ou 2) : ")
+
+            if choix == 1 :
+                #afficher les capacitées prêts a être larguer
+                #activer les capacitées à larguer
+                print("a faire chef")
+
+        except ValueError :
+            print("❌ Veuillez sélectionner une option valide ! ")
+
+
+        
 
 #==========================================#
-'''4) déplacer transparent équipe énnemie'''
+'''5) déplacer transparent équipe énnemie'''
 #==========================================#
 
 def deplacer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_ligne) :

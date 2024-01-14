@@ -59,6 +59,8 @@ class SousMarin:
             cadran_sud = [BLEU__DET, BLEU__SPE, BLEU__ARM, NONE_SARM, NONE_SSPE, NONE_SRAD]
             cadran_est = [JAUNE1ARM, VERT1_SPE, BLEU1_SPE, NONE_EDET, NONE1ERAD, NONE2ERAD]
 
+            self.baie_moteur = cadran_ouest, cadran_nord, cadran_sud, cadran_est
+
             return cadran_ouest, cadran_nord, cadran_sud, cadran_est
         
         elif self.baie == 2 : 
@@ -371,7 +373,7 @@ class SousMarin:
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
             
-        
+        self.baie_moteur = cadran_ouest, cadran_nord, cadran_sud, cadran_est
         self.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
 
         return cadran_ouest, cadran_nord, cadran_sud, cadran_est
@@ -431,39 +433,161 @@ class SousMarin:
 
     def charger_capacitee(self, choix, arme1, arme2, dete1, dete2, spe):
         
-        if choix == 1 :
-            for i in range(len(arme1)) :
-                if arme1[i] == "0" :
-                    arme1[i] = "#"
-                    break
+        mince = True 
+
+        #=========#
+        '''Tigre'''
+        #=========#
         
-        elif choix == 2 :
-            for i in range(len(arme2)) :
-                if arme2[i] == "0" :
-                    arme2[i] = "#"
-                    break
+        if self.nom == "Tigre" :
+            if choix == 1 :
+                for i in range(3) :
+                    if arme1[i] == "0" :
+                        arme1[i] = "#"
+                        break
 
-        elif choix == 3 :
-            for i in range(len(dete1)) :
-                if dete1[i] == "0" :
-                    dete1[i] = "#" 
-                    break
+                    elif self.a1 == True : 
+                        print("Votre torpille est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+            
+            elif choix == 2 :
+                for i in range(3) :
+                    if arme2[i] == "0" :
+                        arme2[i] = "#"
+                        break
 
-        elif choix == 4 :
-            for i in range(len(dete2)) :
-                if dete2[i] == "0" :
-                    dete2[i] = "#" 
-                    break
+                    elif self.a2 == True : 
+                        print("Votre mine est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
 
-        elif choix == 5 :
-            for i in range(len(spe)) :
-                if spe[i] == "0" :
-                    spe[i] = "#" 
-                    break
+            elif choix == 3 :
+                for i in range(4) :
+                    if dete1[i] == "0" :
+                        dete1[i] = "#" 
+                        break
+
+                    elif self.d1 == True : 
+                        print("Votre drone est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+
+            elif choix == 4 :
+                for i in range(3) :
+                    if dete2[i] == "0" :
+                        dete2[i] = "#" 
+                        break
+
+                    elif self.d2 == True : 
+                        print("Votre sonar est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+
+            elif choix == 5 :
+                for i in range(6) :
+                    if spe[i] == "0" :
+                        spe[i] = "#" 
+                        break
+
+                    elif self.spe == True : 
+                        print("Votre silence est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+
+            if arme1[0] == "#" and arme1[1] == "#" and arme1[2] == "#" :
+                self.a1 = True
+            
+            if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" :
+                self.a2 = True
+
+            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#":
+                self.d1 = True
+
+            if dete2[0] == "#" and dete2[1] == "#" and dete2[2] == "#" :
+                self.d2 = True
+
+            if spe[0] == "#" and spe[1] == "#" and spe[2] == "#" and spe[3] == "#" and spe[4] == "#" and spe[5] == "#" :
+                self.spe = True
+
+        #=============#
+        '''Ecureille'''
+        #=============#
+
+        if self.nom == "Ecureille" :
+            if choix == 1 :
+                for i in range(3) :
+                    if arme1[i] == "0" :
+                        arme1[i] = "#"
+                        break
+
+                    elif self.a1 == True : 
+                        print("Votre torpille est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+            
+            elif choix == 2 :
+                for i in range(4) :
+                    if arme2[i] == "0" :
+                        arme2[i] = "#"
+                        break
+
+                    elif self.a2 == True : 
+                        print("Votre mine est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+
+            elif choix == 3 :
+                for i in range(4) :
+                    if dete1[i] == "0" :
+                        dete1[i] = "#" 
+                        break
+
+                    elif self.d1 == True : 
+                        print("Votre drone est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+
+            elif choix == 4 :
+                for i in range(3) :
+                    if dete2[i] == "0" :
+                        dete2[i] = "#" 
+                        break
+
+                    elif self.d2 == True : 
+                        print("Votre sonar est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+
+            elif choix == 5 :
+                for i in range(6) :
+                    if spe[i] == "0" :
+                        spe[i] = "#" 
+                        break
+                    
+                    elif self.spe == True : 
+                        print("Votre leurre est déjà chargée !")
+                        mince = False
+                        return mince, arme1, arme2, dete1, dete2, spe
+
+            if arme1[0] == "#" and arme1[1] == "#" and arme1[2] == "#" :
+                self.a1 = True
+            
+            if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" and arme2[3] == "#":
+                self.a2 = True
+
+            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#":
+                self.d1 = True
+
+            if dete2[0] == "#" and dete2[1] == "#" and dete2[2] == "#" :
+                self.d2 = True
+
+            if spe[0] == "#" and spe[1] == "#" and spe[2] == "#" and spe[3] == "#" and spe[4] == "#" and spe[5] == "#" :
+                self.spe = True
 
         self.afficher_capacitee(arme1, arme2, dete1, dete2, spe)
 
-        return arme1, arme2, dete1, dete2, spe
+        return mince, arme1, arme2, dete1, dete2, spe
 
     def afficher_capacitee(self, arme1, arme2, dete1, dete2, spe) :
         a1 = arme1[0]
@@ -509,52 +633,56 @@ class SousMarin:
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
                 | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Silence  |
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
-                |      /\      |          ~          |              |          ~          |              | - {e6}
-                |     /  \     |          ~          |      .--.    |          ~          |     .--.     | - {e5}
-                |     |  |     |          ~          |  ~\ ( | o)   | - {c4}      ~          |    (o  o)    | - {e4}
-                |     |  |     | - {a3}      ~          |  ~X>------   | - {c3}      ~          |   /_ O  _\   | - {e3}
-                |    / == \    | - {a2}      ~          |  ~/(      )  | - {c2}      ~          |     \   \    | - {e2}
-                |    |/**\|    | - {a1}      ~          |     '-__-'   | - {c1}      ~          |      `~~~'   | - {e1}
+                |      __      |          ~          |     .--.     |          ~          |              | - {e6}
+                |     /  \     |          ~          |    ( | o)    |          ~          |     .--.     | - {e5}
+                |     |  |     |          ~          |  *>------    | - {c4}      ~          |    (o  o)    | - {e4}
+                |     |  |     | - {a3}      ~          |   (      )   | - {c3}      ~          |   /_ O  _\   | - {e3}
+                |    / == \    | - {a2}      ~          |    |/^^\|    | - {c2}      ~          |     \   \    | - {e2}
+                |    |/**\|    | - {a1}      ~          |     ****     | - {c1}      ~          |      `~~~'   | - {e1}
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
 
                 ――――――――――――――――          ~          ――――――――――――――――          ~
                 |   2 - Mine   |          ~          |   4 - Sonar  |          ~
                 ――――――――――――――――          ~          ――――――――――――――――          ~
                 |              |          ~          |    ______    |          ~
-                |    _.--._    |          ~          |   /     /\   |          ~
-                |   ( \||/ )   | - {b4}      ~          |  /    °/  \  |          ~
+                |     _--_     |          ~          |   /     /\   |          ~
+                |    ( || )    |          ~          |  /    °/  \  |          ~
                 |    ―-II-―    | - {b3}      ~          | (     /    ) | - {d3}      ~
-                |   ( /||\ )   | - {b2}      ~          |  \        /  | - {d2}      ~
-                |    '-――-'    | - {b1}      ~          |   \______/   | - {d1}      ~
+                |    ( || )    | - {b2}      ~          |  \        /  | - {d2}      ~
+                |     '――'     | - {b1}      ~          |   \______/   | - {d1}      ~
                 ――――――――――――――――          ~          ――――――――――――――――          ~
                 '''
 
+        
+        #=============#
+        '''Ecureille'''
+        #=============#
         
         if self.nom == "Ecureille" :
             capacite = f'''            
             ============================================= Capacitées ====================================================
 
-            ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
-            | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Leurre   |
-            ――――――――――――――――          ~          ――――――――――――――――          ~          ___/|―――――――――――
-            |      __      |          ~          |     .--.     |          ~          |   |  /|      | - {e6}
-            |     /  \     |          ~          |    ( | o)    |          ~          |   | /_/ ,    | - {e5}
-            |     |  |     |          ~          |  *>------    | - {c4}      ~          |   |/o \/|    | - {e4}
-            |     |  |     | - {a3}      ~           |   (      )   | - {c3}      ~          |    \<_/\|    | - {e3}
-            |    / __ \    | - {a2}      ~           |    |/^^\|    | - {c2}      ~          |     \ \ `    | - {e2}
-            |    |/**\|    | - {a1}      ~           |     ****     | - {c1}      ~          |      \|      | - {e1}
-            ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
+                ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
+                | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Leurre   |
+                ――――――――――――――――          ~          ――――――――――――――――          ~          ___/|―――――――――――
+                |      /\      |          ~          |              |          ~          |   |  /|      | - {e6}
+                |     /..\     |          ~          |     .--.     |          ~          |   | /_/ ,    | - {e5}
+                |     |  |     |          ~          | ~\ ( | o)    | - {c4}      ~          |   |/o \/|    | - {e4}
+                |     |  |     | - {a3}      ~          | ~X>------    | - {c3}      ~          |    \<_/\|    | - {e3}
+                |    / __ \    | - {a2}      ~          | ~/(      )   | - {c2}      ~          |     \ \ `    | - {e2}
+                |    |/**\|    | - {a1}      ~          |    '-__-'    | - {c1}      ~          |      \|      | - {e1}
+                ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
 
-            ――――――――――――――――          ~          ――――――――――――――――          ~
-            |   2 - Mine   |          ~          |   4 - Sonar  |          ~
-            ――――――――――――――――          ~          ――――――――――――――――          ~ 
-            |              |          ~          |    ______    |          ~
-            |     _--_     |          ~          |   /     /\   |          ~
-            |    ( || )    |          ~          |  /    °/  \  |          ~
-            |    ―-II-―    | - {b3}      ~          | |     /    | | - {d3}      ~
-            |    ( || )    | - {b2}      ~          |  \        /  | - {d2}      ~
-            |     '――'     | - {b1}      ~          |   \______/   | - {d1}      ~
-            ――――――――――――――――          ~          ――――――――――――――――          ~
+                ――――――――――――――――          ~          ――――――――――――――――          ~
+                |   2 - Mine   |          ~          |   4 - Sonar  |          ~
+                ――――――――――――――――          ~          ――――――――――――――――          ~ 
+                |              |          ~          |    ______    |          ~
+                |    _.--._    |          ~          |   /     /\   |          ~
+                |   ( \||/ )   | - {b4}      ~          |  /    °/  \  |          ~
+                |    ―-II-―    | - {b3}      ~          | |     /    | | - {d3}      ~
+                |   ( /||\ )   | - {b2}      ~          |  \        /  | - {d2}      ~
+                |    '-――-'    | - {b1}      ~          |   \______/   | - {d1}      ~
+                ――――――――――――――――          ~          ――――――――――――――――          ~
             '''
 
         capacite = capacite.replace('Drone', '\033[38;5;208mDrone\033[0m')\
@@ -584,6 +712,5 @@ class SousMarin:
 '''Création de sous-marin'''
 #==========================#
 
-S1 = SousMarin("Tigre", 4, 1, "Mine a contact", "Torpille électrique a guidage acoustique actif", "Sonar passif", "Drone par magnétométrie", "Silence", None)
-S2 = SousMarin("Ecureille", 3, 1, "Mine a déclanchement", "Torpille thermique a guidage acoustique passif", "Sonar actif", "Drone électomagnétiques", "Leurre", None)
-
+S1 = SousMarin("Tigre", 4, 1, "Mine a contact", "Torpille thermique a guidage acoustique passif", "Sonar passif", "Drone par magnétométrie", "Silence", None)
+S2 = SousMarin("Ecureille", 3, 1, "Mine a déclanchement passif", "Torpille électrique a guidage acoustique actif", "Sonar actif", "Drone électomagnétiques", "Leurre", None)

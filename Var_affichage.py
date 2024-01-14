@@ -272,7 +272,7 @@ regles = """
         (sachant qu'on ne peut ni croiser sa propre route, ni traverser les îles).
         
         Donc plus le Détecteur écoutera le Capitaine adverse, plus il aura d'informations et de tracés, 
-        et plus il aura de chances de localiser la position du sous-marin ennemie. 
+        et plus il aura de chances de localiser la position du sous-marin ennemi. 
         Bien entendu, il DOIT communiquer régulièrement avec son Capitaine 
         pour lui faire part de ses progrès sur la localisation de l'ennemi.
 
@@ -365,16 +365,40 @@ regles = """
 ╰┈➤ SYSTEME D'ARMEMENT :
     ➟ LARGAGE D'UNE TORPILLE 🚀 :
         La distance maximale ainsi que les dégâts d'une torpille dépend du sous-marin utilisé. 
-        Il devra choisir le point d'impact en écrivant la case sur laquelle il l'envoie.
+        Le capitaine devra choisir le point d'impact en écrivant la case sur laquelle il l'envoie.
         Les torpilles ne peuvent pas se déplacer en diagonale. 
         Une fois tiré, toute la jauge de torpille est effacer est retombe à 0.
+
+        Il y a alors trois possibilités (comme pour l'explosion d'une mine) :
+                1) La torpille explose à PLUS D'UNE CASE du sous-marin ennemi : 
+                    Le Capitaine adverse annonce « RAS ! », et la partie reprend normalement.
+
+                2) La torpille explose sur UNE CASE ADJACENTE du sous-marin ennemi (MÊME EN DIAGONALE) :
+                    Le Capitaine adverse annonce « IMPACT INDIRECT ! » Les dégâts dépendent du type de torpille.
+                    La vie du sous-marin baisse en fonction des dégâts pris. Puis la partie reprend normalement.
+
+                3) La torpille explose EXACTEMENT SUR LA MÊME CASE où se trouve le sous-marin ennemi :
+                    Le Capitaine adverse annonce « IMPACT DIRECT » Les dégâts dépendent du type de torpille. 
+                    La vie du sous-marin baisse en fonction des dégâts pris. Ensuite, la partie reprend normalement, 
+                    mais vous savez maintenant où se trouve l'ennemi !
+
+            TIGRE :
+              • La torpille peut se déplacer sur une distance de 4 cases maximum.
+              • Elle infligera :
+                - 2 points de dégâts si l'impact est exactement sur la même case.
+                - 1 point sur une case adjacent au sous-marin ennemi.
+                - 0 point au-delà.
+
+            ECUREILLE :
+              • La torpille peut se déplacer sur une distance de 5 cases maximum.
+              • Elle infligera le même nombre de dégâts que le Tigre.
         
         🚨IMPORTANT🚨 :
             Si le point d'impact de votre torpille se trouve à une case de votre sous-marin, 
             vous subirez des dégâts réduit dépendant de la puissance de la torpille !
         
         Les possibilités et les conséquences sont les mêmes que pour l'explosion d'une mine. Puis la partie reprend normalement.
-        Si votre torpille explose par hasard sur la même case qu'une mine (amie ou ennemie), 
+        Si votre torpille explose par hasard sur la même case qu'une mine (amie ou ennemi), 
         celle-ci explose en même temps que la torpille cumulant les dégâts de la zone d'effet. 
 
     ➟ LARGAGE D'UNE MINE 💣 :
@@ -385,31 +409,34 @@ regles = """
 
         EXPLOSION D'UNE MINE 💣 :
             TIGRE :
-                Le Capitaine peut déclencher une mine posée précédemment s'il pense que le sous-marin ennemi est proche.
-                Pour cela il met la partie en pause et doit choisir l'option : « STOP, JE FAIS EXPLOSER LA MINE ! » 
+              • Le Capitaine peut déclencher une mine posée précédemment s'il pense que le sous-marin ennemi est proche.
+              • Pour cela il met la partie en pause et doit choisir l'option : « STOP, JE FAIS EXPLOSER LA MINE ! » 
                 et annonce la case sur laquelle est disposée la mine (par exemple « STOP, JE FAIS EXPLOSER LA MINE : G7! »).
+              • Elle infligera : 
+                - 2 points de dégâts si l'impact est exactement sur la même case.
+                - 1 point sur une case adjacent au sous-marin ennemi.
+                - 0 point au-delà.
+
+            ECUREILLE :
+              • Le Capitaine n'a pas besoin de déclencher la mine qui explosera au contact de TOUT sous-marin qui la traverse,
+                même le sous-marin qui a largué la mine. 
+              • Lorsqu'un sous-marin navigue sur l'emplacement de la mine, un message apparaîtra pour prévenir le sous-marin en question.
+              • Surpris par cette explosion, le sous-marin ennemi ne pourra pas déclencher de capacité ce tour-ci.
+              • Elle infligera : 
+                - 2 points de dégâts si l'impact est exactement sur la même case.
+                - 1 point sur une case adjacent au sous-marin ennemi.
+                - 0 point au-delà.
+
+            
 
             🚨IMPORTANT🚨 :
                 On ne tient pas compte de la jauge MINE lors de l'explosion 
                 (peu importe son niveau de remplissage, on ne l'efface pas). 
                 En effet, la jauge a déjà été remplie et effacée lors du LARGAGE de la mine.
-            
-            Il y a alors trois possibilités (comme pour le tir d'une torpille) :
-                1) La Mine explose à PLUS D'UNE CASE du sous-marin ennemi : 
-                    Le Capitaine adverse annonce « RAS ! », et la partie reprend normalement.
-
-                2) La Mine explose sur UNE CASE ADJACENTE du sous-marin ennemi (MÊME EN DIAGONALE) :
-                    Le Capitaine adverse annonce « IMPACT INDIRECT ! » Les dégâts dépendent du type de mine.
-                    La vie du sous-marin baisse en fonction des dégâts pris. Puis la partie reprend normalement.
-
-                3) La Mine explose EXACTEMENT SUR LA MÊME CASE où se trouve le sous-marin ennemi :
-                    Le Capitaine adverse annonce « IMPACT DIRECT » Les dégâts dépendent du type de mine. 
-                    La vie du sous-marin baisse en fonction des dégâts pris. Ensuite, la partie reprend normalement, 
-                    mais vous savez maintenant où se trouve l'ennemi !
 
             🚨IMPORTANT🚨 :
                 Si vous faites sauter une de vos mines à une case de distance de votre propre sous-marin, 
-                vous subirez des dégâts réduit dépendant de la puissance de la mine !
+                vous subirez des dégâts dépendant de la puissance de la mine !
 
 ╰┈➤ SYSTEME DE DETECTION :
         ➟ LARGAGE D'UN DRONE 🤖:
@@ -421,6 +448,8 @@ regles = """
               • Le Capitaine adverse DOIT répondre sans tricher par OUI ou par NON.
                 La jauge de Drone est ensuite totalement réinitialiser (puisqu'elle vient d'être utilisée).
                 Puis la partie reprend normalement.
+
+            ECUREILLE :
 
         ➟ ACTIVATION DU SONAR 🔍:
             TIGRE :
@@ -443,12 +472,12 @@ regles = """
         ➟ LARGAGE DU LEURRE POUR L'ECUREILLE :
             Lorsque vous larguez le leurre, il se déplacera dans la direction opposé à la vôtre.
             Vous pouvez charger le leurre d'une mine et la faire exploser à votre bon vouloir.
-            L'ennemie ne saura pas faire la différence entre votre vrai sous-marin et le leurre largué.
+            L'ennemi ne saura pas faire la différence entre votre vrai sous-marin et le leurre largué.
           • Vous ne pouvez larguer qu'un leurre à la fois.
           • Le leurre possède 2 PV et fonctionne comme un sous-marin.
           • Le leurre se déplace tout seul dans la direction opposée a la vôtre
             (Si vous choisissez le cap NORD, le leurre partira au cap SUD) 
-          • L'ennemie recevra deux directions de cap et ne pourra faire la distinction entre le sous-marin et le leurre.
+          • L'ennemi recevra deux directions de cap et ne pourra faire la distinction entre le sous-marin et le leurre.
           • Vous pouvez charger une mine dans le leurre, cette mine fonctionne de la même manière que les autres.
           • Si le leurre essaye de traverser une île, il explose sur place. 
           • Si le leurre est chargé d'une mine et qu'il explose par n'importe quel moyen,
