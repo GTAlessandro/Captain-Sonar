@@ -421,7 +421,7 @@ regles = """
               • Le Capitaine n'a pas besoin de déclencher la mine qui explosera au contact de TOUT sous-marin qui la traverse,
                 même le sous-marin qui a largué la mine. 
               • Lorsqu'un sous-marin navigue sur l'emplacement de la mine, un message apparaîtra pour prévenir le sous-marin en question.
-              • Surpris par cette explosion, le sous-marin ennemi ne pourra pas déclencher de capacité ce tour-ci.
+              • Surpris par cette explosion, le sous-marin ennemi ne pourra pas déclencher de système ce tour-ci.
               • Elle infligera : 
                 - 2 points de dégâts si l'impact est exactement sur la même case.
                 - 1 point sur une case adjacent au sous-marin ennemi.

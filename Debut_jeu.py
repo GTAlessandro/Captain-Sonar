@@ -63,8 +63,8 @@ def lancer_jeu() :
     cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2 = sous_marin_e2.definition_du_cadran()
 
     #initialisation des compétences des sous-marins
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = sous_marin_e1.def_capacitee()
-    arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2 = sous_marin_e1.def_capacitee()
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = sous_marin_e1.def_systeme()
+    arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2 = sous_marin_e1.def_systeme()
 
     #9) Début de la boucle
     jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2, arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2)#lancement de la boucle du jeu
@@ -130,7 +130,7 @@ def def_ekip(nb_joueur):
         #Définition équipe 2
         j2 = input("\n\nJoueur 2, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e2 = input(f"{j2}, veuillez rentrer le nom de votre équipe : ")
-        j3 = input(f"Joueur 3, vous faites partie de l'équipe {nom_e2}, vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
+        j3 = input(f"Joueur 3, vous faites partie de l'équipe '{nom_e2}', vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second, Mécano et Détecteur : {j1}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j2}\nDétecteur : {j3}\n")
@@ -145,12 +145,12 @@ def def_ekip(nb_joueur):
         #Définition équipe 1
         j1 = input("\nJoueur 1, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e1 = input(f"{j1}, veuillez rentrer le nom de votre équipe : ")
-        j2 = input(f"Joueur 2, vous faites partie de l'équipe {nom_e1}, vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
+        j2 = input(f"Joueur 2, vous faites partie de l'équipe '{nom_e1}', vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
         j3 = input("\n\nJoueur 3, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e2 = input(f"{j3}, veuillez rentrer le nom de votre équipe :")
-        j4 = input(f"Joueur 4, vous faites partie de l'équipe {nom_e2}, vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
+        j4 = input(f"Joueur 4, vous faites partie de l'équipe '{nom_e2}', vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j3}\nDétecteur : {j4}\n")
@@ -165,13 +165,13 @@ def def_ekip(nb_joueur):
         #Définition équipe 1
         j1 = input("\nJoueur 1, vous cumulerez le rôle de Capitaine, de Second et de Mécano dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e1 = input(f"{j1}, veuillez rentrer le nom de votre équipe : ")
-        j2 = input(f"Joueur 2, vous faites partie de l'équipe {nom_e1}, vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
+        j2 = input(f"Joueur 2, vous faites partie de l'équipe '{nom_e1}', vous serez le détecteur à bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
         j3 = input("\n\nJoueur 3, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e2 = input(f"{j3}, veuillez rentrer le nom de votre équipe : ")
-        j4 = input(f"Joueur 4, vous faites partie de l'équipe {nom_e2}, vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
-        j5 = input(f"Joueur 5, vous faites partie de l'équipe {nom_e2}, vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
+        j4 = input(f"Joueur 4, vous faites partie de l'équipe '{nom_e2}', vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
+        j5 = input(f"Joueur 5, vous faites partie de l'équipe '{nom_e2}', vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j3}\nMécano : {j4}\nDétecteur : {j5}")
@@ -186,14 +186,14 @@ def def_ekip(nb_joueur):
         #Définition équipe 1
         j1 = input("\nJoueur 1, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e1 = input(f"{j1}, veuillez rentrer le nom de votre équipe : ")
-        j2 = input(f"Joueur 2, vous faites partie de l'équipe {nom_e1}, vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
-        j3 = input(f"Joueur 3, vous faites partie de l'équipe {nom_e1}, vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
+        j2 = input(f"Joueur 2, vous faites partie de l'équipe '{nom_e1}', vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
+        j3 = input(f"Joueur 3, vous faites partie de l'équipe '{nom_e1}', vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
         j4 = input("\n\nJoueur 4, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e2 = input(f"{j4}, veuillez rentrer le nom de votre équipe : ")
-        j5 = input(f"Joueur 5, vous faites partie de l'équipe {nom_e2}, vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
-        j6 = input(f"Joueur 6, vous faites partie de l'équipe {nom_e2}, vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
+        j5 = input(f"Joueur 5, vous faites partie de l'équipe '{nom_e2}', vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
+        j6 = input(f"Joueur 6, vous faites partie de l'équipe '{nom_e2}', vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
 
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j4}\nMécano : {j5}\nDétecteur : {j6}")
@@ -208,15 +208,15 @@ def def_ekip(nb_joueur):
         #Définition équipe 1
         j1 = input("\nJoueur 1, vous cumulerez le rôle de Capitaine et de Second dans votre équipe. Veuillez rentrer votre nom : ")
         nom_e1 = input(f"{j1}, veuillez rentrer le nom de votre équipe : ")
-        j2 = input(f"Joueur 2, vous faites partie de l'équipe {nom_e1}, vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
-        j3 = input(f"Joueur 3, vous faites partie de l'équipe {nom_e1}, vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
+        j2 = input(f"Joueur 2, vous faites partie de l'équipe '{nom_e1}', vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
+        j3 = input(f"Joueur 3, vous faites partie de l'équipe '{nom_e1}', vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
         j4 = input("\n\nJoueur 4, vous êtes le Capitaine de votre équipe. Veuillez rentrer votre nom : ")
         nom_e2 = input(f"{j4}, veuillez rentrer le nom de votre équipe : ")
-        j5 = input(f"Joueur 5, vous faites partie de l'équipe {nom_e2}, vous serez le Second à bord. Veuillez rentrer votre nom : ")
-        j6 = input(f"Joueur 6, vous faites partie de l'équipe {nom_e2}, vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
-        j7 = input(f"Joueur 7, vous faites partie de l'équipe {nom_e2}, vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
+        j5 = input(f"Joueur 5, vous faites partie de l'équipe '{nom_e2}', vous serez le Second à bord. Veuillez rentrer votre nom : ")
+        j6 = input(f"Joueur 6, vous faites partie de l'équipe '{nom_e2}', vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
+        j7 = input(f"Joueur 7, vous faites partie de l'équipe '{nom_e2}', vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
         
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine :{j4}\nSecond : {j5}\nMécano : {j6}\nDétecteur : {j7}")
@@ -231,16 +231,16 @@ def def_ekip(nb_joueur):
         #Définition équipe 1
         j1 = input("\nJoueur 1, vous êtes le Capitaine de votre équipe. Veuillez rentrer votre nom : ")
         nom_e1 = input(f"{j1}, veuillez rentrer le nom de votre équipe : ")
-        j2 = input(f"Joueur 2, vous faites partie de l'équipe {nom_e1}, vous serez le Second à bord. Veuillez rentrer votre nom : ")
-        j3 = input(f"Joueur 3, vous faites partie de l'équipe {nom_e1}, vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
-        j4 = input(f"Joueur 4, vous faites partie de l'équipe {nom_e1}, vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
+        j2 = input(f"Joueur 2, vous faites partie de l'équipe '{nom_e1}', vous serez le Second à bord. Veuillez rentrer votre nom : ")
+        j3 = input(f"Joueur 3, vous faites partie de l'équipe '{nom_e1}', vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
+        j4 = input(f"Joueur 4, vous faites partie de l'équipe '{nom_e1}', vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
         
         #Définition équipe 2
         j5 = input("\n\nJoueur 5, vous êtes le Capitaine de votre équipe. Veuillez rentrer votre nom : ")
         nom_e2 = input(f"{j5}, veuillez rentrer le nom de votre équipe : ")
-        j6 = input(f"Joueur 6, vous faites partie de l'équipe {nom_e2}, vous serez le Second à bord. Veuillez rentrer votre nom : ")
-        j7 = input(f"Joueur 7, vous faites partie de l'équipe {nom_e2}, vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
-        j8 = input(f"Joueur 8, vous faites partie de l'équipe {nom_e2}, vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
+        j6 = input(f"Joueur 6, vous faites partie de l'équipe '{nom_e2}', vous serez le Second à bord. Veuillez rentrer votre nom : ")
+        j7 = input(f"Joueur 7, vous faites partie de l'équipe '{nom_e2}', vous serez le Mécano à bord. Veuillez rentrer votre nom : ")
+        j8 = input(f"Joueur 8, vous faites partie de l'équipe '{nom_e2}', vous serez le Détecteur à bord. Veuillez rentrer votre nom : ")
         
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine : {j1}\nSecond : {j2}\nMécano : {j3}\nDétecteur : {j4}\n\n===== EQUIPE {nom_e2} =====\nCapitaine : {j5}\nSecond : {j6}\nMécano : {j7}\nDétecteur : {j8}")
@@ -426,8 +426,8 @@ def lettre_to_chiffre(lettre):
 
 def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
 
-    print(f"⚠⚠⚠ Attention ⚠⚠⚠ : c'est à l'équipe {nom_e} de jouer.\n")
-    print(f"Capitaine {capitaine} de l'équipe '{nom_e}', plongez ! \n")
+    print(f"⚠⚠⚠ Attention ⚠⚠⚠ : c'est à l'équipe '{nom_e}' de jouer.\n")
+    print(f"Capitaine '{capitaine}' de l'équipe '{nom_e}', plongez ! \n")
 
     Carte.Afficher_carte()
 
@@ -458,7 +458,7 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
 #garder pour le déplacement du transparent :
 def start_transparent(detecteur, nom, Carte, derniere_colonne, derniere_ligne) :
     print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au DETECTEUR {detecteur}, de l'équipe {nom} de jouer.\n")
+    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détécteur '{detecteur}', de l'équipe '{nom}' de jouer.\n")
     input("\nSUIVANT\n")
     print("\nVoici votre transparent :\n")
     
@@ -516,16 +516,17 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     position_e1 = x1, y1
     position_e2 = x2, y2
 
-    #1) le capitaine déplace son vaisseau
+    #EQUIPE 1 :
+    #1) le capitaine de l'équipe 1 déplace son vaisseau
     position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
 
-    #2) le mecano rentre une panne dans le cadran associer au cap
+    #2) le mecano de l'équipe 1 rentre une panne dans le cadran associer au cap
     cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
 
-    #3) le second augmente la jauge d'un système
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+    #3) le second de l'équipe 1 augmente la jauge d'un système
+    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
 
-    #4) l'équipe peut déclencher une compétence
+    #4) l'équipe 1 peut déclencher une compétence
     declenchement_competencees(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1)
 
     #5) le detecteur adverse rentre le cap ennemi
@@ -550,11 +551,11 @@ def annonce_cap(position, capitaine, carte, sous_marin, nom) :
 
             #si le cap est = a ouest et est supérière à 0 étant la limite de la map
             if cap == "OUEST" and y > 0 :
-                #si le nouvelle emplacement du sous-marin contient la string "."
+                #si le nouvelle emplacement du sous-marin contient la string "." étant un emplacement valide pour le sous-marin
                 if carte.carte[x][y - 1] == "." :
                     #alors on est autorisé a déplacer le sm et mettre a jour sa position
                     position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
-                    return position, cap #retour de la nouvelle position contenant x, y ainsi que son cap pour les fonctions panne et choix_capacitee
+                    return position, cap #retour de la nouvelle position contenant x, y ainsi que son cap pour les fonctions panne et choix_systeme
                     
                 else : 
                     print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
@@ -585,6 +586,7 @@ def annonce_cap(position, capitaine, carte, sous_marin, nom) :
 
             elif cap == "RETOUR" :
                 position, cap = deplacement(position, capitaine, carte, sous_marin, nom)
+                break
 
             else :
                 print("❌ Entrez une valeur valide !\n\n\n")
@@ -608,7 +610,7 @@ def faire_surface(carte, sous_marin) :
 
 def deplacement(position, capitaine, Carte, sous_marin, nom) :
     print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine {capitaine} de l'équipe {nom} de jouer.")
+    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine : '{capitaine}', de l'équipe '{nom}' de jouer.")
     input("\nSUIVANT\n")
     Carte.Afficher_carte()
 
@@ -640,7 +642,7 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
 def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
     if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
         print(changement)
-        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano {mecano}, de l'équipe {nom} de jouer.")
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano : '{mecano}', de l'équipe '{nom}' de jouer.")
         input("\nSUIVANT")
         print(f"\nVotre capitaine à annoncé le cap : {cap}\n")
 
@@ -665,7 +667,7 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
 
     else :
         print(changement)
-        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano {mecano}, de l'équipe {nom} de jouer.")
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano : '{mecano}', de l'équipe '{nom}' de jouer.")
         input("\nSUIVANT")
         print(f"\n\nLe capitaine ennemi a fait surface et n'annoncera pas de cap pendant 3 tours !\nLe Mécano n'a pas besoin de choisir une panne et celle-ci sont toutes réparées.")
         
@@ -682,19 +684,19 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
 '''3) Le second augmente la jauge d'un système'''
 #===============================================#
 
-def choix_capacitee(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
+def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
     print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Second {second}, de l'équipe {nom} de jouer.")
+    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Second : '{second}', de l'équipe '{nom}' de jouer.")
     input("\nSUIVANT")
 
-    sous_marin.afficher_capacitee(arme1, arme2, dete1, dete2, spe)
+    sous_marin.afficher_systeme(arme1, arme2, dete1, dete2, spe)
 
     while True :
         try :
-            choix_second = int(input(f"\n{second}, choisissez une compétence à charger (1-5) : "))
+            choix_second = int(input(f"\n'{second}', choisissez une compétence à charger (1-5) : "))
             
             if 1 <= choix_second <= 5 :
-                mince, arme1, arme2, dete1, dete2, spe = sous_marin.charger_capacitee(choix_second, arme1, arme2, dete1, dete2, spe)
+                mince, arme1, arme2, dete1, dete2, spe = sous_marin.charger_systeme(choix_second, arme1, arme2, dete1, dete2, spe)
                 
                 while mince != True :
                     try : 
@@ -702,7 +704,7 @@ def choix_capacitee(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
                         
                         if 1 <= choix_second <= 5 :
                             mince = True
-                            mince, arme1, arme2, dete1, dete2, spe = sous_marin.charger_capacitee(choix_second, arme1, arme2, dete1, dete2, spe)
+                            mince, arme1, arme2, dete1, dete2, spe = sous_marin.charger_systeme(choix_second, arme1, arme2, dete1, dete2, spe)
                         
                         else :
                             print("Veuillez entrer un chiffre compris entre 1 et 5.")
@@ -724,18 +726,23 @@ def choix_capacitee(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
 '''4) déclenchement de compétencee'''
 #====================================#
 
-def declenchement_competencees(arme1, arme2, dete1, dete2, spe, sous_marin) :
+def declenchement_competencees(arme1, arme2, dete1, dete2, spe, sous_marin, second, capitaine) :
 
-    print("\n\nVoulez-vous déclancher une compétence ?\n1 - non\n2 - oui")
+    if sous_marin.nom  == "Tigre" and sous_marin.a1== False and sous_marin.a2 == False and sous_marin.d1 == False and sous_marin.d2 == False and sous_marin.spe == False : 
+        print("Aucun sys")
+        return
+
+    print(f"\n\nCapitaine : '{capitaine}' ou Second : '{second}', voulez-vous déclancher un système ?\n1 - non\n2 - oui")
 
     while True :
         try : 
-            choix = input("Sélectionnez une option (1 ou 2) : ")
+            choix = int(input("Sélectionnez une option (1 ou 2) : "))
 
-            if choix == 1 :
-                #afficher les capacitées prêts a être larguer
-                #activer les capacitées à larguer
+            if choix == 2 :
+                #afficher les systèmes prêts a être larguer
+                #activer les systèmes à larguer
                 print("a faire chef")
+
 
         except ValueError :
             print("❌ Veuillez sélectionner une option valide ! ")

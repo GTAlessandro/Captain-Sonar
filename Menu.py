@@ -2,14 +2,11 @@ from Debut_jeu import lancer_jeu
 from Var_affichage import bonjour, regles
 
 def menu_principale():
-
     print(bonjour)
-    entry = input("Option choisis : ")
-
+    
     while True:
         try :
-
-            entry = int(entry)
+            entry = int(input("Option choisis : "))
 
             if entry == 1 :
                 lancer_jeu() # fonction du fichier jeu permettant de lancer le jeu dans Jeu.py
@@ -42,12 +39,8 @@ def menu_principale():
             else :
                 print("S'il vous plait, entrez une valeur correcte comprise dans les options du menu...")
                 input("\nSUIVANT")
-                menu_principale()
                 
         except ValueError:
             print("S'il vous plait, entrez un chiffre valide compris dans les options du menu...")  
             input("\nSUIVANT")
-            menu_principale()
-
-
 

@@ -379,7 +379,7 @@ class SousMarin:
         return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
     
-    def def_capacitee(self) :
+    def def_systeme(self) :
         a1 = "0"
         a2 = "0"
         a3 = "0"
@@ -431,7 +431,7 @@ class SousMarin:
         return arme1, arme2, dete1, dete2, spe
 
 
-    def charger_capacitee(self, choix, arme1, arme2, dete1, dete2, spe):
+    def charger_systeme(self, choix, arme1, arme2, dete1, dete2, spe):
         
         mince = True 
 
@@ -585,11 +585,11 @@ class SousMarin:
             if spe[0] == "#" and spe[1] == "#" and spe[2] == "#" and spe[3] == "#" and spe[4] == "#" and spe[5] == "#" :
                 self.spe = True
 
-        self.afficher_capacitee(arme1, arme2, dete1, dete2, spe)
+        self.afficher_systeme(arme1, arme2, dete1, dete2, spe)
 
         return mince, arme1, arme2, dete1, dete2, spe
 
-    def afficher_capacitee(self, arme1, arme2, dete1, dete2, spe) :
+    def afficher_systeme(self, arme1, arme2, dete1, dete2, spe) :
         a1 = arme1[0]
         a2 = arme1[1]
         a3 = arme1[2]
@@ -627,8 +627,8 @@ class SousMarin:
 
 
         if self.nom == "Tigre" :
-            capacite = f'''            
-            ============================================= Capacitées ====================================================
+            systemes = f'''            
+            ============================================= Systèmes ====================================================
 
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
                 | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Silence  |
@@ -659,8 +659,8 @@ class SousMarin:
         #=============#
         
         if self.nom == "Ecureille" :
-            capacite = f'''            
-            ============================================= Capacitées ====================================================
+            systemes = f'''            
+            ============================================= Systèmes ====================================================
 
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
                 | 1 - Torpille |          ~          |  3 - Drone   |          ~          | 5 - Leurre   |
@@ -685,7 +685,7 @@ class SousMarin:
                 ――――――――――――――――          ~          ――――――――――――――――          ~
             '''
 
-        capacite = capacite.replace('Drone', '\033[38;5;208mDrone\033[0m')\
+        systemes = systemes.replace('Drone', '\033[38;5;208mDrone\033[0m')\
                             .replace('Silence', '\033[95mSilence\033[0m')\
                             .replace('Leurre', '\033[95mLeurre\033[0m')\
                             .replace('Sonar', '\033[38;5;208mSonar\033[0m')\
@@ -693,7 +693,7 @@ class SousMarin:
                             .replace('Mine', '\033[91mMine\033[0m')\
                             .replace('#', '\033[92m#\033[0m')\
                             
-        print(capacite)
+        print(systemes)
 
 
     def torpiller(self, cible):
