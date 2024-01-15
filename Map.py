@@ -60,67 +60,43 @@ class Carte :
         h = int(self.hauteur) - 1
         l = int(self.largeur) - 1
 
-        if cap == "OUEST" and x > 0:
-            if self.carte[x][y-1] == "." :
-                self.carte[x][y] = "—"
-                y -= 1
-                self.carte[x][y] = sous_marin.nom[0]
-                sous_marin.pos = x, y
-                print("\nVoici votre nouvel emplacement : \n")
-                self.Afficher_carte()
-                return x, y #nouvelle position
-            else : 
-                print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
-                input("\nSUIVANT")
-                return x, y
+        if cap == "OUEST" and y > 0 :
+            self.carte[x][y] = "—"
+            y -= 1
+            self.carte[x][y] = sous_marin.nom[0]
+            sous_marin.pos = x, y
+            print("\nVoici votre nouvel emplacement : \n")
+            self.Afficher_carte()
+            return x, y #nouvelle position
 
-        elif cap == "EST" and x < l :
-            if self.carte[x][y+1] == "." :
-                self.carte[x][y] = "—"
-                y += 1
-                self.carte[x][y] = sous_marin.nom[0]
-                sous_marin.pos = x, y
-                print("\nVoici votre nouvel emplacement : \n")
-                self.Afficher_carte()
-                return x, y #nouvelle position
-            else : 
-                print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
-                input("\nSUIVANT")
-                return x, y
+        elif cap == "EST" and y < l :
+            self.carte[x][y] = "—"
+            y += 1
+            self.carte[x][y] = sous_marin.nom[0]
+            sous_marin.pos = x, y
+            print("\nVoici votre nouvel emplacement : \n")
+            self.Afficher_carte()
+            return x, y #nouvelle position
 
-        elif cap == "NORD" and y > 0:
-            if self.carte[x-1][y] == "." :
-                self.carte[x][y] = "|" 
-                x -= 1   
-                self.carte[x][y] = sous_marin.nom[0]
-                sous_marin.pos = x, y
-                print("\nVoici votre nouvel emplacement : \n")
-                self.Afficher_carte()
-                return x, y #nouvelle position
-            else : 
-                print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
-                input("\nSUIVANT")
-                return x, y
+        elif cap == "NORD" :
+            self.carte[x][y] = "|" 
+            x -= 1   
+            self.carte[x][y] = sous_marin.nom[0]
+            sous_marin.pos = x, y
+            print("\nVoici votre nouvel emplacement : \n")
+            self.Afficher_carte()
+            return x, y #nouvelle position
 
-        elif cap == "SUD" and y < h :
-            if self.carte[x+1][y] == "." :
-                self.carte[x][y] = "|"
-                x += 1
-                self.carte[x][y] = sous_marin.nom[0]
-                sous_marin.pos = x, y
-                print("\nVoici votre nouvel emplacement : \n")
-                self.Afficher_carte()
-                return x, y #nouvelle position
-            else : 
-                print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
-                input("\nSUIVANT")
-                return x, y
+        elif cap == "SUD" :
+            self.carte[x][y] = "|"
+            x += 1
+            self.carte[x][y] = sous_marin.nom[0]
+            sous_marin.pos = x, y
+            print("\nVoici votre nouvel emplacement : \n")
+            self.Afficher_carte()
+            return x, y #nouvelle position
 
-        else:
-            print("Déplacement invalide. Veuillez choisir un cap valide.")
-            annonce_cap(position, capitaine, carte, sous_marin) #si erreur de déplacement (en dehors de la map ou sur une île) alors on redemande le cap
-            return x, y
-
+       
     #on place le premier cap sur le transparent
     def start_trans(self, position):
         x, y = position #la première valeur place le sous marin de colonne, la deuxième de ligne

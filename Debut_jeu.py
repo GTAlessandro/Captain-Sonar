@@ -524,17 +524,6 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
 
     #3) le second augmente la jauge d'un système
     arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_capacitee(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-
 
     #4) l'équipe peut déclencher une compétence
     declenchement_competencees(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1)
@@ -549,18 +538,53 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
 '''1) Annonce de cap'''
 #=====================#
 
-def annonce_cap(position, capitaine, carte, sous_marin) : 
+def annonce_cap(position, capitaine, carte, sous_marin, nom) : 
+    x, y = position
+    h = int(carte.hauteur) - 1
+    l = int(carte.largeur) - 1
+
     while True :
         try :
-            cap = input(f"\n{capitaine}, annoncez un cap à votre équipe (OUEST, NORD, EST, SUD): ")
+            cap = input(f"\n{capitaine}, annoncez un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner en arrière (RETOUR): ")
             cap = cap.upper()
 
-            if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
-                position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
-                return position, cap #nouvelle position contenant x, y
+            if cap == "OUEST" and y > 0 :
+                if carte.carte[x][y - 1] == "." :
+                    position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
+                    return position, cap #nouvelle position contenant x, y
+                    
+                else : 
+                    print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
+
+            elif cap == "EST" and y < l :
+                if carte.carte[x][y + 1] == "." :
+                    position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
+                    return position, cap #nouvelle position contenant x, y
+                    
+                else : 
+                    print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
+
+            elif cap == "NORD" and x > 0 :
+                if carte.carte[x - 1][y] == "." :
+                    position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
+                    return position, cap #nouvelle position contenant x, y
+
+                else : 
+                    print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
+
+            elif cap == "SUD" and x < h :
+                if carte.carte[x + 1][y] == "." :
+                    position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
+                    return position, cap #nouvelle position contenant x, y
+
+                else : 
+                    print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
+
+            elif cap == "RETOUR" :
+                position, cap = deplacement(position, capitaine, carte, sous_marin, nom)
 
             else :
-                print("❌ Annoncez un cap valide !\n\n\n")
+                print("❌ Entrez une valeur valide !\n\n\n")
 
         except ValueError :
             print("❌ Entrez une valeur valide.\n\n\n")
@@ -590,7 +614,7 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
             entete_deplacement = int(input("\n  1 - Choisir un cap\n  2 - Faire surface\n\n  Sélectionner une action : "))
 
             if entete_deplacement == 1 :
-                position, cap = annonce_cap(position, capitaine, Carte, sous_marin)
+                position, cap = annonce_cap(position, capitaine, Carte, sous_marin, nom)
                 input("\nSUIVANT")
                 return position, cap.upper()
                 
