@@ -548,10 +548,13 @@ def annonce_cap(position, capitaine, carte, sous_marin, nom) :
             cap = input(f"\n{capitaine}, annoncez un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner en arrière (RETOUR): ")
             cap = cap.upper()
 
+            #si le cap est = a ouest et est supérière à 0 étant la limite de la map
             if cap == "OUEST" and y > 0 :
+                #si le nouvelle emplacement du sous-marin contient la string "."
                 if carte.carte[x][y - 1] == "." :
+                    #alors on est autorisé a déplacer le sm et mettre a jour sa position
                     position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
-                    return position, cap #nouvelle position contenant x, y
+                    return position, cap #retour de la nouvelle position contenant x, y ainsi que son cap pour les fonctions panne et choix_capacitee
                     
                 else : 
                     print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")

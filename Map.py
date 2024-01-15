@@ -60,16 +60,20 @@ class Carte :
         h = int(self.hauteur) - 1
         l = int(self.largeur) - 1
 
-        if cap == "OUEST" and y > 0 :
+        if cap == "OUEST" :
+            #l'emplacement actuelle du sous-marin se transforme en chemin déjà parcourue
             self.carte[x][y] = "—"
+            #changement de position
             y -= 1
+            #la nouvelle position se transforme en la première lettre du sm
             self.carte[x][y] = sous_marin.nom[0]
+            #maj de la position du sm
             sous_marin.pos = x, y
             print("\nVoici votre nouvel emplacement : \n")
             self.Afficher_carte()
-            return x, y #nouvelle position
+            return x, y #retour de la nouvelle position
 
-        elif cap == "EST" and y < l :
+        elif cap == "EST" :
             self.carte[x][y] = "—"
             y += 1
             self.carte[x][y] = sous_marin.nom[0]
