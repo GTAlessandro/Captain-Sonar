@@ -373,7 +373,7 @@ def selection_map(j1) :
 def selection_sous_marins(capitaine_e1, capitaine_e2) :
     
     #pool des sous-marins dispo
-    sous_marins_disponibles = {
+    sous_marins_disponibles = { #DEBUGGER CETTE PARTIE CAR SI JE SELECTIONNE DEUX FOIS 1 ALORS, NOTAMMENT METTRE LE RETURN DANS LA BOUCLE ET INVERSER LES CONDITIONS POUR AVOIR LERREUR DANS LE ELSE ET LE RETURN DANS UN IF PCK SINON MEME SI YA LA CROIX ON A UN RETURN QUI SORT DE LA FONCTION
         1: S1,
         2: S2,
     }
@@ -397,7 +397,7 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
             choix_e2 = int(input(f"\n{capitaine_e2}, sélectionnez votre sous-marin : "))
             sous_marin_e2 = sous_marins_disponibles.get(choix_e2)
 
-            if sous_marin_e2 is None:
+            if sous_marin_e2 is None or sous_marin_e2 == sous_marin_e1:
                 print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
         except ValueError:
@@ -459,7 +459,6 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
 def start_transparent(detecteur, nom, Carte, derniere_colonne, derniere_ligne) :
     print(changement)
     print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détécteur '{detecteur}', de l'équipe '{nom}' de jouer.\n")
-    input("\nSUIVANT\n")
     print("\nVoici votre transparent :\n")
     
     #Start du transparent
@@ -486,9 +485,9 @@ def start_transparent(detecteur, nom, Carte, derniere_colonne, derniere_ligne) :
 
 
 
-#===============================================================================================#
-'''9) =====================================DEBUT BOUCLE======================================='''
-#===============================================================================================#
+#============================================================================================#
+'''=====================================DEBUT BOUCLE======================================='''
+#============================================================================================#
 
 def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, x_t_e1, y_t_e1, x_t_e2, y_t_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2, arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2) :
     
@@ -516,20 +515,29 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     position_e1 = x1, y1
     position_e2 = x2, y2
 
-    #EQUIPE 1 :
-    #1) le capitaine de l'équipe 1 déplace son vaisseau
-    position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
+    #condition pour continuer de jouer en boucle 
+    fin = False
 
-    #2) le mecano de l'équipe 1 rentre une panne dans le cadran associer au cap
-    cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
+    while fin == False :
+        #EQUIPE 1 :
+        #1) le capitaine de l'équipe 1 déplace son vaisseau
+        position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
+        print("position sm e1 : ",sous_marin_e1.pos)
+        print("position sm e2 : ",sous_marin_e2.pos) #PETIT PROBLEME ICI
 
-    #3) le second de l'équipe 1 augmente la jauge d'un système
-    arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
+        #2) le mecano de l'équipe 1 rentre une panne dans le cadran associer au cap
+        cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
 
-    #4) l'équipe 1 peut déclencher une compétence
-    declenchement_competencees(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1)
+        #3) le second de l'équipe 1 augmente la jauge d'un système
+        arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
 
-    #5) le detecteur adverse rentre le cap ennemi
+        #4) l'équipe 1 peut déclencher une compétence
+        fin = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2)
+
+        #5) le detecteur adverse rentre le cap ennemi
+
+    print(fin)
+    print("BRAVO JEU FINI")
 
 
     
@@ -546,7 +554,7 @@ def annonce_cap(position, capitaine, carte, sous_marin, nom) :
 
     while True :
         try :
-            cap = input(f"\n{capitaine}, annoncez un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner en arrière (RETOUR): ")
+            cap = input(f"\n{capitaine}, annoncez un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner en arrière (7): ")
             cap = cap.upper()
 
             #si le cap est = a ouest et est supérière à 0 étant la limite de la map
@@ -578,15 +586,14 @@ def annonce_cap(position, capitaine, carte, sous_marin, nom) :
 
             elif cap == "SUD" and x < h :
                 if carte.carte[x + 1][y] == "." :
-                    position = carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
+                    position= carte.deplacement_sm(position, sous_marin, cap, capitaine, carte)
                     return position, cap #nouvelle position contenant x, y
 
                 else : 
                     print("\nLa nouvelle position n'est pas valide, vous ne pouvez vous déplacer que sur les '.'")
 
-            elif cap == "RETOUR" :
-                position, cap = deplacement(position, capitaine, carte, sous_marin, nom)
-                break
+            elif cap == "7" :
+                return position, cap
 
             else :
                 print("❌ Entrez une valeur valide !\n\n\n")
@@ -620,8 +627,9 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
 
             if entete_deplacement == 1 :
                 position, cap = annonce_cap(position, capitaine, Carte, sous_marin, nom)
-                input("\nSUIVANT")
-                return position, cap.upper()
+                if cap != "7" : 
+                    input("\nSUIVANT")
+                    return position, cap.upper()
                 
             elif entete_deplacement == 2 :
                 faire_surface(Carte, sous_marin)
@@ -640,6 +648,7 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
 #==============================#
 
 def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
+    #importe de mettre la condition, car le capitaine peut faire surface !
     if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
         print(changement)
         print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano : '{mecano}', de l'équipe '{nom}' de jouer.")
@@ -669,7 +678,7 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
         print(changement)
         print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano : '{mecano}', de l'équipe '{nom}' de jouer.")
         input("\nSUIVANT")
-        print(f"\n\nLe capitaine ennemi a fait surface et n'annoncera pas de cap pendant 3 tours !\nLe Mécano n'a pas besoin de choisir une panne et celle-ci sont toutes réparées.")
+        print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\nLe Mécano n'a pas besoin de choisir une panne et celle-ci sont toutes réparées.")
         
         choix_meca = "AUCUN"
         
@@ -703,49 +712,105 @@ def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
                         choix_second = int(input(f"\n{second}, choisissez une compétence qui n'est pas déjà chargée (1-5) : "))
                         
                         if 1 <= choix_second <= 5 :
-                            mince = True
                             mince, arme1, arme2, dete1, dete2, spe = sous_marin.charger_systeme(choix_second, arme1, arme2, dete1, dete2, spe)
                         
                         else :
-                            print("Veuillez entrer un chiffre compris entre 1 et 5.")
+                            print("❌ Veuillez entrer un chiffre compris entre 1 et 5.\n\n")
 
                     except ValueError : 
-                        print("Veuillez choisir un chiffre compris dans les compétences du vaisseau.")    
+                        print("❌ Veuillez choisir un chiffre compris dans les compétences du vaisseau.\n\n")    
 
                 input("\nSUIVANT")
                 return arme1, arme2, dete1, dete2, spe
             
             else :
-                print("Veuillez entrer un chiffre compris entre 1 et 5.")
+                print("❌ Veuillez entrer un chiffre compris entre 1 et 5.\n\n")
 
         except ValueError : 
-            print("Veuillez choisir un chiffre compris dans les compétences du vaisseau.")
+            print("❌ Veuillez choisir un chiffre compris dans les compétences du vaisseau.\n\n")
             
 
 #====================================#
 '''4) déclenchement de compétencee'''
 #====================================#
 
-def declenchement_competencees(arme1, arme2, dete1, dete2, spe, sous_marin, second, capitaine) :
+def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e) :
+    fin = False
 
-    if sous_marin.nom  == "Tigre" and sous_marin.a1== False and sous_marin.a2 == False and sous_marin.d1 == False and sous_marin.d2 == False and sous_marin.spe == False : 
-        print("Aucun sys")
-        return
-
-    print(f"\n\nCapitaine : '{capitaine}' ou Second : '{second}', voulez-vous déclancher un système ?\n1 - non\n2 - oui")
+    if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == False and sous_marin.a2 == False and sous_marin.d1 == False and sous_marin.d2 == False and sous_marin.spe == False : 
+        print("\n\nAucun système ne peut être déclencher\n")
+        input("SUIVANT")
+        return fin
 
     while True :
         try : 
+            print(f"\n\nCapitaine : '{capitaine}' ou Second : '{second}', voulez-vous déclancher un système ?\n1 - non\n2 - oui\n")
             choix = int(input("Sélectionnez une option (1 ou 2) : "))
 
             if choix == 2 :
                 #afficher les systèmes prêts a être larguer
-                #activer les systèmes à larguer
-                print("a faire chef")
+                if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == True :
+                    print("\n1 - Votre toprille est prête à être larguer !")
+                
+                if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2 == True :
+                    print("2 - Votre mine est prête à être larguer !")
 
+                if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True :
+                    print("3 - Votre drone est prêt à être larguer !")
+
+                if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d2 == True :
+                    print("4 - Votre sonar est prêt à être lancer !")
+
+                if sous_marin.nom == "Tigre" and sous_marin.spe == True :
+                    print("5 - Votre silence est prêt à être lancer !")
+
+                if sous_marin.nom == "Ecureille" and sous_marin.spe == True :
+                    print("5 - Votre leurre est prêt à être lancer !")
+
+                #activer les systèmes à larguer
+                while True :
+                    try :
+                        choix_systeme = int(input("\nSelectionner le système que vous voulez utiliser (1-5) ou retourner en arrière (7): "))
+                        
+                        if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == True and choix_systeme == 1 :
+                            #fonction lancer torpille
+                            fin = sous_marin.larguer_torpille(sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e)
+                            return fin
+
+                        if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2 == True and choix_systeme == 2 :
+                            #fonction larguer mine
+                            print("sous_marin.larguer_mine()")
+
+                        if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True and choix_systeme == 3 :
+                            #fonction lancer drone
+                            print("sous_marin.larguer_drone()")
+
+                        if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d2 == True and choix_systeme == 4 :
+                            #fonction lancer sonar
+                            print("sous_marin.lancer_sonar()")
+
+                        if sous_marin.nom == "Tigre" and sous_marin.spe == True and choix_systeme == 5 :
+                            #fonction lancer silence
+                            print("sous_marin.lancer_silence()")
+
+                        if sous_marin.nom == "Ecureille" and sous_marin.spe == True and choix_systeme == 5 :
+                            #fonction lancer leurre
+                            print("sous_marin.lancer_leurre()")
+
+                        if choix_systeme == 7 :
+                            break
+
+                        else :
+                            print("❌ Veuillez sélectionner un système chargé !\n\n")
+
+                    except ValueError :
+                        print("❌ Veuillez entrer un chiffre valide !\n\n")
+
+            elif choix == 1 :
+                return fin
 
         except ValueError :
-            print("❌ Veuillez sélectionner une option valide ! ")
+            print("❌ Veuillez sélectionner une option valide !\n\n")
 
 
         

@@ -17,6 +17,10 @@ class SousMarin:
     def infos(self):
         print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}\n- Armement : {self.a1}, {self.a2} \n- Moyen de detection : {self.d1}, {self.d2}\n- Spéciale : {self.spe}\n- Difficulté : {self.baie}\n")
 
+    #===================================#
+    '''============CADRAN============='''
+    #===================================#
+
     def definition_du_cadran(self):
 
         if self.baie == 1 :
@@ -261,7 +265,7 @@ class SousMarin:
             else : 
                 print("Sélectionnez une panne du cadran EST comprise entre 1 et 6")
 
-        # Si le sous marin fait surface, toute les pannes sont réparées.
+        # Si le sous marin fait surface, toutes les pannes sont réparées.
         elif cap == "AUCUN" :
             cadran_ouest[0] = " JAUNE 1 ARM"
             cadran_ouest[1] = " JAUNE 2 SPE"
@@ -291,10 +295,10 @@ class SousMarin:
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
 
-            print("\n\nVous faite surface ! Toute vos pannes sont réparées !")
+            print("\n\nVous faite surface ! Toutes vos pannes sont réparées !")
 
 
-        # Si toute les pannes des couleurs sont cochés, alors tout est réparé
+        # Si toutes les pannes des couleurs sont cochés, alors tout est réparé
         if cadran_est[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" :
             cadran_est[0] = " JAUNE 1 ARM"
             cadran_ouest[0] = " JAUNE 1 ARM"
@@ -316,7 +320,7 @@ class SousMarin:
             cadran_est[2] = " BLEU  3 SPE"
             print("\n\nVous avez réparé les pannes bleu !")
         
-        # Si toute les pannes d'un cadran son coché, alors elles sont toutes réparé mais le sous marin prend un de dégat !
+        # Si toutes les pannes d'un cadran son coché, alors elles sont toutes réparé mais le sous marin prend un de dégat !
         if cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and cadran_ouest[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T" and cadran_ouest[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_ouest[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
             cadran_ouest[0] = " JAUNE 1 ARM"
             cadran_ouest[1] = " JAUNE 2 SPE"
@@ -324,7 +328,7 @@ class SousMarin:
             cadran_ouest[3] = " NONE  4 DET"
             cadran_ouest[4] = " NONE  5 RAD"
             cadran_ouest[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran OUEST ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran OUEST ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -335,7 +339,7 @@ class SousMarin:
             cadran_nord[3] = " NONE  4 DET"
             cadran_nord[4] = " NONE  5 ARM"
             cadran_nord[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran NORD ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran NORD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -346,7 +350,7 @@ class SousMarin:
             cadran_sud[3] = " NONE  4 ARM"
             cadran_sud[4] = " NONE  5 SPE"
             cadran_sud[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran SUD ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran SUD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -357,11 +361,11 @@ class SousMarin:
             cadran_est[3] = " NONE  4 DET"
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes du cadran SUD ont été cochées, toute vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran SUD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
-        # Si toute les pannes RAD sont cochées, alors elles sont réparées et le sous-marin perd 1 pv
+        # Si toutes les pannes RAD sont cochées, alors elles sont réparées et le sous-marin perd 1 pv
         if cadran_ouest[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_ouest[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_nord[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_sud[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_est[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_est[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D":
             cadran_ouest[4] = " NONE  5 RAD"
             cadran_ouest[5] = " NONE  6 RAD"
@@ -369,7 +373,7 @@ class SousMarin:
             cadran_sud[5] = " NONE  6 RAD"
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
-            print("\n\nToute les pannes RAD ont été cochées, toute vos pannes RAD sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes RAD ont été cochées, toutes vos pannes RAD sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
             
@@ -378,7 +382,10 @@ class SousMarin:
 
         return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
-    
+    #=====================================#
+    '''=============SYSTEMES============'''
+    #=====================================#
+
     def def_systeme(self) :
         a1 = "0"
         a2 = "0"
@@ -427,6 +434,7 @@ class SousMarin:
         dete1 = [c1, c2, c3, c4, c5, c6]
         dete2 = [d1, d2, d3, d4, d5, d6]
         spe = [e1, e2, e3, e4, e5, e6]
+        spe2 = [f1, f2, f3, f4, f5, f6]
 
         return arme1, arme2, dete1, dete2, spe
 
@@ -695,16 +703,86 @@ class SousMarin:
                             
         print(systemes)
 
+    #================================================#
+    '''============ACTIVATION SYSTEMES============='''
+    #================================================#
 
-    def torpiller(self, cible):
-        if self == S1 :
-            print(f"\nLe sous-marin {self.nom} tire une torpille sur le sous-marin {cible.nom} et prend 2 de dégats\n")
-            cible.vie -= 2
-            print(f"========== Sous-marin {cible.nom} ==========\n- Vie restante : {cible.vie}\n")
-        elif self == S2:
-            print(f"\nLe sous-marin {self.nom} tire une torpille sur le sous-marin {cible.nom} et prend 1 de dégats\n")
-            cible.vie -=1
-            print(f"========== Sous-marin {cible.nom} ==========\n- Vie restante : {cible.vie}\n")
+    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e):
+        fin = False
+
+        if self.nom =="Tigre" :
+            print("Selectionner un emplacement sur la map")
+            carte.Afficher_carte()
+            
+            while True :
+                try :
+                    y_lettre = input("\nChoisissez une colonne : ")
+                    y = lettre_to_chiffre(y_lettre)
+                    x = int(input("Choisissez une ligne : ")) - 1
+                    emplacement_tir = x, y
+                    distance_x = abs(self.pos[0] - x) 
+                    distance_y = abs(self.pos[1] - y)
+                    #distance totale parcouru par le missile
+                    distance_totale = distance_x + distance_y
+
+                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                        if distance_totale <= 4 : #TOUT SEUL COMME UN GRAND DU PREMIER COUP HAHAHA JE SUIS TROP HEUREUX JCROIS QUE CA MARCHE
+                            
+                            #si l'emplacement du tir est égale à la position du sous marin ennemi.
+                            if emplacement_tir == sous_marin_ennemi.pos :
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \nIMPACT DIRECT !\n\n")
+                                print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 de dégats !!!\n")
+                                sous_marin_ennemi.vie -= 2
+                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
+                                
+                                if sous_marin_ennemi.vie == 0 :
+                                    fin = True
+                                
+                                input("SUIVANT")
+                                return fin
+
+                            #si l'emplacement du tir est à côté de la position du sous marin ennemi.
+                            elif (x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) :
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \nIMPACT INDIRECT !\n\n")
+                                print(f"\nVous avez tirer une torpille juste à côté sous-marin ennemi '{nom_e}' ! \nIl prend tout de même 1 point de dégats !\n")
+                                sous_marin_ennemi.vie -= 1
+                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
+                                
+                                if sous_marin_ennemi.vie == 0 :
+                                    fin = True
+                                
+                                input("SUIVANT")
+                                return fin
+
+                            #l'emplacement du tire est ni sur le sous-marin ennemi ni à ses alentours.
+                            else :
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \nRAS !\n\n") 
+                                print(f"\nVous avez tirer une torpille dans le vide !\n")
+                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
+                                input("\nSUIVANT")
+                                return fin
+                        
+                        else :
+                            print("❌ Votre sous-marin ne peut larguer une torpille qu'à une distance maximal de 4 cases sans diagonale !\n\n")
+
+                    else : 
+                        print("❌ Veuillez larguer votre torpille dans les limites de la map !\n\n")
+                
+                except ValueError :
+                    print("❌ Veuillez choisir des valeurs valides.\n\n")
+
+        if self.nom == "Ecureille" :
+            print("lancer torpille tigre")
+
+        # if self == S1 :
+        #     print(f"\nLe sous-marin {self.nom} tire une torpille sur le sous-marin {nom_e} et prend 2 de dégats\n")
+        #     sous_marin_ennemi.vie -= 2
+        #     print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
+
+        # elif self == S2:
+        #     print(f"\nLe sous-marin {self.nom} tire une torpille sur le sous-marin {nom_e} et prend 1 de dégats\n")
+        #     sous_marin_ennemi.vie -=1
+        #     print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
         
 
 
@@ -712,5 +790,14 @@ class SousMarin:
 '''Création de sous-marin'''
 #==========================#
 
-S1 = SousMarin("Tigre", 4, 1, "Mine a contact", "Torpille thermique a guidage acoustique passif", "Sonar passif", "Drone par magnétométrie", "Silence", None)
-S2 = SousMarin("Ecureille", 3, 1, "Mine a déclanchement passif", "Torpille électrique a guidage acoustique actif", "Sonar actif", "Drone électomagnétiques", "Leurre", None)
+S1 = SousMarin("Tigre", 4, 1, False, False, False, False, False, None)
+S2 = SousMarin("Ecureille", 3, 1, False, False, False, False, False, None)
+
+def lettre_to_chiffre(lettre):
+        while True:
+            if len(lettre) == 1 and lettre.isalpha():
+                return ord(lettre.upper()) - ord('A')
+            elif lettre.isdigit():
+                lettre = input("Veuillez entrer une lettre existante : ")
+            else:
+                lettre = input("Veuillez entrer une colonne existante : ")

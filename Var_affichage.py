@@ -378,7 +378,7 @@ regles = """
                     La vie du sous-marin baisse en fonction des dégâts pris. Puis la partie reprend normalement.
 
                 3) La torpille explose EXACTEMENT SUR LA MÊME CASE où se trouve le sous-marin ennemi :
-                    Le Capitaine adverse annonce « IMPACT DIRECT » Les dégâts dépendent du type de torpille. 
+                    Le Capitaine adverse annonce « IMPACT DIRECT ! » Les dégâts dépendent du type de torpille. 
                     La vie du sous-marin baisse en fonction des dégâts pris. Ensuite, la partie reprend normalement, 
                     mais vous savez maintenant où se trouve l'ennemi !
 

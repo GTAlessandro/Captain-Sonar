@@ -34,10 +34,9 @@ class Carte :
         
         x, y = position
         self.carte[x][y] = sous_marin.nom[0]   #le sous marin est signaler par la première valeur de son nom.
+        sous_marin.pos = position
         y_l = chiffre_to_lettre(y)
-        
         print("\n-> Sous-marin placer en : ", y_l ,x+1, "\n")
-        
         self.Afficher_carte()
         
         return x, y
@@ -53,7 +52,6 @@ class Carte :
 
     #on déplace le sous marin
     def deplacement_sm(self, position, sous_marin, cap, capitaine, carte):
-        from Debut_jeu import annonce_cap
         
         x, y = position
         cap = cap.upper()
@@ -95,7 +93,9 @@ class Carte :
             self.carte[x][y] = "|"
             x += 1
             self.carte[x][y] = sous_marin.nom[0]
+            print("position sm qui bouge avant déplacement : ", sous_marin.pos)
             sous_marin.pos = x, y
+            print("position sm qui bouge après déplacement : ", sous_marin.pos)
             print("\nVoici votre nouvel emplacement : \n")
             self.Afficher_carte()
             return x, y #nouvelle position
