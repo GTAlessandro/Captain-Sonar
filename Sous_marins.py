@@ -140,6 +140,7 @@ class SousMarin:
 
 
     def choisir_une_panne(self, choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap):
+        condition = False
 
         #cadran ouest
         JAUNE_ARM = cadran_ouest[0]
@@ -172,95 +173,135 @@ class SousMarin:
         NONE_EDET = cadran_est[3]
         NONE1ERAD = cadran_est[4]
         NONE2ERAD = cadran_est[5]
+    
 
         if cap == "OUEST" :
 
-            if choix_meca == 1 :
+            if choix_meca == 1 and cadran_ouest[0] == " JAUNE 1 ARM":
                 cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
+                condition = True
 
-            elif choix_meca == 2 :
+            elif choix_meca == 2 and cadran_ouest[1] == " JAUNE 2 SPE" :
                 cadran_ouest[1] = " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E"
+                condition = True
 
-            elif choix_meca == 3 :
+            elif choix_meca == 3 and cadran_ouest[2] == " JAUNE 3 DET" :
                 cadran_ouest[2] = " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T"
+                condition = True
 
-            elif choix_meca == 4 :
+            elif choix_meca == 4 and cadran_ouest[3] == " NONE  4 DET" :
                 cadran_ouest[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+                condition = True
 
-            elif choix_meca == 5 :
+            elif choix_meca == 5 and cadran_ouest[4] == " NONE  5 RAD" :
                 cadran_ouest[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                condition = True
 
-            elif choix_meca == 6 :
+            elif choix_meca == 6 and cadran_ouest[5] == " NONE  6 RAD" :
                 cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                condition = True
 
             else : 
                 print("Sélectionnez une panne du cadran OUEST comprise entre 1 et 6")
 
         elif cap == "NORD" :
 
-            if choix_meca == 1 :
+            if choix_meca == 1 and cadran_nord[0] == " VERT  1 SPE" :
                 cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
+                condition = True
         
-            elif choix_meca == 2 :
+            elif choix_meca == 2 and cadran_nord[1] == " VERT  2 DET" :
                 cadran_nord[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T"
+                condition = True
 
-            elif choix_meca == 3 :
+            elif choix_meca == 3 and cadran_nord[2] == " VERT  3 ARM" :
                 cadran_nord[2] = " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M"
+                condition = True
 
-            elif choix_meca == 4 :
+            elif choix_meca == 4 and cadran_nord[3] == " NONE  4 DET" :
                 cadran_nord[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+                condition = True
 
-            elif choix_meca == 5 :
+            elif choix_meca == 5 and cadran_nord[4] == " NONE  5 ARM" :
                 cadran_nord[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
+                condition = True
 
-            elif choix_meca == 6 :
+            elif choix_meca == 6 and cadran_nord[5] == " NONE  6 RAD" :
                 cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                condition = True
 
             else : 
                 print("Sélectionnez une panne du cadran NORD comprise entre 1 et 6")
-
+            #cadran sud
+            BLEU__DET = " BLEU  1 DET"
+            BLEU__SPE = " BLEU  2 SPE"
+            BLEU__ARM = " BLEU  3 ARM"
+            NONE_SARM = " NONE  4 ARM"
+            NONE_SSPE = " NONE  5 SPE"
+            NONE_SRAD = " NONE  6 RAD"
         elif cap == "SUD" :
 
-            if choix_meca == 1 :
+            if choix_meca == 1 and cadran_sud[0] == " BLEU  1 DET" :
                 cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T"
+                condition = True
         
-            elif choix_meca == 2 :
+            elif choix_meca == 2 and cadran_sud[1] == " BLEU  2 SPE" :
                 cadran_sud[1] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
+                condition = True
 
-            elif choix_meca == 3 :
+            elif choix_meca == 3 and cadran_sud[2] == " BLEU  3 ARM" :
                 cadran_sud[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M"
+                condition = True
 
-            elif choix_meca == 4 :
+            elif choix_meca == 4 and cadran_sud[3] == " NONE  4 ARM" :
                 cadran_sud[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
+                condition = True
 
-            elif choix_meca == 5 :
+            elif choix_meca == 5 and cadran_sud[4] == " NONE  5 SPE" :
                 cadran_sud[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
+                condition = True
 
-            elif choix_meca == 6 :
+            elif choix_meca == 6 and cadran_sud[5] == " NONE  6 RAD" :
                 cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                condition = True
 
             else : 
                 print("Sélectionnez une panne du cadran SUD comprise entre 1 et 6")
 
+
+
+            #cadran est
+            JAUNE1ARM = " JAUNE 1 ARM"
+            VERT1_SPE = " VERT  2 SPE"
+            BLEU1_SPE = " BLEU  3 SPE"
+            NONE_EDET = " NONE  4 DET"
+            NONE1ERAD = " NONE  5 RAD"
+            NONE2ERAD = " NONE  6 RAD"
         elif cap == "EST" :
 
-            if choix_meca == 1 :
+            if choix_meca == 1 and cadran_est[0] == " JAUNE 1 ARM" :
                 cadran_est[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
+                condition = True
         
-            elif choix_meca == 2 :
+            elif choix_meca == 2 and cadran_est[1] == " VERT  2 SPE" :
                 cadran_est[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
+                condition = True
 
-            elif choix_meca == 3 :
+            elif choix_meca == 3 and cadran_est[2] == " BLEU  3 SPE" :
                 cadran_est[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
+                condition = True
 
-            elif choix_meca == 4 :
+            elif choix_meca == 4 and cadran_est[3] == " NONE  4 DET" :
                 cadran_est[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+                condition = True
 
-            elif choix_meca == 5 :
+            elif choix_meca == 5 and cadran_est[4] == " NONE  5 RAD" :
                 cadran_est[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                condition = True
 
-            elif choix_meca == 6 :
+            elif choix_meca == 6 and cadran_est[5] == " NONE  6 RAD" :
                 cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+                condition = True
 
             else : 
                 print("Sélectionnez une panne du cadran EST comprise entre 1 et 6")
@@ -380,7 +421,7 @@ class SousMarin:
         self.baie_moteur = cadran_ouest, cadran_nord, cadran_sud, cadran_est
         self.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
 
-        return cadran_ouest, cadran_nord, cadran_sud, cadran_est
+        return cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition
 
     #=====================================#
     '''=============SYSTEMES============'''

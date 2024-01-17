@@ -388,10 +388,10 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
                 break
 
             else:
-                print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+                print("❌ Veuillez choisir un sous-marin afficher.\n\n")
 
         except ValueError:
-            print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
+            print("❌ Veuillez choisir un sous-marin valide.\n\n")
 
     while sous_marin_e2 is None:
         try:
@@ -670,10 +670,11 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
                 choix_meca = int(input(f"{mecano}, choisissez une panne dans le cadran du cap '{cap}' annoncé par le capitaine (1-6) : "))
 
                 if 1 <= choix_meca <= 6 :
-                    print(f"\n\n\n\n\n\n\n\n\n\nVous avez choisis la panne {choix_meca} du cadran '{cap}' :")
-                    cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
-                    input("\nSUIVANT")
-                    return cadran_ouest, cadran_nord, cadran_sud, cadran_est
+                    print(f"\n\n\n\n\n\n\n\n\n\nVous avez choisis la panne {choix_meca} du cadran '{cap}' ")
+                    cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+                    if condition :    
+                        input("\nSUIVANT")
+                        return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
                 else :
                     print("❌ Selectionnez une panne entre 1 et 6.\n\n")
@@ -689,7 +690,7 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
         
         choix_meca = "AUCUN"
         
-        cadran_ouest, cadran_nord, cadran_sud, cadran_est = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+        cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
         
         input("\nSUIVANT")
 
