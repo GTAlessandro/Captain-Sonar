@@ -93,9 +93,7 @@ class Carte :
             self.carte[x][y] = "|"
             x += 1
             self.carte[x][y] = sous_marin.nom[0]
-            print("position sm qui bouge avant déplacement : ", sous_marin.pos)
             sous_marin.pos = x, y
-            print("position sm qui bouge après déplacement : ", sous_marin.pos)
             print("\nVoici votre nouvel emplacement : \n")
             self.Afficher_carte()
             return x, y #nouvelle position

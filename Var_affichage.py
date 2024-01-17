@@ -371,14 +371,14 @@ regles = """
 
         Il y a alors trois possibilités (comme pour l'explosion d'une mine) :
                 1) La torpille explose à PLUS D'UNE CASE du sous-marin ennemi : 
-                    Le Capitaine adverse annonce « RAS ! », et la partie reprend normalement.
+                    Le Capitaine adverse annonce « 🚨RAS !🚨 », et la partie reprend normalement.
 
                 2) La torpille explose sur UNE CASE ADJACENTE du sous-marin ennemi (MÊME EN DIAGONALE) :
-                    Le Capitaine adverse annonce « IMPACT INDIRECT ! » Les dégâts dépendent du type de torpille.
+                    Le Capitaine adverse annonce « 🚨IMPACT INDIRECT !🚨 » Les dégâts dépendent du type de torpille.
                     La vie du sous-marin baisse en fonction des dégâts pris. Puis la partie reprend normalement.
 
                 3) La torpille explose EXACTEMENT SUR LA MÊME CASE où se trouve le sous-marin ennemi :
-                    Le Capitaine adverse annonce « IMPACT DIRECT ! » Les dégâts dépendent du type de torpille. 
+                    Le Capitaine adverse annonce « 🚨IMPACT DIRECT !🚨 » Les dégâts dépendent du type de torpille. 
                     La vie du sous-marin baisse en fonction des dégâts pris. Ensuite, la partie reprend normalement, 
                     mais vous savez maintenant où se trouve l'ennemi !
 
@@ -558,7 +558,7 @@ aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
 
     1 - Tigre :        
-        vie = 4           
+        vie = 4❤️           
         difficulté = 1               
         armement 1 = Mine a déclanchement       
         armement 2 = Torpille électrique à guidage acoustique actif  
@@ -567,7 +567,7 @@ aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
         spéciale = Silence
 
     2 - Ecureille :        
-        vie = 3
+        vie = 3❤️
         difficulté = 1               
         armement 1 = Mine a déclanchement       
         armement 2 = Torpille thermique à guidage acoustique passif  

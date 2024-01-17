@@ -1,6 +1,6 @@
 from Input_Joueur import j1, j2, j3, j4, j5, j6, j7, j8, nom_e1, nom_e2
 from Map import Carte, C1_e1, C2_e1, C1_e2, C2_e2, C2_e1_d1, C2_e2_d2, C1_e1_d1, C1_e2_d2
-from Sous_marins import SousMarin, S1, S2
+from Sous_marins import SousMarin
 from Var_affichage import equipe, affichage_mode, aff_map, aff_s, start, changement
 
 
@@ -371,12 +371,6 @@ def selection_map(j1) :
 #================================#
 
 def selection_sous_marins(capitaine_e1, capitaine_e2) :
-    
-    #pool des sous-marins dispo
-    sous_marins_disponibles = { #DEBUGGER CETTE PARTIE CAR SI JE SELECTIONNE DEUX FOIS 1 ALORS, NOTAMMENT METTRE LE RETURN DANS LA BOUCLE ET INVERSER LES CONDITIONS POUR AVOIR LERREUR DANS LE ELSE ET LE RETURN DANS UN IF PCK SINON MEME SI YA LA CROIX ON A UN RETURN QUI SORT DE LA FONCTION
-        1: S1,
-        2: S2,
-    }
 
     sous_marin_e1 = None
     sous_marin_e2 = None
@@ -384,9 +378,16 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
     while sous_marin_e1 is None:
         try:
             choix_e1 = int(input(f"{capitaine_e1}, sélectionnez votre sous-marin : "))
-            sous_marin_e1 = sous_marins_disponibles.get(choix_e1)
 
-            if sous_marin_e1 is None:
+            if choix_e1 == 1 :
+                sous_marin_e1 = SousMarin("Tigre", 4, 1, False, False, False, False, False, None)
+                break
+
+            elif choix_e1 == 2 :
+                sous_marin_e1 = SousMarin("Ecureille", 3, 1, False, False, False, False, False, None)
+                break
+
+            else:
                 print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
         except ValueError:
@@ -395,9 +396,16 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
     while sous_marin_e2 is None:
         try:
             choix_e2 = int(input(f"\n{capitaine_e2}, sélectionnez votre sous-marin : "))
-            sous_marin_e2 = sous_marins_disponibles.get(choix_e2)
+            
+            if choix_e2 == 1 :
+                sous_marin_e2 = SousMarin("Tigre", 4, 1, False, False, False, False, False, None)
+                return sous_marin_e1, sous_marin_e2
 
-            if sous_marin_e2 is None or sous_marin_e2 == sous_marin_e1:
+            elif choix_e2 == 2 :
+                sous_marin_e2 = SousMarin("Ecureille", 3, 1, False, False, False, False, False, None)
+                return sous_marin_e1, sous_marin_e2
+
+            else:
                 print("❌ Veuillez choisir un sous-marin valide (1-2).\n\n")
 
         except ValueError:
@@ -406,7 +414,6 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
     print(f"\n{capitaine_e1}, vous avez sélectionné le sous-marin {sous_marin_e1.nom}.")
     print(f"\n{capitaine_e2}, vous avez sélectionné le sous-marin {sous_marin_e2.nom}.")
 
-    return sous_marin_e1, sous_marin_e2
 
 
 

@@ -730,10 +730,10 @@ class SousMarin:
                             
                             #si l'emplacement du tir est égale à la position du sous marin ennemi.
                             if emplacement_tir == sous_marin_ennemi.pos :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \nIMPACT DIRECT !\n\n")
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨IMPACT DIRECT !🚨\n\n")
                                 print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 de dégats !!!\n")
                                 sous_marin_ennemi.vie -= 2
-                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
+                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 
                                 if sous_marin_ennemi.vie == 0 :
                                     fin = True
@@ -743,10 +743,10 @@ class SousMarin:
 
                             #si l'emplacement du tir est à côté de la position du sous marin ennemi.
                             elif (x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \nIMPACT INDIRECT !\n\n")
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨IMPACT INDIRECT !🚨\n\n")
                                 print(f"\nVous avez tirer une torpille juste à côté sous-marin ennemi '{nom_e}' ! \nIl prend tout de même 1 point de dégats !\n")
                                 sous_marin_ennemi.vie -= 1
-                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
+                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 
                                 if sous_marin_ennemi.vie == 0 :
                                     fin = True
@@ -756,9 +756,9 @@ class SousMarin:
 
                             #l'emplacement du tire est ni sur le sous-marin ennemi ni à ses alentours.
                             else :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \nRAS !\n\n") 
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨RAS !🚨\n\n") 
                                 print(f"\nVous avez tirer une torpille dans le vide !\n")
-                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
+                                print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 input("\nSUIVANT")
                                 return fin
                         
@@ -786,12 +786,6 @@ class SousMarin:
         
 
 
-#==========================#
-'''Création de sous-marin'''
-#==========================#
-
-S1 = SousMarin("Tigre", 4, 1, False, False, False, False, False, None)
-S2 = SousMarin("Ecureille", 3, 1, False, False, False, False, False, None)
 
 def lettre_to_chiffre(lettre):
         while True:
