@@ -325,7 +325,6 @@ def selection_mode(j1):
             
             elif mode == 2 :
                 print("\nCette option n'est pas encore disponible, veuillez sélectionner le mode tour par tour.")
-                selection_mode(j1)
             
             else :
                 print("❌ Veuillez sélectionner une option valide.\n\n\n")
@@ -353,7 +352,7 @@ def selection_map(j1) :
 
             if choix in cartes_disponibles:
                 carte = cartes_disponibles[choix]
-                print(f"\nVous avez sélectionné la carte {carte[0].nom} :\n")
+                print(f"\nVous avez sélectionné la carte {carte[0].nom} :")
                 derniere_colonne, derniere_ligne = carte[0].Afficher_carte()
                 input("\nSUIVANT")
                 return carte, derniere_colonne, derniere_ligne
@@ -434,7 +433,7 @@ def lettre_to_chiffre(lettre):
 def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
 
     print(f"⚠⚠⚠ Attention ⚠⚠⚠ : c'est à l'équipe '{nom_e}' de jouer.\n")
-    print(f"Capitaine '{capitaine}' de l'équipe '{nom_e}', plongez ! \n")
+    print(f"Capitaine '{capitaine}' de l'équipe '{nom_e}', plongez ! ")
 
     Carte.Afficher_carte()
 
@@ -466,7 +465,7 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
 def start_transparent(detecteur, nom, Carte, derniere_colonne, derniere_ligne) :
     print(changement)
     print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au détécteur '{detecteur}', de l'équipe '{nom}' de jouer.\n")
-    print("\nVoici votre transparent :\n")
+    print("\nVoici votre transparent :")
     
     #Start du transparent
     Carte.Afficher_carte()
@@ -522,24 +521,34 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     position_e1 = x1, y1
     position_e2 = x2, y2
 
-    #condition pour continuer de jouer en boucle 
+    #si fin == True alors le jeu est terminer 
     fin = False
 
-    while fin == False :
+    #condition pour que le tour e1 et e2 sois finito
+    fin_tour_e1 = False
+    fin_tour_e2 = False
+    
+    #condition de surface du sm
+    surface_e1 = False
+    surface_e2 = False
+
+    #nombre de tour que le sm attend avant de pouvoir replonger
+    nombre_tour_attendu_e1 = 0
+    nombre_tour_attendu_e2 = 0
+
+    while fin_tour_e1 == False :
         #EQUIPE 1 :
         #1) le capitaine de l'équipe 1 déplace son vaisseau
-        position_e1, cap_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1)
-        print("position sm e1 : ",sous_marin_e1.pos)
-        print("position sm e2 : ",sous_marin_e2.pos) #PETIT PROBLEME ICI
-
+        position_e1, cap_e1, surface_e1, nombre_tour_attendu_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1, surface_e1, nombre_tour_attendu_e1)
+        
         #2) le mecano de l'équipe 1 rentre une panne dans le cadran associer au cap
-        cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
-
+        cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, surface_e1, nombre_tour_attendu_e1)
+        
         #3) le second de l'équipe 1 augmente la jauge d'un système
         arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1)
-
+        
         #4) l'équipe 1 peut déclencher une compétence
-        fin = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2)
+        fin = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1)
 
         #5) le detecteur adverse rentre le cap ennemi
 
@@ -613,22 +622,27 @@ def annonce_cap(position, capitaine, carte, sous_marin, nom) :
 #====================#
 
 def faire_surface(carte, sous_marin) :
+    surface = True
     print("\nVous faites surface et passez votre tour 3 fois.\n")
     #continuer la fonction pour faire en sorte que l'équipe passe son tour 3 fois
     carte.reset_chemin()
+    input("SUIVANT")
+    return surface 
 
 
 #=============================#
 '''1) Déplacement 1er équipe'''
 #=============================#
 
-def deplacement(position, capitaine, Carte, sous_marin, nom) :
+def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tour_attendu) :
     print(changement)
     print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine : '{capitaine}', de l'équipe '{nom}' de jouer.")
     input("\nSUIVANT\n")
+
     Carte.Afficher_carte()
 
-    while True :
+    #tant que la var surface est égale à False, le sm est sous la mer et peut donc se déplacer
+    while surface == False :
         try :
             entete_deplacement = int(input("\n  1 - Choisir un cap\n  2 - Faire surface\n\n  Sélectionner une action : "))
 
@@ -636,12 +650,12 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
                 position, cap = annonce_cap(position, capitaine, Carte, sous_marin, nom)
                 if cap != "7" : 
                     input("\nSUIVANT")
-                    return position, cap.upper()
+                    return position, cap.upper(), surface, nombre_tour_attendu
                 
             elif entete_deplacement == 2 :
-                faire_surface(Carte, sous_marin)
+                surface = faire_surface(Carte, sous_marin)
                 cap = "AUCUN"
-                return position, cap
+                return position, cap, surface, nombre_tour_attendu
                 
             else :
                 print("❌ Sélectionnez une action comprise entre 1 et 2.\n\n\n")
@@ -649,13 +663,34 @@ def deplacement(position, capitaine, Carte, sous_marin, nom) :
         except ValueError :
             print("❌ Sélectionnez une action valide.\n\n\n")
 
+    #si la var surface est True, alors le sm est en surface et doit attendre trois tours avant de pouvoir se redéplacer
+    if surface == True :
+            print("normalement nombre_tour_attendu = l'ancien : ", nombre_tour_attendu)
+            nombre_tour_attendu = nombre_tour_attendu + 1
+            print("normalement, nombre tour attendu est nouveau :", nombre_tour_attendu)
+            cap = "AUCUN"
+
+            if nombre_tour_attendu == 1 :
+                print("Vous passez votre 2ème tour à la surface, plus qu'un seul !")
+                input("SUIVANT")
+
+            if nombre_tour_attendu == 2 :
+                nombre_tour_attendu = 0
+                surface = False
+                print("\n\nVous avez passez vos 3 tours à la surface et vous replongez dans les eaux profondes le prochain tour !\n\n")
+                input("SUIVANT")
+                return position, cap, surface, nombre_tour_attendu
+
+            else :
+                return position, cap, surface, nombre_tour_attendu
+
 
 #==============================#
 '''2) Mécano rentre une panne'''
 #==============================#
 
-def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
-    #importe de mettre la condition, car le capitaine peut faire surface !
+def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, cadran_est, surface, nombre_tour_attendu) :
+    #le capitaine a choisis un cap
     if cap == "SUD" or cap == "NORD" or cap == "OUEST" or cap == "EST" :
         print(changement)
         print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano : '{mecano}', de l'équipe '{nom}' de jouer.")
@@ -670,27 +705,39 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
                 choix_meca = int(input(f"{mecano}, choisissez une panne dans le cadran du cap '{cap}' annoncé par le capitaine (1-6) : "))
 
                 if 1 <= choix_meca <= 6 :
-                    print(f"\n\n\n\n\n\n\n\n\n\nVous avez choisis la panne {choix_meca} du cadran '{cap}' ")
+                    print(f"\n\nVous avez choisis la panne {choix_meca} du cadran '{cap}' ")
                     cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+                    
                     if condition :    
                         input("\nSUIVANT")
                         return cadran_ouest, cadran_nord, cadran_sud, cadran_est
 
+                    print("❌ Selectionnez un voyant qui n'est pas déjà en panne.\n\n")
+
                 else :
-                    print("❌ Selectionnez une panne entre 1 et 6.\n\n")
+                    print("❌ Selectionnez un voyant entre 1 et 6.\n\n")
 
             except ValueError :
-                    print("❌ Entrez une panne valide.\n\n")
+                    print("❌ Entrez un voyant valide.\n\n")
 
+    #le capitaine a décider de faire surface
     else :
         print(changement)
         print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano : '{mecano}', de l'équipe '{nom}' de jouer.")
         input("\nSUIVANT")
-        print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\nLe Mécano n'a pas besoin de choisir une panne et celle-ci sont toutes réparées.")
+
+        if nombre_tour_attendu == 0 :
+            print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
+
+        if nombre_tour_attendu == 1 :
+            print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
         
-        choix_meca = "AUCUN"
-        
-        cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+        if nombre_tour_attendu == 2 :
+            print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
+
+        if surface == True and nombre_tour_attendu == 0:
+            choix_meca = "AUCUN"
+            cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
         
         input("\nSUIVANT")
 
@@ -742,7 +789,7 @@ def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom):
 '''4) déclenchement de compétencee'''
 #====================================#
 
-def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e) :
+def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self) :
     fin = False
 
     if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == False and sous_marin.a2 == False and sous_marin.d1 == False and sous_marin.d2 == False and sous_marin.spe == False : 
@@ -782,7 +829,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                         
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == True and choix_systeme == 1 :
                             #fonction lancer torpille
-                            fin = sous_marin.larguer_torpille(sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e)
+                            fin = sous_marin.larguer_torpille(sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self)
                             return fin
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2 == True and choix_systeme == 2 :

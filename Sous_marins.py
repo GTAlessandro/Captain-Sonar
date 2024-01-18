@@ -232,13 +232,7 @@ class SousMarin:
 
             else : 
                 print("Sélectionnez une panne du cadran NORD comprise entre 1 et 6")
-            #cadran sud
-            BLEU__DET = " BLEU  1 DET"
-            BLEU__SPE = " BLEU  2 SPE"
-            BLEU__ARM = " BLEU  3 ARM"
-            NONE_SARM = " NONE  4 ARM"
-            NONE_SSPE = " NONE  5 SPE"
-            NONE_SRAD = " NONE  6 RAD"
+
         elif cap == "SUD" :
 
             if choix_meca == 1 and cadran_sud[0] == " BLEU  1 DET" :
@@ -268,15 +262,6 @@ class SousMarin:
             else : 
                 print("Sélectionnez une panne du cadran SUD comprise entre 1 et 6")
 
-
-
-            #cadran est
-            JAUNE1ARM = " JAUNE 1 ARM"
-            VERT1_SPE = " VERT  2 SPE"
-            BLEU1_SPE = " BLEU  3 SPE"
-            NONE_EDET = " NONE  4 DET"
-            NONE1ERAD = " NONE  5 RAD"
-            NONE2ERAD = " NONE  6 RAD"
         elif cap == "EST" :
 
             if choix_meca == 1 and cadran_est[0] == " JAUNE 1 ARM" :
@@ -676,7 +661,7 @@ class SousMarin:
 
 
         if self.nom == "Tigre" :
-            systemes = f'''            
+            systemes = f'''\n\n\n\n\n\n\n\n\n\n            
             ============================================= Systèmes ====================================================
 
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――
@@ -748,11 +733,11 @@ class SousMarin:
     '''============ACTIVATION SYSTEMES============='''
     #================================================#
 
-    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e):
+    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e, nom_self):
         fin = False
 
         if self.nom =="Tigre" :
-            print("Selectionner un emplacement sur la map")
+            print("\nSelectionner un emplacement sur la map")
             carte.Afficher_carte()
             
             while True :
@@ -767,24 +752,31 @@ class SousMarin:
                     distance_totale = distance_x + distance_y
 
                     if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                        if distance_totale <= 4 : #TOUT SEUL COMME UN GRAND DU PREMIER COUP HAHAHA JE SUIS TROP HEUREUX JCROIS QUE CA MARCHE
+                        if distance_totale <= 4 : #TOUT SEUL COMME UN GRAND DU PREMIER COUP HAHAHA
                             
                             #si l'emplacement du tir est égale à la position du sous marin ennemi.
                             if emplacement_tir == sous_marin_ennemi.pos :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨IMPACT DIRECT !🚨\n\n")
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 IMPACT DIRECT !🚨\n\n")
                                 print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 de dégats !!!\n")
                                 sous_marin_ennemi.vie -= 2
                                 print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 
                                 if sous_marin_ennemi.vie == 0 :
                                     fin = True
-                                
+
+                                if emplacement_tir == self.pos :
+                                    rint(f"\nVous avez tirer une torpille en plein sur VOTRE SOUS-MARIN !!! \nVous prennez 2 de dégats !!!\nMais vous êtes CON ???\n")
+                                    self.vie -= 2
+                                    print(f"========== Sous-marin {nom_self} ==========\n- Vie restante : {self.vie}❤️\n")
+                                # if emplacement_tir == self.pos :
+                                #     rint(f"\nVous avez tirer une torpille en plein sur VOTRE SOUS-MARIN !!! \nVous prennez 2 de dégats !!!\nMais vous êtes CON ???\n")
+
                                 input("SUIVANT")
                                 return fin
 
                             #si l'emplacement du tir est à côté de la position du sous marin ennemi.
                             elif (x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨IMPACT INDIRECT !🚨\n\n")
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 IMPACT INDIRECT !🚨\n\n")
                                 print(f"\nVous avez tirer une torpille juste à côté sous-marin ennemi '{nom_e}' ! \nIl prend tout de même 1 point de dégats !\n")
                                 sous_marin_ennemi.vie -= 1
                                 print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
@@ -797,7 +789,7 @@ class SousMarin:
 
                             #l'emplacement du tire est ni sur le sous-marin ennemi ni à ses alentours.
                             else :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨RAS !🚨\n\n") 
+                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 RAS !🚨\n\n") 
                                 print(f"\nVous avez tirer une torpille dans le vide !\n")
                                 print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 input("\nSUIVANT")
@@ -814,19 +806,7 @@ class SousMarin:
 
         if self.nom == "Ecureille" :
             print("lancer torpille tigre")
-
-        # if self == S1 :
-        #     print(f"\nLe sous-marin {self.nom} tire une torpille sur le sous-marin {nom_e} et prend 2 de dégats\n")
-        #     sous_marin_ennemi.vie -= 2
-        #     print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
-
-        # elif self == S2:
-        #     print(f"\nLe sous-marin {self.nom} tire une torpille sur le sous-marin {nom_e} et prend 1 de dégats\n")
-        #     sous_marin_ennemi.vie -=1
-        #     print(f"========== Sous-marin {nom_e} ==========\n- Vie restante : {sous_marin_ennemi.vie}\n")
         
-
-
 
 def lettre_to_chiffre(lettre):
         while True:

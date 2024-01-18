@@ -19,5 +19,3 @@ j8 = None
 
 nom_e1 = None 
 nom_e2 = None 
-
-#mdp : 1234569

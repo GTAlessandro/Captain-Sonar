@@ -30,7 +30,7 @@ def menu_principale():
                                 
                 print(reglesc)
                 input("\nSUIVANT")
-                menu_principale()
+                print(bonjour)
 
             elif entry == 3 :
                 #afficher paramètre du jeu

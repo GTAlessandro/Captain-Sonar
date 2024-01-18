@@ -296,7 +296,7 @@ regles = """
 ╰┈➤ TOUR PAR TOUR :
         Au lieu d'annoncer un cap, le capitaine utilise son tour pour annoncer qu'il fait surface. 
         Puis le TOUTES les pannes du sous-marin sont effacer. L'équipage adverse peut ensuite jouer trois coups d'affilée, 
-        c'est-à-dire 3 annonces de cap, mais également 3 activations de systèmes. Puis le jeu reprend normalement.
+        c'est-à-dire 3 annonces de cap, mais également 3 chargements de systèmes. Puis le jeu reprend normalement.
 
 ╰┈➤ SIMULTANE :
         Indisponible pour le moment.
