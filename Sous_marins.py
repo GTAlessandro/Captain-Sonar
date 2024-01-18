@@ -321,8 +321,6 @@ class SousMarin:
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
 
-            print("\n\nVous faite surface ! Toutes vos pannes sont réparées !")
-
 
         # Si toutes les pannes des couleurs sont cochés, alors tout est réparé
         if cadran_est[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" :
@@ -661,7 +659,7 @@ class SousMarin:
 
 
         if self.nom == "Tigre" :
-            systemes = f'''\n\n\n\n\n\n\n\n\n\n            
+            systemes = f'''\n        
             ============================================= Systèmes ====================================================
 
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ――――――――――――――――

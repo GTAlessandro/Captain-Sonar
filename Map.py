@@ -36,7 +36,7 @@ class Carte :
         self.carte[x][y] = sous_marin.nom[0]   #le sous marin est signaler par la première valeur de son nom.
         sous_marin.pos = position
         y_l = chiffre_to_lettre(y)
-        print("\n-> Sous-marin placer en : ", y_l ,x+1, "\n")
+        print("\n-> Sous-marin placé en : ", y_l ,x+1, "\n")
         self.Afficher_carte()
         
         return x, y
@@ -105,7 +105,7 @@ class Carte :
         self.carte[x][y] = "X"   #le sous marin est signaler par la première valeur de son nom.
         y_l = chiffre_to_lettre(y)
         
-        print("\n-> Premier cap ennemie placer en : ", y_l ,x+1, "\n")
+        print("\n-> Premier cap ennemi placer en : ", y_l ,x+1, "\n")
 
         self.pos_cible = x, y
         self.Afficher_carte()
