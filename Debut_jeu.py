@@ -726,18 +726,13 @@ def panne(mecano, cap, nom, sous_marin, cadran_ouest, cadran_nord, cadran_sud, c
         print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Mécano : '{mecano}', de l'équipe '{nom}' de jouer.")
         input("\nSUIVANT")
 
-        if nombre_tour_attendu == 0 :
-            print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
-
-        if nombre_tour_attendu == 1 :
-            print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
-        
-        if nombre_tour_attendu == 2 :
-            print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
-
         if surface == True and nombre_tour_attendu == 0:
+            print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
             choix_meca = "AUCUN"
             cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition = sous_marin.choisir_une_panne(choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap)
+        
+        if nombre_tour_attendu >= 1 :
+            print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont déjà toutes réparées.")
         
         input("\nSUIVANT")
 
@@ -805,7 +800,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
             if choix == 2 :
                 #afficher les systèmes prêts a être larguer
                 if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == True :
-                    print("\n1 - Votre toprille est prête à être larguer !")
+                    print("\n1 - Votre torpille est prête à être larguer !")
                 
                 if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2 == True :
                     print("2 - Votre mine est prête à être larguer !")
