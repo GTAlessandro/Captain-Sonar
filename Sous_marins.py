@@ -727,16 +727,17 @@ class SousMarin:
                             
         print(systemes)
 
+
     #================================================#
     '''============ACTIVATION SYSTEMES============='''
     #================================================#
 
-    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e, nom_self):
+    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e, nom_self, arme1):
         fin = False
 
-        #=========#
-        '''Tigre'''
-        #=========#
+        #=====================#
+        '''Tigre - Ecureille'''
+        #=====================#
 
         if self.nom == "Tigre" or self.nom == "Ecureille" :
             print("\nSelectionner un emplacement sur la map")
@@ -755,6 +756,13 @@ class SousMarin:
 
                     if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
                         if (self.nom == "Tigre" and distance_totale <= 4) or (self.nom == "Ecureille" and distance_totale <= 5) : #TOUT SEUL COMME UN GRAND DU PREMIER COUP HAHAHA
+                            #on reset graphiquement le chargement de l'arme
+                            for i in range(6):
+                                arme1[i] = "0"
+
+                            #on reset la valeur de l'armement1 à False pour que le jeu comprenne que la torpille a été tirée
+                            self.a1 = False
+
                             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
                             #le sous-marin se tir dessus
@@ -776,7 +784,7 @@ class SousMarin:
                             #si l'emplacement du tir est égale à la position du sous marin ennemi.
                             if emplacement_tir == sous_marin_ennemi.pos :
                                 print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 IMPACT DIRECT !🚨")
-                                print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 de dégats !!!\n")
+                                print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 points de dégats !!!\n")
                                 sous_marin_ennemi.vie -= 2
                                 print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 
@@ -785,7 +793,7 @@ class SousMarin:
                                     fin = True
 
                                 input("SUIVANT")
-                                return fin
+                                return fin, arme1
 
                             #La première condition and (les deux premières parenthèses) vérifie si l'emplacement du tir est dans la diagonale du sous marin ennemi. Le deux suivante check si le tir se situe à côté horizontalement du sm ennemi. Et les deux dernières check si le tir a été fait à côté verticalement du sm ennemi. Un peu indigeste, mais ca marche
                             elif ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1)) or ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1])) or ((y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) and (x == sous_marin_ennemi.pos[0])):
@@ -799,7 +807,7 @@ class SousMarin:
                                     fin = True
                                 
                                 input("SUIVANT")
-                                return fin
+                                return fin, arme1
 
                             #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
                             else :
@@ -807,7 +815,7 @@ class SousMarin:
                                 print(f"\nVous avez tirer une torpille dans le vide !\n")
                                 print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 input("\nSUIVANT")
-                                return fin
+                                return fin, arme1
 
                         else :
                             if self.nom == "Tigre" :

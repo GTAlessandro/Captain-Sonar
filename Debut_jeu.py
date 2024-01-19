@@ -548,7 +548,7 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
         arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1, cap_e1, nombre_tour_attendu_e1, surface_e1, capitaine_e1)
         
         #4) l'équipe 1 peut déclencher une compétence
-        fin = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1)
+        fin, arme1_e1 = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1)
 
         #5) le detecteur adverse rentre le cap ennemi
 
@@ -785,16 +785,16 @@ def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom, cap,
 
     else :
         if nombre_tour_attendu == 0 and surface == True:
-            print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\n{second}, vous ne pouvez pas chargé un système durant ce tour et les 2 prochains.")
+            print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\n{second}, vous ne pouvez pas charger un système durant ce tour et les 2 prochains.")
             input("\nSUIVANT")
 
         if nombre_tour_attendu >= 1 :
-            print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{second}, vous ne pouvez pas chargé un système durant ce tour.")
+            print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{second}, vous ne pouvez pas charger un système durant ce tour.")
             input("\nSUIVANT")
             
         #0 car il est reset avec le déplacement donc c'est le dernier tour
         if surface == False and nombre_tour_attendu == 0 :
-            print(f"\n\nVotre sous-marin replonge dans les eaux profondes !\n{second}, lors de ce tour vous n'avez toujours pas besoin de choisir une panne.")
+            print(f"\n\nVotre sous-marin replonge dans les eaux profondes !\n{second}, lors de ce tour vous ne pouvez toujours pas charger un système.")
             input("\nSUIVANT")
         
         return arme1, arme2, dete1, dete2, spe
@@ -809,7 +809,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
     if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == False and sous_marin.a2 == False and sous_marin.d1 == False and sous_marin.d2 == False and sous_marin.spe == False : 
         print("\n\nAucun système ne peut être déclencher\n")
         input("SUIVANT")
-        return fin
+        return fin, arme1
 
     while True :
         try : 
@@ -843,11 +843,11 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                         
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == True and choix_systeme == 1 :
                             #fonction lancer torpille
-                            fin = sous_marin.larguer_torpille(sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self)
-                            return fin
+                            fin, arme1 = sous_marin.larguer_torpille(sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self, arme1)
+                            return fin, arme1
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2 == True and choix_systeme == 2 :
-                            #fonction larguer mine
+                            sous_marin.larguer_mine()
                             print("sous_marin.larguer_mine()")
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True and choix_systeme == 3 :
@@ -876,7 +876,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                         print("❌ Veuillez entrer un chiffre valide !\n\n")
 
             elif choix == 1 :
-                return fin
+                return fin, arme1
 
         except ValueError :
             print("❌ Veuillez sélectionner une option valide !\n\n")

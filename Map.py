@@ -60,7 +60,7 @@ class Carte :
 
         if cap == "OUEST" :
             #l'emplacement actuelle du sous-marin se transforme en chemin déjà parcourue
-            self.carte[x][y] = "—"
+            self.carte[x][y] = "←"
             #changement de position
             y -= 1
             #la nouvelle position se transforme en la première lettre du sm
@@ -72,7 +72,7 @@ class Carte :
             return x, y #retour de la nouvelle position
 
         elif cap == "EST" :
-            self.carte[x][y] = "—"
+            self.carte[x][y] = "→"
             y += 1
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
@@ -81,7 +81,7 @@ class Carte :
             return x, y #nouvelle position
 
         elif cap == "NORD" :
-            self.carte[x][y] = "|" 
+            self.carte[x][y] = "↑"
             x -= 1   
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
@@ -90,7 +90,7 @@ class Carte :
             return x, y #nouvelle position
 
         elif cap == "SUD" :
-            self.carte[x][y] = "|"
+            self.carte[x][y] = "↓"
             x += 1
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
@@ -117,12 +117,21 @@ class Carte :
         x, y = position
 
         if cap == "NORD" or cap == "SUD":
-            self.carte[x][y] = "|"
+            if cap == "NORD" :
+                self.carte[x][y] = "↑"
+            
+            if cap == "SUD" :
+                self.carte[x][y] = "↓"
+            
             self.pos_cible = x, y
             return x, y
 
         elif cap == "EST" or cap == "OUEST":
-            self.carte[x][y] = "—"
+            if cap == "EST" :
+                self.carte[x][y] = "→"
+            
+            if cap == "OUEST" :
+                self.carte[x][y] = "←"
             self.pos_cible = x, y
             return x, y
 
