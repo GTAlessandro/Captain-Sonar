@@ -45,22 +45,32 @@ class Carte :
     def reset_chemin(self):        
         for i in range(self.hauteur) :
             for j in range(self.largeur) :
-                if self.carte[i][j] in ['—', '|']:
+                if self.carte[i][j] in ['←', '→', '↑', '↓']:
                     self.carte[i][j] = "."
+
+                if self.carte[i][j] == "M" :
+                    self.carte[i][j] = "m"
         
         self.Afficher_carte()
 
     #on déplace le sous marin
-    def deplacement_sm(self, position, sous_marin, cap, capitaine, carte):
+    def deplacement_sm(self, position, sous_marin, cap, emplacement_mines):
         
         x, y = position
         cap = cap.upper()
-        h = int(self.hauteur) - 1
-        l = int(self.largeur) - 1
+        print(f"POSITION : {position}")
+        print(f"emplacement mine: {emplacement_mines}")    
 
         if cap == "OUEST" :
-            #l'emplacement actuelle du sous-marin se transforme en chemin déjà parcourue
-            self.carte[x][y] = "←"
+            #si une mine alliée existe sur la case du sm avant le déplacement, on la réaffiche avec un "M" majuscule.
+            for i in emplacement_mines :
+                if position == i : 
+                    self.carte[x][y] = "M"
+
+            #sinon l'emplacement actuelle du sous-marin se transforme en chemin déjà parcourue 
+                else : 
+                    self.carte[x][y] = "←"
+
             #changement de position
             y -= 1
             #la nouvelle position se transforme en la première lettre du sm
@@ -72,7 +82,13 @@ class Carte :
             return x, y #retour de la nouvelle position
 
         elif cap == "EST" :
-            self.carte[x][y] = "→"
+            for i in emplacement_mines :
+                if position == i : 
+                    self.carte[x][y] = "M"
+
+                else :
+                    self.carte[x][y] = "→"
+
             y += 1
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
@@ -81,7 +97,13 @@ class Carte :
             return x, y #nouvelle position
 
         elif cap == "NORD" :
-            self.carte[x][y] = "↑"
+            for i in emplacement_mines :
+                if position == i : 
+                    self.carte[x][y] = "M"
+            
+                else :
+                    self.carte[x][y] = "↑"
+
             x -= 1   
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
@@ -90,7 +112,13 @@ class Carte :
             return x, y #nouvelle position
 
         elif cap == "SUD" :
-            self.carte[x][y] = "↓"
+            for i in emplacement_mines :
+                if position == i : 
+                    self.carte[x][y] = "M"
+            
+                else :
+                    self.carte[x][y] = "↓"
+
             x += 1
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y

@@ -740,7 +740,7 @@ class SousMarin:
         #=====================#
 
         if self.nom == "Tigre" or self.nom == "Ecureille" :
-            print("\nSelectionner un emplacement sur la map")
+            print("\nSelectionner un emplacement sur la map :")
             carte.Afficher_carte()
             
             while True :
@@ -828,6 +828,48 @@ class SousMarin:
                 
                 except ValueError :
                     print("❌ Veuillez choisir des valeurs valides.\n\n")
+
+    def larguer_mine(self, carte, derniere_colonne, derniere_ligne, arme2):
+        print("\nSelectionner un emplacement sur la map :")
+        carte.Afficher_carte()
+        
+        while True :
+            try :
+                y_lettre = input("\nChoisissez une colonne : ")
+                y = lettre_to_chiffre(y_lettre)
+                x = int(input("Choisissez une ligne : ")) - 1
+                emplacement_mine = x, y
+
+                if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                    if ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+                        mine_larguer = True
+
+                        for i in range(6):
+                                arme2[i] = "0"
+                        
+                        #Si le sm a déjà naviguer là ou la mine est posé, alors le signalement de la mine sera en majuscule est le sm ne pourra pas naviguer dessus;
+                        if carte.carte[x][y] in ['←', '→', '↑', '↓'] :
+                            carte.carte[x][y] = "M"
+                        
+                        else :
+                            carte.carte[x][y] = "m"
+
+                        self.a2 = False
+                        print("\nVotre mine a été placé en : ", y_lettre, x+1, "\n")
+                        carte.Afficher_carte()
+                        input("SUIVANT")
+
+                        return emplacement_mine, mine_larguer, arme2
+                    else :
+                        print("❌ Veuillez choisir des valeurs autour de votre sous-marin sur des cases de mer qui ne sont déjà pas occupé par l'une de vos mines.\n\n")
+
+                else :
+                    print("❌ Veuillez choisir des valeurs dans la limite de la map.\n\n")
+
+            except ValueError : 
+                print("❌ Veuillez choisir des valeurs valides.\n\n")
 
 def lettre_to_chiffre(lettre):
         while True:
