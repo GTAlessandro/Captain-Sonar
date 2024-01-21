@@ -539,7 +539,6 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     #initialisation variable systèmes
     emplacement_mines_e1 = []
     mine_larguer_e1 = False
-
     emplacement_mines_e2 = []
     mine_larguer_e2 = False
 
@@ -815,6 +814,11 @@ def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom, cap,
 def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self, emplacement_mines, mine_larguer) :
     fin = False
 
+    #Si emplacement_mines est vides, alors il n'y a aucune mine a faire exploser
+    if not emplacement_mines :
+        mine_larguer = False
+
+    #si aucun système n'est déclanchable
     if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == False and sous_marin.a2 == False and sous_marin.d1 == False and sous_marin.d2 == False and sous_marin.spe == False : 
         print("\n\nAucun système ne peut être déclencher\n")
         input("SUIVANT")
@@ -846,7 +850,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                 if sous_marin.nom == "Ecureille" and sous_marin.spe == True :
                     print("5 - Votre leurre est prêt à être lancer !")
 
-                if sous_marin.nom == "Tigre" and mine_larguer == True :
+                if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and mine_larguer == True :
                     print("9 - Vous pouvez faire exploser votre mine !")
 
                 #activer les systèmes à larguer
@@ -866,7 +870,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                             return fin, arme1, emplacement_mines, mine_larguer, arme2
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and mine_larguer == True and choix_systeme == 9 :
-                            sous_marin.exploser_mine(sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self)
+                            sous_marin.exploser_mine(sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self, emplacement_mine)
                             return fin, arme1, emplacement_mines, mine_larguer, arme2
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True and choix_systeme == 3 :

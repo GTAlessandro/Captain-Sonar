@@ -69,7 +69,7 @@ class SousMarin:
         
         elif self.baie == 2 : 
             #fonction d'une baie moteur numéro 2
-            print(r)
+            print("r pour le moment")
 
 
     def afficher_baie_moteur(self, cadran_ouest, cadran_nord, cadran_sud, cadran_est):
@@ -870,6 +870,9 @@ class SousMarin:
 
             except ValueError : 
                 print("❌ Veuillez choisir des valeurs valides.\n\n")
+
+    def exploser_mine(sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self, emplacement_mine) :
+        print("r")
 
 def lettre_to_chiffre(lettre):
         while True:

@@ -57,19 +57,16 @@ class Carte :
     def deplacement_sm(self, position, sous_marin, cap, emplacement_mines):
         
         x, y = position
-        cap = cap.upper()
-        print(f"POSITION : {position}")
-        print(f"emplacement mine: {emplacement_mines}")    
+        cap = cap.upper()   
 
         if cap == "OUEST" :
+            #l'emplacement avant le déplacement du sm est changer dans la direction du cap
+            self.carte[x][y] = "←"
+
             #si une mine alliée existe sur la case du sm avant le déplacement, on la réaffiche avec un "M" majuscule.
             for i in emplacement_mines :
                 if position == i : 
                     self.carte[x][y] = "M"
-
-            #sinon l'emplacement actuelle du sous-marin se transforme en chemin déjà parcourue 
-                else : 
-                    self.carte[x][y] = "←"
 
             #changement de position
             y -= 1
@@ -82,12 +79,11 @@ class Carte :
             return x, y #retour de la nouvelle position
 
         elif cap == "EST" :
+            self.carte[x][y] = "→"
+
             for i in emplacement_mines :
                 if position == i : 
                     self.carte[x][y] = "M"
-
-                else :
-                    self.carte[x][y] = "→"
 
             y += 1
             self.carte[x][y] = sous_marin.nom[0]
@@ -97,12 +93,11 @@ class Carte :
             return x, y #nouvelle position
 
         elif cap == "NORD" :
+            self.carte[x][y] = "↑"
+
             for i in emplacement_mines :
                 if position == i : 
                     self.carte[x][y] = "M"
-            
-                else :
-                    self.carte[x][y] = "↑"
 
             x -= 1   
             self.carte[x][y] = sous_marin.nom[0]
@@ -112,12 +107,11 @@ class Carte :
             return x, y #nouvelle position
 
         elif cap == "SUD" :
+            self.carte[x][y] = "↓"
+
             for i in emplacement_mines :
                 if position == i : 
                     self.carte[x][y] = "M"
-            
-                else :
-                    self.carte[x][y] = "↓"
 
             x += 1
             self.carte[x][y] = sous_marin.nom[0]
