@@ -122,17 +122,12 @@ class Carte :
 
        
     #on place le premier cap sur le transparent
-    def start_trans(self, position):
-        x, y = position #la première valeur place le sous marin de colonne, la deuxième de ligne
-        self.carte[x][y] = "X"   #le sous marin est signaler par la première valeur de son nom.
-        y_l = chiffre_to_lettre(y)
-        
-        print("\n-> Premier cap ennemi placer en : ", y_l ,x+1, "\n")
-
-        self.pos_cible = x, y
+    def start_trans(self):
+        self.carte[1][1] = "X"   #le sous marin ennemi est signalé par une croix.
+        self.pos_cible = 1, 1
         self.Afficher_carte()
         
-        return x, y
+        return 1, 1
 
     #rentrer un cap sur le transparent.
     def continuer_trans(self, cap, position):

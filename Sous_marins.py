@@ -411,16 +411,16 @@ class SousMarin:
     #=====================================#
 
     def def_systeme(self) :
-        a1 = "0"
-        a2 = "0"
-        a3 = "0"
+        a1 = "#"
+        a2 = "#"
+        a3 = "#"
         a4 = "0"
         a5 = "0"
         a6 = "0"
 
-        b1 = "0"
-        b2 = "0"
-        b3 = "0"
+        b1 = "#"
+        b2 = "#"
+        b3 = "#"
         b4 = "0"
         b5 = "0"
         b6 = "0"
@@ -871,8 +871,31 @@ class SousMarin:
             except ValueError : 
                 print("❌ Veuillez choisir des valeurs valides.\n\n")
 
-    def exploser_mine(sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self, emplacement_mine) :
-        print("r")
+    def exploser_mine(self, sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self, emplacement_mines) :
+        nb_mines = len(emplacement_mines)
+
+        #afficher l'emplacement des mines à exploser et le lier à un numéro de mine PARTIE BUGGER A CORRIGERRRRRRRRRR
+        for i in range(nb_mines) :
+            for j in emplacement_mines :
+                x, y = j
+                y = chiffre_to_lettre(y)
+                print(f"{i + 1} - Faire exploser la mine placée en : {y, x}")
+
+
+        while True :
+            try :
+                choix = int(input(f"\nChoisissez la mine que vous voulez faire exploser (1 - {nb_mines}). Ou revenez en arrière (0) : "))
+
+                for i in range(nb_mines) :
+                    if choix == i + 1 :
+                        print("explosion de la mine choisis")
+                        break
+
+                if choix == 0 :
+                    break
+            
+            except ValueError :
+                print("❌ choisissez une valeur valide")
 
 def lettre_to_chiffre(lettre):
         while True:
@@ -882,3 +905,6 @@ def lettre_to_chiffre(lettre):
                 lettre = input("Veuillez entrer une lettre existante : ")
             else:
                 lettre = input("Veuillez entrer une colonne existante : ")
+
+def chiffre_to_lettre(chiffre):
+        return chr(chiffre + ord('A')) #gpt
