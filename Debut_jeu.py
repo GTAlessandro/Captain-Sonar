@@ -421,15 +421,17 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
 '''7) Placer son sous marin'''
 #============================#
 
-#convertie une lettre en chiffre, A = 0, B = 1 etc ...
+#convertire une lettre en chiffre, A = 0, B = 1 etc ...
 def lettre_to_chiffre(lettre):
         while True:
             if len(lettre) == 1 and lettre.isalpha():
                 return ord(lettre.upper()) - ord('A')
+            
             elif lettre.isdigit():
-                lettre = input("Veuillez entrer une lettre existante : ")
+                lettre = input("❌ Veuillez entrer une lettre existante : ")
+
             else:
-                lettre = input("Veuillez entrer une colonne existante : ")
+                lettre = input("❌ Veuillez entrer une colonne existante : ")
 
 def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
 
@@ -464,7 +466,7 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
 '''=====================================DEBUT BOUCLE======================================='''
 #============================================================================================#
 
-def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2, arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2, nb_joueur) :
+def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_marin_e2, x1, y1, x2, y2, derniere_colonne, derniere_ligne, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, cadran_ouest_e2, cadran_nord_e2, cadran_sud_e2, cadran_est_e2, arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, arme1_e2, arme2_e2, dete1_e2, dete2_e2, spe_e2, nb_joueur, position_sm_d1, position_sm_d2) :
     
     global nom_e1, nom_e2
 
@@ -505,11 +507,13 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
     nombre_tour_attendu_e1 = 0
     nombre_tour_attendu_e2 = 0
 
-    #initialisation variable systèmes
+    #initialisation des variables des systèmes
     emplacement_mines_e1 = []
     mine_larguer_e1 = False
+    mine_cap_e1 = []
     emplacement_mines_e2 = []
     mine_larguer_e2 = False
+    mine_cap_e2 = []
 
     while fin_tour_e1 == False :
         #============#
@@ -525,7 +529,7 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
         arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1, cap_e1, nombre_tour_attendu_e1, surface_e1, capitaine_e1)
         
         #4) l'équipe 1 peut déclencher une compétence
-        fin, arme1_e1, emplacement_mines_e1, mine_larguer_e1, arme2_e1 = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1, emplacement_mines_e1, mine_larguer_e1)
+        fin, arme1_e1, emplacement_mines_e1, mine_larguer_e1, arme2_e1, mine_cap_e1 = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1, emplacement_mines_e1, mine_larguer_e1, mine_cap_e1, fin)
         
         #5) le detecteur adverse rentre le cap ennemi
 
@@ -780,8 +784,7 @@ def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom, cap,
 '''4) déclenchement de compétencee'''
 #====================================#
 
-def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self, emplacement_mines, mine_larguer) :
-    fin = False
+def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self, emplacement_mines, mine_larguer, mine_cap, fin) :
 
     #Si emplacement_mines est vides, alors il n'y a aucune mine a faire exploser
     if not emplacement_mines :
@@ -829,38 +832,39 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                         
                         #torpille larguable
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == True and choix_systeme == 1 :
-                            fin, arme1 = sous_marin.larguer_torpille(sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self, arme1)
-                            return fin, arme1, emplacement_mines, mine_larguer, arme2
+                            fin, arme1 = sous_marin.larguer_torpille(sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_ennemi, nom_self, arme1, fin)
+                            return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
 
                         #mine largable
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2 == True and choix_systeme == 2 :
-                            x_y_mine, mine_larguer, arme2 = sous_marin.larguer_mine(carte, derniere_colonne, derniere_ligne, arme2)
+                            x_y_mine, mine_larguer, arme2, capm = sous_marin.larguer_mine(carte, derniere_colonne, derniere_ligne, arme2)
                             emplacement_mines.append(x_y_mine) #on ajoute les coordonnées de la mine larguer au tableau emplacement_mines
-                            return fin, arme1, emplacement_mines, mine_larguer, arme2
+                            mine_cap.append(capm)
+                            return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and mine_larguer == True and choix_systeme == 10 :
-                            sous_marin.exploser_mine(sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self, emplacement_mines)
-                            return fin, arme1, emplacement_mines, mine_larguer, arme2
+                            fin, emplacement_mines, mine_cap = sous_marin.exploser_mine(sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self, emplacement_mines, mine_cap, carte, fin)
+                            return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True and choix_systeme == 3 :
                             #fonction lancer drone
                             print("sous_marin.larguer_drone()")
-                            return fin, arme1, emplacement_mines, mine_larguer, arme2
+                            return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
 
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d2 == True and choix_systeme == 4 :
                             #fonction lancer sonar
                             print("sous_marin.lancer_sonar()")
-                            return fin, arme1, emplacement_mines, mine_larguer, arme2
+                            return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
 
                         if sous_marin.nom == "Tigre" and sous_marin.spe == True and choix_systeme == 5 :
                             #fonction lancer silence
                             print("sous_marin.lancer_silence()")
-                            return fin, arme1, emplacement_mines, mine_larguer, arme2
+                            return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
 
                         if sous_marin.nom == "Ecureille" and sous_marin.spe == True and choix_systeme == 5 :
                             #fonction lancer leurre
                             print("sous_marin.lancer_leurre()")
-                            return fin, arme1, emplacement_mines, mine_larguer, arme2
+                            return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
 
                         if choix_systeme == 0 :
                             break
@@ -872,7 +876,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                         print("❌ Veuillez entrer un chiffre valide !\n\n")
 
             elif choix == 1 :
-                return fin, arme1, emplacement_mines, mine_larguer, arme2
+                return fin, arme1, emplacement_mines, mine_larguer, arme2, mine_cap
             
             else :
                 print("❌ Veuillez entrer une option valide (1-2) !\n\n")

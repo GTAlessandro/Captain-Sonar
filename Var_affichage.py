@@ -403,8 +403,8 @@ regles = """
 
     ➟ LARGAGE D'UNE MINE 💣 :
         Le Capitaine largue une Mine sur une case adjacente à son sous-marin. 
-        Si la mine est larguer sur un emplacement où le vaisseau a déjà naviguer, elle sera indiquer avec un M majuscule.
-        Si la mine est larguer sur un emplacement non découvert par le sous-marin, elle sera indiquer avec un m minuscule.
+        Si la mine est largué sur un emplacement où le vaisseau a déjà naviguer, elle sera indiquer avec un M majuscule.
+        Si la mine est largué sur un emplacement non découvert par le sous-marin, elle sera indiquer avec un m minuscule.
         Il annonce ensuite « MINE LARGUÉE ! » et le jeu continue. 
         La jauge de Mine est donc effacer pour le second (puisqu'elle vient d'être utilisée). 
         Les effets de la mine dépendent du type de mine largué.
