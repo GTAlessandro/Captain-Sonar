@@ -999,7 +999,6 @@ class SousMarin:
 
     def explosion_auto(self, sous_marin_ennemi, nom_self, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi):
 
-        #si le sm ennemie se nomme ecureille alors on regarde si il a larguer des mines avec leur position, si le sm se déplace sur l'une de ces positions alors boom
         if sous_marin_ennemi.nom == "Ecureille" :
             if emplacement_mines_ennemi :
                 for i in range(len(emplacement_mines_ennemi)) :

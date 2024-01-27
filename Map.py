@@ -16,25 +16,29 @@ class Carte :
     #on affiche la carte
     def Afficher_carte(self) :
         # Afficher les lettres de l'alphabet comme libellés de colonnes
-        lettres = ' ' + ' '.join([chr(65 + col) for col in range(self.largeur)])
+        lettres = '  ' + ' '.join([chr(65 + col) for col in range(self.largeur)])
         print('  ' + lettres)  # Ajout d'un espace pour l'alignement
 
         # Diviser la largeur et la hauteur par 2 pour obtenir les coordonnées du milieu
         milieu_largeur = self.largeur // 2
         milieu_hauteur = self.hauteur // 2
 
+        print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(self.largeur)]) + '-+')
+
         # Afficher la carte en quadrants (GPT 80%)
         for i, ligne in enumerate(self.carte):
             if i == milieu_hauteur:
                 # Ajouter une ligne horizontale au milieu de la hauteur
-                print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(self.largeur - 1)]) + '-+')
+                print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(self.largeur)]) + '-+')
 
             if i < milieu_hauteur:
                 # Afficher la première moitié des lignes
-                print(str(i + 1).zfill(2) + '|' + ' '.join(ligne[:milieu_largeur]) + '|' + ' '.join(ligne[milieu_largeur:]))
+                print(str(i + 1).zfill(2) + '| ' + ' '.join(ligne[:milieu_largeur]) + '|' + ' '.join(ligne[milieu_largeur:])+ ' |')
             else:
                 # Afficher la deuxième moitié des lignes
-                print(str(i + 1).zfill(2) + '|' + ' '.join(ligne[:milieu_largeur]) + '|' + ' '.join(ligne[milieu_largeur:]))
+                print(str(i + 1).zfill(2) + '| ' + ' '.join(ligne[:milieu_largeur]) + '|' + ' '.join(ligne[milieu_largeur:])+ ' |')
+        
+        print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(self.largeur)]) + '-+')
             
         # Retourner la première et la dernière colonne, ainsi que la première et la dernière ligne (gpt)
         derniere_colonne = chr(65 + self.largeur - 1)
