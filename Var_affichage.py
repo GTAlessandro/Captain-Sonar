@@ -425,8 +425,7 @@ regles = """
               • Lorsqu'un sous-marin navigue sur l'emplacement de la mine, un message apparaîtra pour prévenir le sous-marin en question.
               • Surpris par cette explosion, le sous-marin ennemi ne pourra pas déclencher de système ce tour-ci.
               • Elle infligera : 
-                - 2 points de dégâts si l'impact est exactement sur la même case.
-                - 1 point sur une case adjacent au sous-marin ennemi.
+                - 1 points de dégâts si l'impact est sur la même case et sur une case adjacent au sous-marin ennemi.
                 - 0 point au-delà.
 
             

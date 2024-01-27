@@ -421,7 +421,7 @@ class SousMarin:
         b1 = "#"
         b2 = "#"
         b3 = "#"
-        b4 = "0"
+        b4 = "#"
         b5 = "0"
         b6 = "0"
 
@@ -620,6 +620,7 @@ class SousMarin:
         self.afficher_systeme(arme1, arme2, dete1, dete2, spe)
 
         return mince, arme1, arme2, dete1, dete2, spe
+
 
     def afficher_systeme(self, arme1, arme2, dete1, dete2, spe) :
         a1 = arme1[0]
@@ -832,6 +833,7 @@ class SousMarin:
                 except ValueError :
                     print("❌ Veuillez choisir des valeurs valides.\n\n")
 
+
     def larguer_mine(self, carte, derniere_colonne, derniere_ligne, arme2):
         print("\nSelectionner un emplacement sur la map :")
         carte.Afficher_carte()
@@ -846,8 +848,6 @@ class SousMarin:
                 if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
                     if ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
                         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
-                        mine_larguer = True
 
                         for i in range(6):
                                 arme2[i] = "0"
@@ -878,7 +878,7 @@ class SousMarin:
                         carte.Afficher_carte()
                         input("SUIVANT")
 
-                        return emplacement_mine, mine_larguer, arme2, mine_cap
+                        return emplacement_mine, arme2, mine_cap
                     
                     else :
                         print("❌ Veuillez choisir des valeurs autour de votre sous-marin sur des cases de mer qui ne sont déjà pas occupé par l'une de vos mines.\n\n")
@@ -889,26 +889,26 @@ class SousMarin:
             except ValueError : 
                 print("❌ Veuillez choisir des valeurs valides.\n\n")
 
+
     def exploser_mine(self, sous_marin_ennemi,  capitaine_ennemie, nom_e, nom_self, emplacement_mines, mine_cap, carte, fin) :
         nb_mines = len(emplacement_mines)
+        print("\n")
+        carte.Afficher_carte()
 
         #afficher l'emplacement des mines à exploser et le lier à un numéro de mine
         for i in range(nb_mines) :
             x, y = emplacement_mines[i - 1]
             y_l = chiffre_to_lettre(y)
             print(f"{i + 1} - Faire exploser la mine placée en {y_l}{x + 1}")
-        
-        print("\n")
-        carte.Afficher_carte()
 
         while True :
             try :
-                choix = int(input(f"\nChoisissez la mine que vous voulez faire exploser (1 - {nb_mines}). Ne pas faire exploser de mine et passer son tour (0) : "))
+                choix = int(input(f"\nChoisissez la mine que vous voulez faire exploser (1 - {nb_mines}). Annuler l'explosion (0) : "))
 
                 if 0 < choix <= nb_mines :
 
                     for i in range(nb_mines) :
-                    #selection de la position de la mine selectionnée
+                    #selection de la position de la mine selectionnée et de son cap
                         emplacement_mine_choisis = emplacement_mines[i - 1]
                         mine_cap_choisis = mine_cap[i - 1]
 
@@ -928,13 +928,12 @@ class SousMarin:
                     else :
                         carte.carte[x][y] = '.'
 
+                    x, y = self.pos
+                    carte.carte[x][y] = self.nom[0]
+
                     #on retire la mine qui a explosée dans le tableau des emplacement_mines ainsi que son cap associé.
                     emplacement_mines.remove(emplacement_mine_choisis)
                     mine_cap.remove(mine_cap_choisis)
-
-                    print("quatrième")
-
-                    print(f"LA MINE A EXPLOSER ET IL NY A PLUS RIEN DANS LES TABLEAUX position : {emplacement_mines} et cap des mines {mine_cap}")
 
                     #le sous-marin explose une mine sur sois
                     if emplacement_mine_choisis == self.pos :
@@ -996,6 +995,81 @@ class SousMarin:
             
             except ValueError :
                 print("❌ choisissez une valeur valide")
+
+
+    def explosion_auto(self, sous_marin_ennemi, nom_self, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi):
+
+        #si le sm ennemie se nomme ecureille alors on regarde si il a larguer des mines avec leur position, si le sm se déplace sur l'une de ces positions alors boom
+        if sous_marin_ennemi.nom == "Ecureille" :
+            if emplacement_mines_ennemi :
+                for i in range(len(emplacement_mines_ennemi)) :
+                    x, y = emplacement_mines_ennemi[i - 1]
+                    
+                    if self.pos == emplacement_mines_ennemi[i - 1] :
+                        
+                        if mine_cap_ennemi[i - 1] == "OUEST" :
+                            carte_ennemi.carte[x][y] = '←'
+
+                        elif mine_cap_ennemi[i - 1] == "EST" :
+                            carte_ennemi.carte[x][y] = '→'
+
+                        elif mine_cap_ennemi[i - 1] == "NORD" :
+                            carte_ennemi.carte[x][y] = '↑'
+
+                        elif mine_cap_ennemi[i - 1] == "SUD" :
+                            carte_ennemi.carte[x][y] = '↓'
+
+                        emplacement_mine_explose = emplacement_mines_ennemi[i - 1]
+                        mine_cap_explose = mine_cap_ennemi[i - 1]
+                        emplacement_mines_ennemi.remove(emplacement_mine_explose)
+                        mine_cap_ennemi.remove(mine_cap_explose)
+
+                        print(f"\nUne mine ennemi à déjà été larguée sur votre nouvelle position et celle-ci à exploser au contact de votre sous-marin !  \nVous prenez 1 point de dégats !\n")
+                        self.vie -= 1
+                        print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+                                
+                        if self.vie <= 0 :
+                            #fin de game
+                            fin = True
+                                
+                        return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
+
+        if self.nom == "Ecureille" :
+            if emplacement_mines_self :
+                for i in range(len(emplacement_mines_self)) :
+                    x, y = emplacement_mines_self[i - 1]
+
+                    if self.pos == emplacement_mines_self[i - 1] :
+
+                        if mine_cap_self[i - 1] == "OUEST" :
+                            carte.carte[x][y] = '←'
+
+                        elif mine_cap_self[i - 1] == "EST" :
+                            carte.carte[x][y] = '→'
+
+                        elif mine_cap_self[i - 1] == "NORD" :
+                            carte.carte[x][y] = '↑'
+
+                        elif mine_cap_self[i - 1] == "SUD" :
+                            carte.carte[x][y] = '↓'
+
+                        emplacement_mine_explose = emplacement_mines_self[i - 1]
+                        mine_cap_explose = mine_cap_self[i - 1]
+                        emplacement_mines_self.remove(emplacement_mine_explose)
+                        mine_cap_self.remove(mine_cap_explose)
+
+                        print(f"\nVous aviez déjà posé une mine sur cette position et celle-ci à exploser au contact de votre sous-marin !  \nVous prenez 1 point de dégats !\n")
+                        self.vie -= 1
+                        print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+                                
+                        if self.vie <= 0 :
+                            #fin de game
+                            fin = True
+                                
+                        return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
+        
+        return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
+
 
 def lettre_to_chiffre(lettre):
     while True:
