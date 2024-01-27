@@ -442,9 +442,8 @@ regles = """
 ╰┈➤ SYSTEME DE DETECTION :
         ➟ LARGAGE D'UN DRONE 🤖:
             TIGRE :
-                Les effets du drone varient d'un sous-marin à l'autre, pour le sous-marin TIGRE :
-                Un drone permet de demander à l'équipage adverse une information sur le secteur dans lequel il se trouve 
-                (la carte est découpée en 9 secteurs en mode simultané et en 4 secteurs en tour par tour).
+                Le drone permet de demander à l'équipage adverse une information sur le secteur dans lequel il se trouve 
+                (la carte est découpée en 4 secteurs en tour par tour).
               • Le Capitaine interroge donc l'adversaire sur un secteur (« ÊTES VOUS EN SECTEUR : 5 ? »).
               • Le Capitaine adverse DOIT répondre sans tricher par OUI ou par NON.
                 La jauge de Drone est ensuite totalement réinitialiser (puisqu'elle vient d'être utilisée).
