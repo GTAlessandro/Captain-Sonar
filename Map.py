@@ -29,7 +29,18 @@ class Carte :
             self.carte[6][6] = "■"
             self.carte[8][3] = "■"
             self.carte[8][7] = "■"
-            print("on me voit")
+
+        if self.nom == "Mer Rouge" or self.nom == "Transparent Mer Rouge" :
+            self.carte[5][3] = "■"
+            self.carte[4][2] = "■"
+            self.carte[4][3] = "■"
+            self.carte[4][4] = "■"
+            self.carte[4][5] = "■"
+            self.carte[6][6] = "■"
+            self.carte[7][6] = "■"
+            self.carte[7][7] = "■"
+            self.carte[7][8] = "■"
+            self.carte[8][8] = "■"
 
         # Afficher les lettres de l'alphabet comme libellés de colonnes
         lettres = '  ' + '  '.join([chr(65 + col) for col in range(self.largeur)])
