@@ -428,10 +428,10 @@ def lettre_to_chiffre(lettre):
                 return ord(lettre.upper()) - ord('A')
             
             elif lettre.isdigit():
-                lettre = input("❌ Veuillez entrer une lettre existante : ")
+                lettre = input("\nVeuillez entrer une lettre existante : ")
 
             else:
-                lettre = input("❌ Veuillez entrer une colonne existante : ")
+                lettre = input("\nveuillez entrer une colonne existante : ")
 
 def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
 
@@ -446,13 +446,17 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
             y = lettre_to_chiffre(y_lettre)
             x = int(input("Choisissez une ligne : ")) - 1
 
-            if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                x, y = Carte.placer_sous_marin((x,y), sous_marin)
-                input("\nSUIVANT")
-                break
+            if Carte.carte == "." :
+                if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                    x, y = Carte.placer_sous_marin((x,y), sous_marin)
+                    input("\nSUIVANT")
+                    break
+
+                else : 
+                    print("❌ Entrer des coordonnées Comprisent dans les limites de la map.\n\n")
             
             else : 
-                print("❌ Entrer des coordonnées juste ou comprisent dans les limites de la map.\n\n")
+                print("❌ Vous ne pouvez pas plonger sur une île.\n\n")
 
         except ValueError :
             print("❌ Entrer des coordonnées valides.\n\n")
