@@ -15,31 +15,45 @@ class Carte :
 
     #on affiche la carte
     def Afficher_carte(self) :
-        # Afficher les lettres de l'alphabet comme libellés de colonnes
-        lettres = '  ' + ' '.join([chr(65 + col) for col in range(self.largeur)])
-        print('  ' + lettres)  # Ajout d'un espace pour l'alignement
-
         # Diviser la largeur et la hauteur par 2 pour obtenir les coordonnées du milieu
         milieu_largeur = self.largeur // 2
         milieu_hauteur = self.hauteur // 2
 
-        print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(self.largeur)]) + '-+')
+        #Affichage des îles sur la 1ère map :
+        if self.nom == "Mer Noir" or self.nom == "Transparent Mer Noir" :
+            self.carte[0][3] = "■"
+            self.carte[2][1] = "■"
+            self.carte[1][7] = "■"
+            self.carte[3][7] = "■"
+            self.carte[5][4] = "■"
+            self.carte[6][6] = "■"
+            self.carte[8][3] = "■"
+            self.carte[8][7] = "■"
+            print("on me voit")
+
+        # Afficher les lettres de l'alphabet comme libellés de colonnes
+        lettres = '  ' + '  '.join([chr(65 + col) for col in range(self.largeur)])
+        moitier_lettre = len(lettres) // 2
+        lettres = lettres[:moitier_lettre] + " " + lettres[moitier_lettre:]
+        print('  ' + lettres)  # Ajout d'un espace pour l'alignement
+
+        print('  ' + '+-' + '-'.join(['-' for _ in range(len(lettres) // 2)]) + '-+')
 
         # Afficher la carte en quadrants (GPT 80%)
         for i, ligne in enumerate(self.carte):
             if i == milieu_hauteur:
                 # Ajouter une ligne horizontale au milieu de la hauteur
-                print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(self.largeur)]) + '-+')
+                print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(len(lettres) // 2)]) + '-+')
 
             if i < milieu_hauteur:
                 # Afficher la première moitié des lignes
-                print(str(i + 1).zfill(2) + '| ' + ' '.join(ligne[:milieu_largeur]) + '|' + ' '.join(ligne[milieu_largeur:])+ ' |')
+                print(str(i + 1).zfill(2) + '| ' + '  '.join(ligne[:milieu_largeur]) + ' | ' + '  '.join(ligne[milieu_largeur:])+ ' |')
             else:
                 # Afficher la deuxième moitié des lignes
-                print(str(i + 1).zfill(2) + '| ' + ' '.join(ligne[:milieu_largeur]) + '|' + ' '.join(ligne[milieu_largeur:])+ ' |')
+                print(str(i + 1).zfill(2) + '| ' + '  '.join(ligne[:milieu_largeur]) + ' | ' + '  '.join(ligne[milieu_largeur:])+ ' |')
         
-        print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(self.largeur)]) + '-+')
-            
+        print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(len(lettres) // 2)]) + '-+')
+
         # Retourner la première et la dernière colonne, ainsi que la première et la dernière ligne (gpt)
         derniere_colonne = chr(65 + self.largeur - 1)
         derniere_ligne = str(self.hauteur)
@@ -180,17 +194,17 @@ class Carte :
 '''Création des cartes'''
 #=======================#
 
-C1_e1 = Carte("Mer Noir", 16, 16, 1, "Vide", None) #Carte mer noir de l'équipe numéro 1
-C1_e1_d1 = Carte("Transparent Mer Noir", 16, 16, 1, "Vide", None) #Carte transparent mer noir équipe
+C1_e1 = Carte("Mer Noir", 10, 10, 1, "îles", None) #Carte mer noir de l'équipe numéro 1
+C1_e1_d1 = Carte("Transparent Mer Noir", 10, 10, 1, "îles", None) #Carte transparent mer noir équipe
 
-C1_e2 = Carte("Mer Noir", 16, 16, 1, "Vide", None) #Carte mer noir de l'équipe numéro 2
-C1_e2_d2 = Carte("Transparent Mer Noir", 16, 16, 1, "Vide", None) #Carte transparent mer noir équipe 2
+C1_e2 = Carte("Mer Noir", 10, 10, 1, "îles", None) #Carte mer noir de l'équipe numéro 2
+C1_e2_d2 = Carte("Transparent Mer Noir", 10, 10, 1, "îles", None) #Carte transparent mer noir équipe 2
 
-C2_e1 = Carte("Mer Rouge", 16, 16, 2, "île", None) #Carte numéro 2
-C2_e1_d1 = Carte("Transparent Mer Rouge", 16, 16, 1, "Vide", None) #Carte transparent mer rouge équipe 1
+C2_e1 = Carte("Mer Rouge", 12, 12, 2, "îles", None) #Carte numéro 2
+C2_e1_d1 = Carte("Transparent Mer Rouge", 16, 16, 2, "îles", None) #Carte transparent mer rouge équipe 1
 
-C2_e2 = Carte("Mer Rouge", 16, 16, 2, "île", None) #Carte numéro 2
-C2_e2_d2 = Carte("Transparent Mer Rouge", 16, 16, 1, "Vide", None) #Carte transparent mer rouge équipe 2
+C2_e2 = Carte("Mer Rouge", 12, 12, 2, "îles", None) #Carte numéro 2
+C2_e2_d2 = Carte("Transparent Mer Rouge", 16, 16, 2, "îles", None) #Carte transparent mer rouge équipe 2
 
 
 #convertie un chiffre en lettre, 0 = A etc...

@@ -847,9 +847,9 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                             fin, emplacement_mines, mine_cap = sous_marin.exploser_mine(sous_marin_ennemi,  capitaine_ennemie, nom_ennemi, nom_self, emplacement_mines, mine_cap, carte, fin)
                             return fin, arme1, emplacement_mines, arme2, mine_cap
 
-                        #
+                        #Larguage du drone
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True and choix_systeme == 3 :
-                            #fonction lancer drone
+                            
                             print("sous_marin.larguer_drone()")
                             return fin, arme1, emplacement_mines, arme2, mine_cap
 
