@@ -446,7 +446,7 @@ def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
             y = lettre_to_chiffre(y_lettre)
             x = int(input("Choisissez une ligne : ")) - 1
 
-            if Carte.carte == "." :
+            if Carte.carte[x][y] == "." :
                 if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
                     x, y = Carte.placer_sous_marin((x,y), sous_marin)
                     input("\nSUIVANT")
