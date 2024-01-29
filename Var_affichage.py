@@ -540,10 +540,10 @@ aff_map = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
 
     1 - Mer Noir :              2 - Mer Rouge :
-        longueur = 15               longueur = 15
-        largeur = 15                largeur = 15
-        difficulté = 1/10           difficulté = 1/10
-        terrain = vide              terrain = île
+        longueur = 10               longueur = 12
+        largeur = 10                largeur = 12
+        difficulté = 1/10           difficulté = 2/10
+        terrain = îles              terrain = îles
 
     '''
 
@@ -558,10 +558,10 @@ aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
 
     1 - Tigre :        
-        vie = 4❤️           
+        vie = 4❤️
         difficulté = 1               
-        armement 1 = Mine a déclanchement       
-        armement 2 = Torpille électrique à guidage acoustique actif  
+        armement 1 = Mine a déclenchement manuelle      
+        armement 2 = Torpille thermique à guidage acoustique passif  
         détection 1 = Sonar passif  
         détection 2 = Drone par magnétométrie     
         spéciale = Silence
@@ -569,10 +569,10 @@ aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     2 - Ecureille :        
         vie = 3❤️
         difficulté = 1               
-        armement 1 = Mine a déclanchement       
-        armement 2 = Torpille thermique à guidage acoustique passif  
+        armement 1 = Mine a déclenchement automatique ou manuelle      
+        armement 2 = Torpille électrique à guidage acoustique actif  
         détection 1 = Sonar actif  
-        détection 2 = Drone électomagnétique    
+        détection 2 = Drone électromagnétique    
         spéciale = Leurre
     '''
 

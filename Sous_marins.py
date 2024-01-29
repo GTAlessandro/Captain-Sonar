@@ -139,67 +139,38 @@ class SousMarin:
         print(baie_moteur)
 
 
-    def choisir_une_panne(self, choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap):
-        condition = False
-
-        #cadran ouest
-        JAUNE_ARM = cadran_ouest[0]
-        JAUNE_SPE = cadran_ouest[1]
-        JAUNE_DET = cadran_ouest[2]
-        NONE_ODET = cadran_ouest[3]
-        NONE1ORAD = cadran_ouest[4]
-        NONE2ORAD = cadran_ouest[5]
-    
-        #cadran nord
-        VERT__SPE = cadran_nord[0]
-        VERT__DET = cadran_nord[1]
-        VERT__ARM = cadran_nord[2]
-        NONE_NDET = cadran_nord[3]
-        NONE_NARM = cadran_nord[4]
-        NONE_NRAD = cadran_nord[5]
-
-        #cadran sud
-        BLEU__DET = cadran_sud[0]
-        BLEU__SPE = cadran_sud[1]
-        BLEU__ARM = cadran_sud[2]
-        NONE_SARM = cadran_sud[3]
-        NONE_SSPE = cadran_sud[4]
-        NONE_SRAD = cadran_sud[5]
-
-        #cadran est
-        JAUNE1ARM = cadran_est[0]
-        VERT1_SPE = cadran_est[1]
-        BLEU1_SPE = cadran_est[2]
-        NONE_EDET = cadran_est[3]
-        NONE1ERAD = cadran_est[4]
-        NONE2ERAD = cadran_est[5]
-    
+    def choisir_une_panne(self, choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap, condition_panne_arm, condition_panne_spe, condition_panne_det):
+        condition_voyant = False
 
         if cap == "OUEST" :
 
             if choix_meca == 1 and cadran_ouest[0] == " JAUNE 1 ARM":
                 cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
-                condition = True
+                condition_panne_arm = True
+                condition_voyant = True
 
             elif choix_meca == 2 and cadran_ouest[1] == " JAUNE 2 SPE" :
                 cadran_ouest[1] = " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E"
-                condition = True
+                condition_panne_spe = True
+                condition_voyant = True
 
             elif choix_meca == 3 and cadran_ouest[2] == " JAUNE 3 DET" :
                 cadran_ouest[2] = " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T"
-                condition = True
+                condition_panne_det = True
+                condition_voyant = True
 
             elif choix_meca == 4 and cadran_ouest[3] == " NONE  4 DET" :
                 cadran_ouest[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
-                condition = True
+                condition_panne_det = True
+                condition_voyant = True
 
             elif choix_meca == 5 and cadran_ouest[4] == " NONE  5 RAD" :
                 cadran_ouest[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition = True
+                condition_voyant = True
 
             elif choix_meca == 6 and cadran_ouest[5] == " NONE  6 RAD" :
                 cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition = True
+                condition_voyant = True
 
             else : 
                 print("Sélectionnez une panne du cadran OUEST comprise entre 1 et 6")
@@ -208,27 +179,32 @@ class SousMarin:
 
             if choix_meca == 1 and cadran_nord[0] == " VERT  1 SPE" :
                 cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
-                condition = True
+                condition_panne_spe = True
+                condition_voyant = True
         
             elif choix_meca == 2 and cadran_nord[1] == " VERT  2 DET" :
                 cadran_nord[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T"
-                condition = True
+                condition_panne_det = True
+                condition_voyant = True
 
             elif choix_meca == 3 and cadran_nord[2] == " VERT  3 ARM" :
                 cadran_nord[2] = " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M"
-                condition = True
+                condition_panne_arm = True
+                condition_voyant = True
 
             elif choix_meca == 4 and cadran_nord[3] == " NONE  4 DET" :
                 cadran_nord[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
-                condition = True
+                condition_panne_det = True
+                condition_voyant = True
 
             elif choix_meca == 5 and cadran_nord[4] == " NONE  5 ARM" :
                 cadran_nord[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
-                condition = True
+                condition_panne_arm = True
+                condition_voyant = True
 
             elif choix_meca == 6 and cadran_nord[5] == " NONE  6 RAD" :
                 cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition = True
+                condition_voyant = True
 
             else : 
                 print("Sélectionnez une panne du cadran NORD comprise entre 1 et 6")
@@ -237,27 +213,32 @@ class SousMarin:
 
             if choix_meca == 1 and cadran_sud[0] == " BLEU  1 DET" :
                 cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T"
-                condition = True
+                condition_panne_det = True
+                condition_voyant = True
         
             elif choix_meca == 2 and cadran_sud[1] == " BLEU  2 SPE" :
                 cadran_sud[1] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
-                condition = True
+                condition_panne_spe = True
+                condition_voyant = True
 
             elif choix_meca == 3 and cadran_sud[2] == " BLEU  3 ARM" :
                 cadran_sud[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M"
-                condition = True
+                condition_panne_arm = True
+                condition_voyant = True
 
             elif choix_meca == 4 and cadran_sud[3] == " NONE  4 ARM" :
                 cadran_sud[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
-                condition = True
+                condition_panne_arm = True
+                condition_voyant = True
 
             elif choix_meca == 5 and cadran_sud[4] == " NONE  5 SPE" :
                 cadran_sud[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
-                condition = True
+                condition_panne_spe = True
+                condition_voyant = True
 
             elif choix_meca == 6 and cadran_sud[5] == " NONE  6 RAD" :
                 cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition = True
+                condition_voyant = True
 
             else : 
                 print("Sélectionnez une panne du cadran SUD comprise entre 1 et 6")
@@ -266,27 +247,31 @@ class SousMarin:
 
             if choix_meca == 1 and cadran_est[0] == " JAUNE 1 ARM" :
                 cadran_est[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
-                condition = True
+                condition_panne_arm = True
+                condition_voyant = True
         
             elif choix_meca == 2 and cadran_est[1] == " VERT  2 SPE" :
                 cadran_est[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
-                condition = True
+                condition_panne_spe = True
+                condition_voyant = True
 
             elif choix_meca == 3 and cadran_est[2] == " BLEU  3 SPE" :
                 cadran_est[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
-                condition = True
+                condition_panne_spe = True
+                condition_voyant = True
 
             elif choix_meca == 4 and cadran_est[3] == " NONE  4 DET" :
                 cadran_est[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
-                condition = True
+                condition_panne_det = True
+                condition_voyant = True
 
             elif choix_meca == 5 and cadran_est[4] == " NONE  5 RAD" :
                 cadran_est[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition = True
+                condition_voyant = True
 
             elif choix_meca == 6 and cadran_est[5] == " NONE  6 RAD" :
                 cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition = True
+                condition_voyant = True
 
             else : 
                 print("Sélectionnez une panne du cadran EST comprise entre 1 et 6")
@@ -400,11 +385,22 @@ class SousMarin:
             print("\n\nToutes les pannes RAD ont été cochées, toutes vos pannes RAD sont réparées mais vous subissez un de dégât !")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
-            
+
+        #Changement d'état des variables de conditions pour savoir si l'on peut lancer ou non une capacité
+        #ARM
+        if cadran_ouest[0] == " JAUNE 1 ARM" and cadran_nord[2] == " VERT  3 ARM" and cadran_nord[4] == " NONE  5 ARM" and cadran_sud[2] == " BLEU  3 ARM" and cadran_sud[3] == " NONE  4 ARM" and cadran_est[0] == " JAUNE 1 ARM" :
+            condition_panne_arm = False
+        
+        if cadran_ouest[1] == " JAUNE 2 SPE" and cadran_nord[0] == " VERT  1 SPE" and cadran_sud[1] == " BLEU  2 SPE" and cadran_sud[4] == " NONE  5 SPE" and cadran_est[1] == " VERT  2 SPE" and cadran_est[2] == " BLEU  3 SPE" :
+            condition_panne_spe = False
+        
+        if cadran_ouest[2] == " JAUNE 3 DET" and cadran_ouest[3] == " NONE  4 DET" and cadran_nord[1] == " VERT  2 DET" and cadran_nord[3] == " NONE  4 DET" and cadran_sud[0] == " BLEU  1 DET" and cadran_est[3] == " NONE  4 DET" :
+            condition_panne_det = False
+
         self.baie_moteur = cadran_ouest, cadran_nord, cadran_sud, cadran_est
         self.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
 
-        return cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition
+        return cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition_panne_arm, condition_panne_spe, condition_panne_det, condition_voyant
 
     #=====================================#
     '''=============SYSTEMES============'''
@@ -465,7 +461,7 @@ class SousMarin:
 
     def charger_systeme(self, choix, arme1, arme2, dete1, dete2, spe):
         
-        mince = True 
+        condition_charge = True 
 
         #=========#
         '''Tigre'''
@@ -480,8 +476,8 @@ class SousMarin:
 
                     elif self.a1 == True : 
                         print("Votre torpille est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
             
             elif choix == 2 :
                 for i in range(3) :
@@ -491,8 +487,8 @@ class SousMarin:
 
                     elif self.a2 == True : 
                         print("Votre mine est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             elif choix == 3 :
                 for i in range(4) :
@@ -502,8 +498,8 @@ class SousMarin:
 
                     elif self.d1 == True : 
                         print("Votre drone est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             elif choix == 4 :
                 for i in range(3) :
@@ -513,8 +509,8 @@ class SousMarin:
 
                     elif self.d2 == True : 
                         print("Votre sonar est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             elif choix == 5 :
                 for i in range(6) :
@@ -524,8 +520,8 @@ class SousMarin:
 
                     elif self.spe == True : 
                         print("Votre silence est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             if arme1[0] == "#" and arme1[1] == "#" and arme1[2] == "#" :
                 self.a1 = True
@@ -555,8 +551,8 @@ class SousMarin:
 
                     elif self.a1 == True : 
                         print("Votre torpille est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
             
             elif choix == 2 :
                 for i in range(4) :
@@ -566,8 +562,8 @@ class SousMarin:
 
                     elif self.a2 == True : 
                         print("Votre mine est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             elif choix == 3 :
                 for i in range(4) :
@@ -577,8 +573,8 @@ class SousMarin:
 
                     elif self.d1 == True : 
                         print("Votre drone est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             elif choix == 4 :
                 for i in range(3) :
@@ -588,8 +584,8 @@ class SousMarin:
 
                     elif self.d2 == True : 
                         print("Votre sonar est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             elif choix == 5 :
                 for i in range(6) :
@@ -599,8 +595,8 @@ class SousMarin:
                     
                     elif self.spe == True : 
                         print("Votre leurre est déjà chargée !")
-                        mince = False
-                        return mince, arme1, arme2, dete1, dete2, spe
+                        condition_charge = False
+                        return condition_charge, arme1, arme2, dete1, dete2, spe
 
             if arme1[0] == "#" and arme1[1] == "#" and arme1[2] == "#" :
                 self.a1 = True
@@ -617,9 +613,29 @@ class SousMarin:
             if spe[0] == "#" and spe[1] == "#" and spe[2] == "#" and spe[3] == "#" and spe[4] == "#" and spe[5] == "#" :
                 self.spe = True
 
+        if choix == 1 :
+            choix = "la torpille"
+            
+        if choix == 2 :
+            choix = "la mine"
+
+        if choix == 3 :
+            choix = "le drone"
+
+        if choix == 4 :
+            choix = "le sonar"
+
+        if self.nom == "Tigre" and choix == 5 :
+            choix = "le silence"
+
+        if self.nom == "Ecureille" and choix == 5 :
+            choix = "le leurre"
+
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        print(f"Vous avez chargé {choix} :")
         self.afficher_systeme(arme1, arme2, dete1, dete2, spe)
 
-        return mince, arme1, arme2, dete1, dete2, spe
+        return condition_charge, arme1, arme2, dete1, dete2, spe
 
 
     def afficher_systeme(self, arme1, arme2, dete1, dete2, spe) :

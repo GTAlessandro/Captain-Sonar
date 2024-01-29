@@ -116,6 +116,7 @@ class Carte :
             self.carte[x][y] = sous_marin.nom[0]
             #maj de la position du sm
             sous_marin.pos = x, y
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             print("\nVoici votre nouvel emplacement : \n")
             self.Afficher_carte()
             return x, y #retour de la nouvelle position
@@ -130,6 +131,7 @@ class Carte :
             y += 1
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             print("\nVoici votre nouvel emplacement : \n")
             self.Afficher_carte()
             return x, y #nouvelle position
@@ -144,6 +146,7 @@ class Carte :
             x -= 1   
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             print("\nVoici votre nouvel emplacement : \n")
             self.Afficher_carte()
             return x, y #nouvelle position
@@ -158,6 +161,7 @@ class Carte :
             x += 1
             self.carte[x][y] = sous_marin.nom[0]
             sous_marin.pos = x, y
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             print("\nVoici votre nouvel emplacement : \n")
             self.Afficher_carte()
             return x, y #nouvelle position
