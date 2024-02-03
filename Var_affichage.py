@@ -442,10 +442,11 @@ regles = """
 ╰┈➤ SYSTEME DE DETECTION :
         ➟ LARGAGE D'UN DRONE 🤖:
             TIGRE :
-                Le drone permet de demander à l'équipage adverse une information sur le secteur dans lequel il se trouve 
-                (la carte est découpée en 4 secteurs en tour par tour).
-              • Le Capitaine interroge donc l'adversaire sur un secteur (« ÊTES VOUS EN SECTEUR : 5 ? »).
-              • Le Capitaine adverse DOIT répondre sans tricher par OUI ou par NON.
+                Le drone se largue dans un des 4 secteurs de la map et reviendra indiquer si oui ou non
+                le sous-marin ennemi se trouve dans ce secteur (la carte est découpée en 4 par des lignes, 
+                le 1er se trouve en haut à gauche et ainsi de suite).
+              • Le Capitaine choisis le secteur dans lequel il largue le drone.
+              • Le drone retournera sa réponse par OUI ou par NON.
                 La jauge de Drone est ensuite totalement réinitialiser (puisqu'elle vient d'être utilisée).
                 Puis la partie reprend normalement.
 

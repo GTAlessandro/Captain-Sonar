@@ -421,10 +421,10 @@ class SousMarin:
         b5 = "0"
         b6 = "0"
 
-        c1 = "0"
-        c2 = "0"
-        c3 = "0"
-        c4 = "0"
+        c1 = "#"
+        c2 = "#"
+        c3 = "#"
+        c4 = "#"
         c5 = "0"
         c6 = "0"
 
@@ -944,8 +944,8 @@ class SousMarin:
                     else :
                         carte.carte[x][y] = '.'
 
-                    i, j = self.pos
-                    carte.carte[i][j] = self.nom[0]
+                    # i, j = self.pos
+                    # carte.carte[i][j] = self.nom[0]
 
                     #on retire la mine qui a explosée dans le tableau des emplacement_mines ainsi que son cap associé.
                     emplacement_mines.remove(emplacement_mine_choisis)
@@ -1084,6 +1084,44 @@ class SousMarin:
                         return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
         
         return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
+    
+
+    def larguer_drone(self, carte, sous_marin_ennemi) :
+        while True :
+            try : 
+                choix = int(input("Vous larguez votre drone secteur (1 - 4) : "))
+                if 1 <= choix <= 4 :
+                    milieu_largeur = carte.largeur // 2
+                    milieu_hauteur = carte.hauteur // 2
+                    x, y = sous_marin_ennemi.pos
+                    #le joueur a selectionner le secteur 1 et la position du sm ennemi est dans le secteur 1
+                    if choix == 1 and x < milieu_hauteur and y < milieu_largeur :
+                        print("\nVotre drone vous retourne : 'OUI' ")
+                        return
+                    
+                    #le joueur a selectionner le secteur 2 et la position du sm ennemi est dans le secteur 2
+                    elif choix == 2 and x < milieu_hauteur and y >= milieu_largeur:
+                        print("\nVotre drone vous retourne : 'OUI' ")
+                        return
+
+                    elif choix == 3 and x >= milieu_hauteur and y < milieu_largeur :
+                        print("\nVotre drone vous retourne : 'OUI' ")
+                        return
+
+                    elif choix == 4 and x >= milieu_hauteur and y >= milieu_largeur :
+                        print("\nVotre drone vous retourne : 'OUI' ")
+                        return
+
+                    else :
+                        print("\nVotre drone vous retourne : 'NON' ")
+                        return
+
+                else :
+                    print("❌ choisissez un secteur existant\n\n")
+
+            except ValueError :
+                print("❌ choisissez une valeur valide\n\n")
+
 
 
 def lettre_to_chiffre(lettre):
