@@ -944,8 +944,8 @@ class SousMarin:
                     else :
                         carte.carte[x][y] = '.'
 
-                    x, y = self.pos
-                    carte.carte[x][y] = self.nom[0]
+                    i, j = self.pos
+                    carte.carte[i][j] = self.nom[0]
 
                     #on retire la mine qui a explosée dans le tableau des emplacement_mines ainsi que son cap associé.
                     emplacement_mines.remove(emplacement_mine_choisis)
@@ -961,7 +961,7 @@ class SousMarin:
                             #fin de game
                             fin = True
                             
-                    #le sous marin tir sur un emplacement à côté de lui
+                    #le sous marin explose la mine sur un emplacement à côté de lui
                     elif ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
                         print(f"\nVous avez fait exploser une mine à côté de votre propre sous-marin ! \nVous prennez 1 point de dégats !\n\n")
                         self.vie -= 1

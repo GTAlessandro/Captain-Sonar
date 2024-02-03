@@ -653,7 +653,7 @@ def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tou
             elif entete_deplacement == 2 :
                 surface = faire_surface(Carte)
                 cap = "AUCUN"
-                return position, cap, surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
+                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
             
             elif entete_deplacement == 3 :
                 sous_marin.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
@@ -678,10 +678,10 @@ def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tou
                 surface = False
                 print("\nVous avez passez vos 3 tours à la surface et vous replongez dans les eaux profondes !\n")
                 input("SUIVANT")
-                return position, cap, surface, nombre_tour_attendu
+                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
 
             else :
-                return position, cap, surface, nombre_tour_attendu
+                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
 
 
 #==============================#
