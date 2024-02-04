@@ -604,7 +604,7 @@ class SousMarin:
             if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" and arme2[3] == "#":
                 self.a2 = True
 
-            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#":
+            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" :
                 self.d1 = True
 
             if dete2[0] == "#" and dete2[1] == "#" and dete2[2] == "#" :
@@ -716,7 +716,7 @@ class SousMarin:
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ___/|―――――――――――
                 |      /\      |          ~          |              |          ~          |   |  /|      | - {e6}
                 |     /..\     |          ~          |     .--.     |          ~          |   | /_/ ,    | - {e5}
-                |     |  |     |          ~          | ~\ ( | o)    | - {c4}      ~          |   |/o \/|    | - {e4}
+                |     |  |     |          ~          | ~\ ( | o)    |          ~          |   |/o \/|    | - {e4}
                 |     |  |     | - {a3}      ~          | ~X>------    | - {c3}      ~          |    \<_/\|    | - {e3}
                 |    / __ \    | - {a2}      ~          | ~/(      )   | - {c2}      ~          |     \ \ `    | - {e2}
                 |    |/**\|    | - {a1}      ~          |    '-__-'    | - {c1}      ~          |      \|      | - {e1}
@@ -727,9 +727,9 @@ class SousMarin:
                 ――――――――――――――――          ~          ――――――――――――――――          ~ 
                 |              |          ~          |    ______    |          ~
                 |    _.--._    |          ~          |   /     /\   |          ~
-                |   ( \||/ )   | - {b4}      ~          |  /    °/  \  |          ~
+                |   ( \||/ )   | - {b4}      ~          |  /     /  \  |          ~
                 |    ―-II-―    | - {b3}      ~          | |     /    | | - {d3}      ~
-                |   ( /||\ )   | - {b2}      ~          |  \        /  | - {d2}      ~
+                |   ( /||\ )   | - {b2}      ~          |  \ °      /  | - {d2}      ~
                 |    '-――-'    | - {b1}      ~          |   \______/   | - {d1}      ~
                 ――――――――――――――――          ~          ――――――――――――――――          ~
             '''
@@ -771,7 +771,7 @@ class SousMarin:
                     distance_totale = distance_x + distance_y
 
                     if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                        if (self.nom == "Tigre" and distance_totale <= 4) or (self.nom == "Ecureille" and distance_totale <= 5) : #TOUT SEUL COMME UN GRAND DU PREMIER COUP HAHAHA
+                        if (self.nom == "Tigre" and distance_totale <= 4) or (self.nom == "Ecureille" and distance_totale <= 5) :
                             #on reset graphiquement le chargement de l'arme
                             for i in range(6):
                                 arme1[i] = "0"
@@ -1086,35 +1086,41 @@ class SousMarin:
         return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
     
 
-    def larguer_drone(self, carte, sous_marin_ennemi) :
+    def larguer_drone(self, carte, sous_marin_ennemi, dete1) :
         while True :
             try : 
                 choix = int(input("Vous larguez votre drone secteur (1 - 4) : "))
                 if 1 <= choix <= 4 :
+                    self.d1 = False
+                    #on reset graphiquement le chargement du drone
+                    for i in range(6):
+                        dete1[i] = "0"
+
                     milieu_largeur = carte.largeur // 2
                     milieu_hauteur = carte.hauteur // 2
                     x, y = sous_marin_ennemi.pos
+                    
                     #le joueur a selectionner le secteur 1 et la position du sm ennemi est dans le secteur 1
                     if choix == 1 and x < milieu_hauteur and y < milieu_largeur :
                         print("\nVotre drone vous retourne : 'OUI' ")
-                        return
+                        return dete1
                     
                     #le joueur a selectionner le secteur 2 et la position du sm ennemi est dans le secteur 2
                     elif choix == 2 and x < milieu_hauteur and y >= milieu_largeur:
                         print("\nVotre drone vous retourne : 'OUI' ")
-                        return
+                        return dete1
 
                     elif choix == 3 and x >= milieu_hauteur and y < milieu_largeur :
                         print("\nVotre drone vous retourne : 'OUI' ")
-                        return
+                        return dete1
 
                     elif choix == 4 and x >= milieu_hauteur and y >= milieu_largeur :
                         print("\nVotre drone vous retourne : 'OUI' ")
-                        return
+                        return dete1
 
                     else :
                         print("\nVotre drone vous retourne : 'NON' ")
-                        return
+                        return dete1
 
                 else :
                     print("❌ choisissez un secteur existant\n\n")

@@ -878,7 +878,7 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                         #Larguage du drone
                         elif (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True and choix_systeme == 3 :
                             if condition_panne_det == False :
-                                sous_marin.larguer_drone(carte, sous_marin_ennemi)
+                                sous_marin.larguer_drone(carte, sous_marin_ennemi, dete1)
                                 input("SUIVANT")
                                 return fin, arme1, emplacement_mines, arme2, mine_cap
                             
