@@ -454,10 +454,11 @@ regles = """
 
         ➟ ACTIVATION DU SONAR 🔍:
             TIGRE :
-                Les effets du sonar peuvent varier d'un sous-marin à un autre, pour le sous-marin TIGRE :
-                Lorsque vous activez votre sonar, l'équipage adverse doit vous donner DEUX coordonnées sur sa position : 
+                Lorsque vous activez votre sonar, celui-ci va pouvoir vous récupéré une bonne information sur la position ennemie.
+                Malheureusement, le sonar étant en parti contré par le sous-marin ennemie, il donnera récuperera aussi une mauvaise information.
+                Ce sera à l'équipage adverse de vous donner DEUX coordonnées sur sa position : 
                 Le Capitaine peut choisir par exemple parmi la ligne, la colonne ou le secteur où se situe son sous-marin.
-              • UNE SEULE de ces deux coordonnées DOIT être fausse.
+              • UNE SEULE de ces deux coordonnées DOIT être vrai et l'autre sera fausse.
               • Les deux coordonnées DOIVENT être différentes (ligne, colonne ou secteur).
                 La jauge de Sonar est alors réinitialisée (puisqu'elle vient d'être utilisée).
                 Puis la partie reprend normalement.

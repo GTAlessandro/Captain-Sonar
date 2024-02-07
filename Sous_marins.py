@@ -1,3 +1,7 @@
+import random
+
+from Var_affichage import changement
+
 #====================#
 '''Class Sous-Marin'''
 #====================#
@@ -421,10 +425,10 @@ class SousMarin:
         b5 = "0"
         b6 = "0"
 
-        c1 = "#"
-        c2 = "#"
-        c3 = "#"
-        c4 = "#"
+        c1 = "0"
+        c2 = "0"
+        c3 = "0"
+        c4 = "0"
         c5 = "0"
         c6 = "0"
 
@@ -749,7 +753,7 @@ class SousMarin:
     '''============ACTIVATION SYSTEMES============='''
     #================================================#
 
-    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemie, nom_e, nom_self, arme1, fin):
+    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemi, nom_e, nom_self, arme1, fin):
 
         #=====================#
         '''Tigre - Ecureille'''
@@ -770,84 +774,85 @@ class SousMarin:
                     #distance totale parcouru par le missile
                     distance_totale = distance_x + distance_y
 
-                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                        if (self.nom == "Tigre" and distance_totale <= 4) or (self.nom == "Ecureille" and distance_totale <= 5) :
-                            #on reset graphiquement le chargement de l'arme
-                            for i in range(6):
-                                arme1[i] = "0"
+                    if y != "alpha" :
+                        if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                            if (self.nom == "Tigre" and distance_totale <= 4) or (self.nom == "Ecureille" and distance_totale <= 5) :
+                                #on reset graphiquement le chargement de l'arme
+                                for i in range(6):
+                                    arme1[i] = "0"
 
-                            #on reset la valeur de l'armement1 à False pour que le jeu comprenne que la torpille a été tirée
-                            self.a1 = False
+                                #on reset la valeur de l'armement1 à False pour que le jeu comprenne que la torpille a été tirée
+                                self.a1 = False
 
-                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
-                            #le sous-marin se tir dessus
-                            if emplacement_tir == self.pos :
-                                print(f"\nVous avez tirer une torpille en plein sur VOTRE SOUS-MARIN !!! \nVous prennez 2 points de dégats !!!\nVous entendez votre équipage crier : 'LE CAPITAINE EST DEVENU FOU ?!'\n")
-                                self.vie -= 2
-                                print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+                                #le sous-marin se tir dessus
+                                if emplacement_tir == self.pos :
+                                    print(f"\nVous avez tirer une torpille en plein sur VOTRE SOUS-MARIN !!! \nVous prennez 2 points de dégats !!!\nVous entendez votre équipage crier : 'LE CAPITAINE EST DEVENU FOU ?!'\n")
+                                    self.vie -= 2
+                                    print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
 
-                                if self.vie <= 0 :
-                                    #fin de game
-                                    fin = True
-                            
-                            #le sous marin tir sur un emplacement à côté de lui
-                            elif ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
-                                print(f"\nVous avez tirer une torpille à côté de votre propre sous-marin ! \nVous prennez 1 point de dégats !\n\n")
-                                self.vie -= 1
-                                print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+                                    if self.vie <= 0 :
+                                        #fin de game
+                                        fin = True
                                 
-                                if self.vie <= 0 :
-                                    #fin de game
-                                    fin = True
+                                #le sous marin tir sur un emplacement à côté de lui
+                                elif ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
+                                    print(f"\nVous avez tirer une torpille à côté de votre propre sous-marin ! \nVous prennez 1 point de dégats !\n\n")
+                                    self.vie -= 1
+                                    print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+                                    
+                                    if self.vie <= 0 :
+                                        #fin de game
+                                        fin = True
 
-                            #si l'emplacement du tir est égale à la position du sous marin ennemi.
-                            if emplacement_tir == sous_marin_ennemi.pos :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 IMPACT DIRECT !🚨")
-                                print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 points de dégats !!!\n")
-                                sous_marin_ennemi.vie -= 2
-                                print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
-                                
-                                if sous_marin_ennemi.vie <= 0 :
-                                    #fin de game
-                                    fin = True
+                                #si l'emplacement du tir est égale à la position du sous marin ennemi.
+                                if emplacement_tir == sous_marin_ennemi.pos :
+                                    print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT DIRECT !🚨")
+                                    print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 points de dégats !!!\n")
+                                    sous_marin_ennemi.vie -= 2
+                                    print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                                    
+                                    if sous_marin_ennemi.vie <= 0 :
+                                        #fin de game
+                                        fin = True
 
-                                input("SUIVANT")
-                                return fin, arme1
+                                    input("SUIVANT")
+                                    return fin, arme1
 
-                            #La première condition and (les deux premières parenthèses) vérifie si l'emplacement du tir est dans la diagonale du sous marin ennemi. Le deux suivante check si le tir se situe à côté horizontalement du sm ennemi. Et les deux dernières check si le tir a été fait à côté verticalement du sm ennemi. Un peu indigeste, mais ca marche
-                            elif ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1)) or ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1])) or ((y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) and (x == sous_marin_ennemi.pos[0])):
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 IMPACT INDIRECT !🚨")
-                                print(f"\nVous avez tirer une torpille juste à côté sous-marin ennemi '{nom_e}' ! \nIl prend tout de même 1 point de dégats !\n")
-                                sous_marin_ennemi.vie -= 1
-                                print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
-                                
-                                if sous_marin_ennemi.vie <= 0 :
-                                    #fin de game
-                                    fin = True
-                                
-                                input("SUIVANT")
-                                return fin, arme1
+                                #La première condition and (les deux premières parenthèses) vérifie si l'emplacement du tir est dans la diagonale du sous marin ennemi. Le deux suivante check si le tir se situe à côté horizontalement du sm ennemi. Et les deux dernières check si le tir a été fait à côté verticalement du sm ennemi. Un peu indigeste, mais ca marche
+                                elif ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1)) or ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1])) or ((y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) and (x == sous_marin_ennemi.pos[0])):
+                                    print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT INDIRECT !🚨")
+                                    print(f"\nVous avez tirer une torpille juste à côté sous-marin ennemi '{nom_e}' ! \nIl prend tout de même 1 point de dégats !\n")
+                                    sous_marin_ennemi.vie -= 1
+                                    print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                                    
+                                    if sous_marin_ennemi.vie <= 0 :
+                                        #fin de game
+                                        fin = True
+                                    
+                                    input("SUIVANT")
+                                    return fin, arme1
 
-                            #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
+                                #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
+                                else :
+                                    print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 RAS !🚨") 
+                                    print(f"\nVous avez tirer une torpille dans le vide !\n")
+                                    print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                                    input("\nSUIVANT")
+                                    return fin, arme1
+
                             else :
-                                print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 RAS !🚨") 
-                                print(f"\nVous avez tirer une torpille dans le vide !\n")
-                                print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
-                                input("\nSUIVANT")
-                                return fin, arme1
+                                if self.nom == "Tigre" :
+                                    print("\n\n❌ Votre sous-marin ne peut larguer une torpille qu'à une distance maximal de 4 cases sans diagonale !")
 
-                        else :
-                            if self.nom == "Tigre" :
-                                print("❌ Votre sous-marin ne peut larguer une torpille qu'à une distance maximal de 4 cases sans diagonale !\n\n")
-
-                            if self.nom == "Ecureille" :
-                                print("❌ Votre sous-marin ne peut larguer une torpille qu'à une distance maximal de 5 cases sans diagonale !\n\n")
-                    else : 
-                        print("❌ Veuillez larguer votre torpille dans les limites de la map !\n\n")
+                                if self.nom == "Ecureille" :
+                                    print("\n\n❌ Votre sous-marin ne peut larguer une torpille qu'à une distance maximal de 5 cases sans diagonale !")
+                        else : 
+                            print("\n\n❌ Veuillez larguer votre torpille dans les limites de la map !")
                 
                 except ValueError :
-                    print("❌ Veuillez choisir des valeurs valides.\n\n")
+                    print("\n\n❌ Veuillez choisir des valeurs valides.")
 
 
     def larguer_mine(self, carte, derniere_colonne, derniere_ligne, arme2):
@@ -859,54 +864,59 @@ class SousMarin:
                 y_lettre = input("\nChoisissez une colonne : ")
                 y = lettre_to_chiffre(y_lettre)
                 x = int(input("Choisissez une ligne : ")) - 1
-                emplacement_mine = x, y
+                
+                if y != "alpha" :
+                    emplacement_mine = x, y
 
-                if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                    if ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
-                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                        if ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
+                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
-                        for i in range(6):
-                                arme2[i] = "0"
-                        
-                        #Si le sm a déjà naviguer là ou la mine est posé, alors le signalement de la mine sera en majuscule est le sm ne pourra pas naviguer dessus;
-                        if carte.carte[x][y] == '←':
-                            mine_cap = "OUEST"
-                            carte.carte[x][y] = "M"
+                            for i in range(6):
+                                    arme2[i] = "0"
+                            
+                            #Si le sm a déjà naviguer là ou la mine est posé, alors le signalement de la mine sera en majuscule est le sm ne pourra pas naviguer dessus;
+                            if carte.carte[x][y] == '←':
+                                mine_cap = "OUEST"
+                                carte.carte[x][y] = "M"
 
-                        elif carte.carte[x][y] == '→':
-                            mine_cap = "EST"
-                            carte.carte[x][y] = "M"
+                            elif carte.carte[x][y] == '→':
+                                mine_cap = "EST"
+                                carte.carte[x][y] = "M"
 
-                        elif carte.carte[x][y] == '↑':
-                            mine_cap = "NORD"
-                            carte.carte[x][y] = "M"
+                            elif carte.carte[x][y] == '↑':
+                                mine_cap = "NORD"
+                                carte.carte[x][y] = "M"
 
-                        elif carte.carte[x][y] == '↓':
-                            mine_cap = "SUD"
-                            carte.carte[x][y] = "M"
+                            elif carte.carte[x][y] == '↓':
+                                mine_cap = "SUD"
+                                carte.carte[x][y] = "M"
+                            
+                            else :
+                                carte.carte[x][y] = "m"
+                                mine_cap = None
+
+                            self.a2 = False
+                            print("\nVotre mine a été placé en : ", y_lettre, x+1, "\n")
+                            carte.Afficher_carte()
+                            input("SUIVANT")
+
+                            return emplacement_mine, arme2, mine_cap
                         
                         else :
-                            carte.carte[x][y] = "m"
-                            mine_cap = None
+                            print("\n\n❌ Veuillez choisir des valeurs autour de votre sous-marin sur des cases de mer qui ne sont déjà pas occupé par l'une de vos mines.")
 
-                        self.a2 = False
-                        print("\nVotre mine a été placé en : ", y_lettre, x+1, "\n")
-                        carte.Afficher_carte()
-                        input("SUIVANT")
-
-                        return emplacement_mine, arme2, mine_cap
-                    
                     else :
-                        print("❌ Veuillez choisir des valeurs autour de votre sous-marin sur des cases de mer qui ne sont déjà pas occupé par l'une de vos mines.\n\n")
+                        print("\n\n❌ Veuillez choisir des valeurs dans la limite de la map.")
 
-                else :
-                    print("❌ Veuillez choisir des valeurs dans la limite de la map.\n\n")
+                else : 
+                    print("\n\n❌ Entrez une colonne valide.")
 
             except ValueError : 
-                print("❌ Veuillez choisir des valeurs valides.\n\n")
+                print("\n\n❌ Veuillez choisir des valeurs valides.")
 
 
-    def exploser_mine(self, sous_marin_ennemi,  capitaine_ennemie, nom_e, nom_self, emplacement_mines, mine_cap, carte, fin) :
+    def exploser_mine(self, sous_marin_ennemi,  capitaine_ennemi, nom_e, nom_self, emplacement_mines, mine_cap, carte, fin) :
         nb_mines = len(emplacement_mines)
         print("\n")
         carte.Afficher_carte()
@@ -972,7 +982,7 @@ class SousMarin:
                             fin = True
 
                     if emplacement_mine_choisis == sous_marin_ennemi.pos :
-                        print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 IMPACT DIRECT !🚨")
+                        print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT DIRECT !🚨")
                         print(f"\nVotre mine a explosé en plein sur le sous-marin ennemi '{nom_e}' ! \nIl prend 2 points de dégats !!!\n")
                         sous_marin_ennemi.vie -= 2
                         print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
@@ -986,7 +996,7 @@ class SousMarin:
 
                     #La première condition and (les deux premières parenthèses) vérifie si l'emplacement du tir est dans la diagonale du sous marin ennemi. Le deux suivante check si le tir se situe à côté horizontalement du sm ennemi. Et les deux dernières check si le tir a été fait à côté verticalement du sm ennemi. Un peu indigeste, mais ca marche
                     elif ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1)) or ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1])) or ((y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) and (x == sous_marin_ennemi.pos[0])):
-                        print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 IMPACT INDIRECT !🚨")
+                        print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT INDIRECT !🚨")
                         print(f"\nVotre mine a explosé juste à côté sous-marin ennemi '{nom_e}' ! \nIl prend tout de même 1 point de dégats !\n")
                         sous_marin_ennemi.vie -= 1
                         print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
@@ -1000,7 +1010,7 @@ class SousMarin:
 
                     #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
                     else :
-                        print(f"\n\nLe capitaine adverse '{capitaine_ennemie}' annonce : \n🚨 RAS !🚨") 
+                        print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 RAS !🚨") 
                         print(f"\nVous avez fait exploser une mine dans le vide !\n")
                         print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                         input("\nSUIVANT")
@@ -1010,7 +1020,7 @@ class SousMarin:
                     return fin, emplacement_mines, mine_cap
             
             except ValueError :
-                print("❌ choisissez une valeur valide")
+                print("\n\n❌ choisissez une valeur valide.")
 
 
     def explosion_auto(self, sous_marin_ennemi, nom_self, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi):
@@ -1123,23 +1133,193 @@ class SousMarin:
                         return dete1
 
                 else :
-                    print("❌ choisissez un secteur existant\n\n")
+                    print("\n\n❌ choisissez un secteur existant.")
 
             except ValueError :
-                print("❌ choisissez une valeur valide\n\n")
+                print("\n\n❌ choisissez une valeur valide.")
 
+    def lancer_sonar(self, carte, sous_marin_ennemi, dete2, capitaine_ennemi, nom_ennemi, derniere_colonne, derniere_ligne, capitaine_self, nom_self, carte_ennemi) :
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Capitaine : '{capitaine_ennemi}', de l'équipe '{nom_ennemi}' de jouer.")
+        input("\nSUIVANT")
+
+        print("\n\nLe sous-marin adverse a lancé un sonar, vous êtes obligé de leur communiquer DEUX informations concernant la position de votre sous-marin. \nLa première information à choisir sera la bonne et la deuxième sera la mauvaise. \nLes informations seront communiquées aux ennemis dans un ordre aléatoire.")
+        #on met dans x et y les valeurs de la colonne et de la ligne du sm pour pouvoir l'afficher
+        x, y = sous_marin_ennemi.pos
+        y_lettre = chiffre_to_lettre(y)
+        y_self = y_lettre
+
+        #on met dans la variable secteur la valeur de la position du secteur du sous-marin
+        milieu_largeur = carte.largeur // 2
+        milieu_hauteur = carte.hauteur // 2
+                    
+        if x < milieu_hauteur and y < milieu_largeur :
+            secteur = 1
+                    
+        elif x < milieu_hauteur and y >= milieu_largeur:
+            secteur = 2
+
+        elif x >= milieu_hauteur and y < milieu_largeur :
+            secteur = 3
+
+        elif x >= milieu_hauteur and y >= milieu_largeur :
+            secteur = 4
+
+        else :
+            print("Si on voit ce message, c'est qu'il y à un problème quelque part...")
+
+        while True :
+            try :
+                print(f"\n\nVoici actuellement vos coordonnées :\n1 - Colonne : {y_lettre}\n2 - Ligne : {x + 1}\n3 - Secteur : {secteur}")
+                vrai = int(input("\nVeuillez fournir une information véridique concernant votre position (1 - 3) que le sonar ennemi captera : "))
+                
+                if vrai == 1 :
+                    vrai = "Le sous-marin ennemi se trouve en colonne : " + y_lettre
+                    condition_vrai = 1
+                    break
+
+                elif vrai == 2 :
+                    vrai = "Le sous-marin ennemi se trouve en ligne : " + str(x)
+                    condition_vrai = 2
+                    break
+
+                elif vrai == 3 :
+                    vrai = "Le sous-marin ennemi se trouve en secteur : " + str(secteur)
+                    condition_vrai = 3
+                    break
+
+                else :
+                    print("\n\n❌ Veuillez choisir une colonne, une ligne ou un secteur correspondant à votre position\n\n")
+
+            except ValueError :
+                print("\n\n❌ Veuillez choisir une option parmi celles qui vous sont proposées.")
+
+        while True:
+            try :
+                faux = int(input("\nVoici le type de coordonnées trompeuse que vous pouvez choisir : \n1 - Colonne\n2 - Ligne\n3 - Secteur\n\nVeuillez maintenant sélectionné celle que le sonar ennemi captera  (1 - 3) :"))
+
+                if faux != condition_vrai :
+                    print("\n\n")
+                    carte_ennemi.Afficher_carte()
+                    print("\n")
+
+                    if faux == 1 :
+                        while faux == 1 :
+                            try :
+                                y_lettre = input(f"Choisissez une colonne sur laquelle votre sous-marin n'est pas (A - {derniere_colonne}) ou revenir en arrière (0) : ")
+                                
+                                if y_lettre == "0" :
+                                    break
+                                
+                                y_given = lettre_to_chiffre(y_lettre)
+                                
+                                if y_given != "alpha" :
+                                    if y_lettre != y_self :
+                                        if 0 <= y_given <= ord(derniere_colonne) - ord('A') : 
+                                            faux = "Le sous-marin ennemi se trouve en colonne : " + y_lettre
+                                            break
+                                        
+                                        else :
+                                            print("\n\n❌ Veuillez donner une colonne comprise dans les limites de la map.")
+                                        
+                                    else :
+                                        print("\n\n❌ Vous venez de donner la véritable colonne de votre sous-marin alors que vous devez en donner une fausse.")
+                                else :
+                                    print("\n\n❌ Entrez une colonne valide.")
+                            
+                            except ValueError :
+                                print("\n\n❌ Veuillez saisir une colonne de la map.")
+
+                        if y_lettre != "0" :
+                            break
+
+                    elif faux == 2 :
+                        while faux == 2 :
+                            try :
+                                x_given = int(input(f"Choisissez une ligne sur laquelle votre sous-marin n'est pas (1 - {derniere_ligne}) ou revenir en arrière (0) : "))
+                                
+                                if x_given == 0 :
+                                    break
+
+                                elif x_given != x + 1 :
+                                    if 0 <= x_given <= int(derniere_ligne) : 
+                                        faux = "Le sous-marin ennemi se trouve en ligne : " + str(x_given)
+                                        break
+                                    
+                                    else :
+                                        print("\n\n❌ Veuillez entrer une ligne comprise dans les limites de la map.")
+                                    
+                                else :
+                                    print("\n\n❌ Vous venez de donner la véritable ligne de votre sous-marin alors que vous devez en donner une fausse.")
+                            
+                            except ValueError :
+                                print("\n\n❌ Veuillez saisir une ligne de la map.")
+
+                        if x_given != 0 :
+                            break
+
+                    elif faux == 3 :
+                        while faux == 3 :
+                            try :
+                                secteur_given = int(input("Choisissez un secteur sur lequelle votre sous-marin n'est pas (1 - 4) ou revenir en arrière (0) :"))
+
+                                if secteur_given == 0 :
+                                    break
+
+                                if secteur_given != secteur :
+                                    if  0 < secteur_given < 5 :
+                                        faux = "Le sous-marin ennemi se trouve en secteur : " + str(secteur_given)
+                                        break
+                                    
+                                    else :
+                                        print("\n\n❌ Veuillez saisir un secteur existant.")
+
+                                else :
+                                    print("\n\n❌ Vous venez de donner le véritable secteur de votre sous-marin alors que vous devez en donner un faux.")
+
+                            except ValueError :
+                                print("\n\n❌ Veuillez saisir un secteur de la map.")
+
+                        if secteur_given != 0 :
+                            break
+
+                else :
+                    print("\n\n❌ Vous ne pouvez pas sélectionner deux fois le même type de coordonnée.")
+            
+            except ValueError :
+                print("\n\n❌ Veuillez choisir une option parmi celles qui vous sont proposées.")
+
+        #reset de la compétence
+        for i in range(6):
+            dete2[i] = "0"
+
+        self.dete2 = False
+
+        #On renvoie la réponse de l'ennemi aléatoirement.
+        print(changement)
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Capitaine : '{capitaine_self}', de l'équipe '{nom_self}' de jouer.")
+        input("\nSUIVANT")
+
+        print("\n\nVoici le résultat de votre drone :")
+
+        #alea_1 est égale à vrai ou à faux choisis aléatoirement
+        alea_1 = random.choice([vrai, faux])
+        #si alea_1 est égale à vrai alors alea_2 est égale à faux et vise versa
+        alea_2 = faux if alea_1 == vrai else vrai
+
+        print("\n" + alea_1 + "\nOU\n" + alea_2) 
+        print("\nVous ne savez pas laquelle est vrai ou fausse...")
+        input("\n\nSUIVANT")
+
+        return dete2
 
 
 def lettre_to_chiffre(lettre):
-    while True:
-            if len(lettre) == 1 and lettre.isalpha():
-                return ord(lettre.upper()) - ord('A')
-            
-            elif lettre.isdigit():
-                lettre = input("❌ Veuillez entrer une lettre existante : ")
-
-            else:
-                lettre = input("❌ Veuillez entrer une colonne existante : ")
+    if len(lettre) == 1 and lettre.isalpha() :
+        return ord(lettre.upper()) - ord('A')
+    
+    else :
+        return False 
 
 def chiffre_to_lettre(chiffre):
-    return chr(chiffre + ord('A')) #gpt
+    return chr(chiffre + ord('A'))
