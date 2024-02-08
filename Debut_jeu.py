@@ -825,25 +825,25 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                 print("\n")
                 #afficher les systèmes prêts a être larguer
                 if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1 == True :
-                    print("1 - Votre torpille est prête à être larguer !")
+                    print("1 - Votre torpille est prête à être larguer ! 🚀")
                 
                 if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2 == True :
-                    print("2 - Votre mine est prête à être larguer !")
+                    print("2 - Votre mine est prête à être larguer ! 💣")
 
                 if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True :
-                    print("3 - Votre drone est prêt à être larguer !")
+                    print("3 - Votre drone est prêt à être larguer ! 🤖")
 
                 if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d2 == True :
-                    print("4 - Votre sonar est prêt à être lancer !")
+                    print("4 - Votre sonar est prêt à être lancer ! 🔍")
 
                 if sous_marin.nom == "Tigre" and sous_marin.spe == True :
-                    print("5 - Votre silence est prêt à être lancer !")
+                    print("5 - Votre silence est prêt à être lancer ! 🌟")
 
                 if sous_marin.nom == "Ecureille" and sous_marin.spe == True :
-                    print("5 - Votre leurre est prêt à être lancer !")
+                    print("5 - Votre leurre est prêt à être lancer ! 🌟")
 
                 if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and emplacement_mines :
-                    print("10 - Vous pouvez faire exploser votre mine !")
+                    print("10 - Vous pouvez faire exploser votre mine ! 💥")
 
                 #activer les systèmes à larguer
                 while True :
@@ -885,9 +885,10 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                             else :
                                 print("\n\n❌ Votre système DET détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas larguer de drone !")
 
+                        #lancer le sonar
                         elif (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d2 == True and choix_systeme == 4 :
                             if condition_panne_det == False :
-                                print("Vous lancer votre sonar à la recherche du sous-marin ennemi !")
+                                print("Vous lancer votre sonar à la recherche du sous-marin ennemi !\nC'est au capitaine ennemi de jouer.")
                                 input("\nSUIVANT")
                                 dete2 = sous_marin.lancer_sonar(carte, sous_marin_ennemi, dete2, capitaine_ennemi, nom_ennemi, derniere_colonne, derniere_ligne, capitaine, nom_self, carte_ennemi)
                                 return fin, arme1, emplacement_mines, arme2, mine_cap, dete1, dete2
