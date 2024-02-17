@@ -341,7 +341,7 @@ class SousMarin:
             cadran_ouest[3] = " NONE  4 DET"
             cadran_ouest[4] = " NONE  5 RAD"
             cadran_ouest[5] = " NONE  6 RAD"
-            print("\n\nToutes les pannes du cadran OUEST ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran OUEST ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -352,7 +352,7 @@ class SousMarin:
             cadran_nord[3] = " NONE  4 DET"
             cadran_nord[4] = " NONE  5 ARM"
             cadran_nord[5] = " NONE  6 RAD"
-            print("\n\nToutes les pannes du cadran NORD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran NORD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -363,7 +363,7 @@ class SousMarin:
             cadran_sud[3] = " NONE  4 ARM"
             cadran_sud[4] = " NONE  5 SPE"
             cadran_sud[5] = " NONE  6 RAD"
-            print("\n\nToutes les pannes du cadran SUD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran SUD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -374,7 +374,7 @@ class SousMarin:
             cadran_est[3] = " NONE  4 DET"
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
-            print("\n\nToutes les pannes du cadran SUD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes du cadran EST ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -386,7 +386,7 @@ class SousMarin:
             cadran_sud[5] = " NONE  6 RAD"
             cadran_est[4] = " NONE  5 RAD"
             cadran_est[5] = " NONE  6 RAD"
-            print("\n\nToutes les pannes RAD ont été cochées, toutes vos pannes RAD sont réparées mais vous subissez un de dégât !")
+            print("\n\nToutes les pannes RAD ont été cochées, toutes vos pannes RAD sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
@@ -439,12 +439,12 @@ class SousMarin:
         d5 = "0"
         d6 = "0"
 
-        e1 = "0"
-        e2 = "0"
-        e3 = "0"
-        e4 = "0"
-        e5 = "0"
-        e6 = "0"
+        e1 = "#"
+        e2 = "#"
+        e3 = "#"
+        e4 = "#"
+        e5 = "#"
+        e6 = "#"
 
         f1 = "0"
         f2 = "0"
@@ -608,7 +608,7 @@ class SousMarin:
             if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" and arme2[3] == "#":
                 self.a2 = True
 
-            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" :
+            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#" :
                 self.d1 = True
 
             if dete2[0] == "#" and dete2[1] == "#" and dete2[2] == "#" :
@@ -720,7 +720,7 @@ class SousMarin:
                 ――――――――――――――――          ~          ――――――――――――――――          ~          ___/|―――――――――――
                 |      /\      |          ~          |              |          ~          |   |  /|      | - {e6}
                 |     /..\     |          ~          |     .--.     |          ~          |   | /_/ ,    | - {e5}
-                |     |  |     |          ~          | ~\ ( | o)    |          ~          |   |/o \/|    | - {e4}
+                |     |  |     |          ~          | ~\ ( | o)    | - {c4}   ~          |   |/o \/|    | - {e4}
                 |     |  |     | - {a3}      ~          | ~X>------    | - {c3}      ~          |    \<_/\|    | - {e3}
                 |    / __ \    | - {a2}      ~          | ~/(      )   | - {c2}      ~          |     \ \ `    | - {e2}
                 |    |/**\|    | - {a1}      ~          |    '-__-'    | - {c1}      ~          |      \|      | - {e1}
@@ -732,8 +732,8 @@ class SousMarin:
                 |              |          ~          |    ______    |          ~
                 |    _.--._    |          ~          |   /     /\   |          ~
                 |   ( \||/ )   | - {b4}      ~          |  /     /  \  |          ~
-                |    ―-II-―    | - {b3}      ~          | |     /    | | - {d3}      ~
-                |   ( /||\ )   | - {b2}      ~          |  \ °      /  | - {d2}      ~
+                |    ―-II-―    | - {b3}      ~          | (    °/    ) | - {d3}      ~
+                |   ( /||\ )   | - {b2}      ~          |  \        /  | - {d2}      ~
                 |    '-――-'    | - {b1}      ~          |   \______/   | - {d1}      ~
                 ――――――――――――――――          ~          ――――――――――――――――          ~
             '''
@@ -1104,10 +1104,10 @@ class SousMarin:
         if self.nom == "Ecureille" :
             #si une case "■" se trouve autour du sous-marin
             if sous_marin_ennemi.pos[0] + 1 == "■" or sous_marin_ennemi.pos[0] - 1 == "■" or sous_marin_ennemi.pos[1] + 1 == "■" or sous_marin_ennemi.pos[1] - 1 == "■" or ((sous_marin_ennemi.pos[0] + 1 or sous_marin_ennemi.pos[0] - 1) and (sous_marin_ennemi.pos[1] + 1 or sous_marin_ennemi.pos[0] - 1)) :
-                ile = "et Le sous-marin ennemi se trouve autour d'une île ! 🏝️ "
+                ile = "et le sous-marin ennemi se trouve autour d'une île ! 🏝️ "
 
             else :
-                ile = "et Les flots de la mer entourent le sous-marin ennemi. 🌊 "
+                ile = "et les flots de la mer entourent le sous-marin ennemi. 🌊 "
         
         while True :
             try : 
@@ -1348,6 +1348,198 @@ class SousMarin:
         input("\n\nSUIVANT")
 
         return dete2
+    
+    def lancer_silence(self, capitaine, carte, spe, derniere_colonne, derniere_ligne) :
+        x, y = self.pos
+        print("\n\n")
+        carte.Afficher_carte()
+        
+        while True :
+            try :
+                cap_silence = input(f"\n{capitaine}, annoncez discretement un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner à la sélection des compétences (0): ")
+                cap_silence = cap_silence.upper()
+
+                if cap_silence == "OUEST" or cap_silence == "EST" or cap_silence == "NORD" or cap_silence == "SUD" :
+                    while True :
+                        try :
+                            distance = int(input(f"\n{capitaine}, choisissez une distance à parcourir (0 - 4) ou choisir un autre cap (9): "))
+                            if 0 <= distance <= 4 :
+                                condition_boucle_spe = False 
+                                condition_impossible = False
+                                premiere_lettre = self.nom[0]
+
+                                if cap_silence == "OUEST" :
+                                    #on vérifie si le sm ne sort pas de la map
+                                    if 0 <= y - distance <= ord(derniere_colonne) - ord('A') :
+                                        y_ouest = y
+                                            
+                                        #le sous-marin ne peut se déplacer que sur des cases valides non exploré
+                                        for _ in range(distance) :
+                                            y_ouest -= 1
+                                            if carte.carte[x][y_ouest] not in [".", "m"] :
+                                                #variable empéchant le déplacement
+                                                condition_impossible = True
+
+                                        #le sm ne se déplace pas SUR une case explorable
+                                        if carte.carte[x][y - distance] not in [".", "m", premiere_lettre] :
+                                            condition_impossible = True
+                                            
+                                        if condition_impossible == True :
+                                            print("\n\n❌ Vous ne pouvez pas traverser les îles NI traverser une zone déjà exploré !")
+
+                                        else :
+                                            y_ouest = y
+                                            for _ in range(distance) :
+                                                carte.carte[x][y_ouest] = "←"
+                                                y_ouest -= 1
+
+                                            y -= distance
+                                            carte.carte[x][y] = self.nom[0]
+                                            self.pos = x, y
+                                            position = x, y
+
+                                            for i in range(6) :
+                                                spe[i] = "0"
+
+                                            self.spe = False
+
+                                            return position, spe, condition_boucle_spe
+                                        
+                                    else :
+                                        print("\n\n❌ Vous ne pouvez pas sortir de la map !")
+                                        
+                                if cap_silence == "EST" :
+                                    if 0 <= y + distance <= ord(derniere_colonne) - ord('A') :
+                                        y_est = y
+                                            
+                                        for _ in range(distance) :
+                                            y_est += 1
+                                            if carte.carte[x][y_est] not in [".", "m"] :
+                                                #variable empéchant le déplacement
+                                                condition_impossible = True
+
+                                        if carte.carte[x][y + distance] not in [".", "m", premiere_lettre] :
+                                            condition_impossible = True
+                                            
+                                        if condition_impossible == True :
+                                            print("\n\n❌ Vous ne pouvez pas traverser les îles NI traverser une zone déjà exploré !")
+
+                                        else :
+                                            y_est = y
+                                            for _ in range(distance) :
+                                                carte.carte[x][y_est] = '→'
+                                                y_est += 1
+
+                                            y += distance
+                                            carte.carte[x][y] = self.nom[0]
+                                            self.pos = x, y
+                                            position = x, y
+
+                                            for i in range(6) :
+                                                spe[i] = "0"
+
+                                            self.spe = False
+
+                                            return position, spe, condition_boucle_spe
+                                        
+                                    else :
+                                        print("\n\n❌ Vous ne pouvez pas sortir de la map !")
+
+                                if cap_silence == "NORD" :
+                                    if 0 <= x - distance <= int(derniere_ligne) :
+                                        x_nord = x
+                                            
+                                        for _ in range(distance) :
+                                            x_nord -= 1
+                                            if carte.carte[x_nord][y] not in [".", "m"] :
+                                                #variable empéchant le déplacement
+                                                condition_impossible = True
+
+                                        if carte.carte[x - distance][y] not in [".", "m", premiere_lettre] :
+                                            condition_impossible = True
+                                            
+                                        if condition_impossible == True :
+                                            print("\n\n❌ Vous ne pouvez pas traverser les îles NI traverser une zone déjà exploré !")
+
+                                        else :
+                                            x_nord = x
+                                            for _ in range(distance) :
+                                                carte.carte[x_nord][y] = '↑'
+                                                x_nord -= 1
+
+                                            x -= distance
+                                            carte.carte[x][y] = self.nom[0]
+                                            self.pos = x, y
+                                            position = x, y
+
+                                            for i in range(6) :
+                                                spe[i] = "0"
+
+                                            self.spe = False
+
+                                            return position, spe, condition_boucle_spe
+                                        
+                                    else :
+                                        print("\n\n❌ Vous ne pouvez pas sortir de la map !")
+                                        
+                                if cap_silence == "SUD" :
+                                    if 0 <= x + distance <= int(derniere_ligne) :
+                                        x_sud = x
+                                            
+                                        for _ in range(distance) :
+                                            x_sud += 1
+                                            if carte.carte[x_sud][y] not in [".", "m"] :
+                                                #variable empéchant le déplacement
+                                                condition_impossible = True
+                                        
+                                        if carte.carte[x + distance][y] not in [".", "m", premiere_lettre] :
+                                            condition_impossible = True
+                                            
+                                        if condition_impossible == True :
+                                            print("\n\n❌ Vous ne pouvez pas traverser les îles NI traverser une zone déjà exploré !")
+
+                                        else :
+                                            x_sud = x
+                                            for _ in range(distance) :
+                                                carte.carte[x_sud][y] = '↓'
+                                                x_sud += 1
+
+                                            x += distance
+                                            carte.carte[x][y] = self.nom[0]
+                                            self.pos = x, y
+                                            position = x, y
+
+                                            for i in range(6) :
+                                                spe[i] = "0"
+
+                                            self.spe = False
+
+                                            return position, spe, condition_boucle_spe
+                                    
+                                    else :
+                                        print("\n\n❌ Vous ne pouvez pas sortir de la map !")
+                                        
+                            elif distance == 9 :
+                                print("\n\n")
+                                carte.Afficher_carte()
+                                break
+                            
+                            else :
+                                print("\n\n❌ Veuillez entrer une distance comprise entre 0 et 4 !")
+
+                        except ValueError :
+                            print("\n\n❌ Veuillez entrer une distance valide !")
+
+                elif cap_silence == "0" :
+                    position = x, y
+                    condition_boucle_spe = True
+                    return position, spe, condition_boucle_spe
+                
+                else :
+                    print("\n\n❌ Veuillez choisir un cap compris dans les options ! ")
+
+            except ValueError :
+                print("\n\n❌ Veuillez entrer un cap valide !")
 
 
 def lettre_to_chiffre(lettre):

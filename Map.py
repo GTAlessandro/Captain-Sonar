@@ -50,7 +50,7 @@ class Carte :
 
         print('  ' + '+-' + '-'.join(['-' for _ in range(len(lettres) // 2)]) + '-+')
 
-        # Afficher la carte en quadrants (GPT 80%)
+        # Afficher la carte en quadrants
         for i, ligne in enumerate(self.carte):
             if i == milieu_hauteur:
                 # Ajouter une ligne horizontale au milieu de la hauteur

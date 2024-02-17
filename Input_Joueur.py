@@ -1,4 +1,4 @@
-#nom des joueurs, de l'équipe et valeur des rôles
+#nom des joueurs et de l'équipe
 
 #===================#
 '''Variable joueur'''
