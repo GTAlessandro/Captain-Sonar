@@ -423,46 +423,68 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
 
 #convertire une lettre en chiffre, A = 0, B = 1 etc ...
 def lettre_to_chiffre(lettre):
-    if len(lettre) == 1 and lettre.isalpha() :
         return ord(lettre.upper()) - ord('A')
-    
-    else :
-        return "alpha" 
 
-def plongerT(Carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
+def traiter_entree(entree):
+    if len(entree) < 2:
+        return 1  # Si l'entrée est trop courte, retourne 1
+
+    lettre = entree[0].upper()  # Première lettre de l'entrée
+    nombre_str = entree[1:]  # Le reste de l'entrée
+
+    if not lettre.isalpha() :
+        return 2 # Si la lettre n'est pas une lettre 
+
+    if not nombre_str.isdigit() :
+        return 3  #si le nombre n'est pas un nombre
+
+    nombre = int(nombre_str) - 1  # Convertit le nombre en entier
+    position = [lettre, nombre]
+    return position
+
+def plongerT(carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_ligne):
 
     print(f"⚠⚠⚠ Attention ⚠⚠⚠ : c'est à l'équipe '{nom_e}' de jouer.\n")
     print(f"Capitaine '{capitaine}' de l'équipe '{nom_e}', plongez ! ")
 
-    Carte.Afficher_carte()
+    carte.Afficher_carte()
 
     while True :
         try :
-            y_lettre = input("\nChoisissez une colonne : ")
-            y = lettre_to_chiffre(y_lettre)
-            x = int(input("Choisissez une ligne : ")) - 1
+            yx = input("Entrez une position (par exemple A3) : ")
+            position = traiter_entree(yx)
 
-            if y != "alpha" :
-                if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
-                    if Carte.carte[x][y] == "." :
-                        x, y = Carte.placer_sous_marin((x,y), sous_marin)
-                        input("\nSUIVANT")
-                        break
-                
-                    else : 
-                        print("\n\n❌ Vous ne pouvez pas plonger sur une île.")
-                else : 
-                    print("\n\n❌ Entrer des coordonnées comprisent dans les limites de la map.")
-            
-            else : 
-                print("\n\n❌ Veuillez entrer une colonne valide.")
-                print(y)
+            if position != 1 :
+                if position != 2 :
+                    if position != 3 :
+                        y = lettre_to_chiffre(position[0])
+                        x = position[1]
+
+                        if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                            if carte.carte[x][y] == "." :
+                                x, y = carte.placer_sous_marin((x,y), sous_marin)
+                                input("\nSUIVANT")
+                                break
+
+                            else : 
+                                print("\n\n❌ Vous ne pouvez pas plonger sur une île.")
+
+                        else : 
+                            print("\n\n❌ Entrer des coordonnées comprisent dans les limites de la map.")
+
+                    else :
+                        print("\n\n❌ Entrée une ligne correcte.")
+
+                else :
+                    print("\n\n❌ Entrée une colonne correcte.")
+
+            else :
+                print("\n\n❌ Entrée des coordonnées correcte.")
 
         except ValueError :
             print("\n\n❌ Entrer des coordonnées valides.")
 
     return x, y
-
 
 
 
@@ -872,15 +894,17 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
 
                         #explosion mine
                         elif (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and emplacement_mines and choix_systeme == 10 :
-                            fin, emplacement_mines, mine_cap = sous_marin.exploser_mine(sous_marin_ennemi,  capitaine_ennemi, nom_ennemi, nom_self, emplacement_mines, mine_cap, carte, fin)
-                            return fin, arme1, emplacement_mines, arme2, mine_cap, dete1, dete2, position_sm, spe
+                            fin, emplacement_mines, mine_cap, condition_boucle_explo = sous_marin.exploser_mine(sous_marin_ennemi,  capitaine_ennemi, nom_ennemi, nom_self, emplacement_mines, mine_cap, carte, fin)
+                            if condition_boucle_explo == False :
+                                return fin, arme1, emplacement_mines, arme2, mine_cap, dete1, dete2, position_sm, spe
 
                         #Larguage du drone
                         elif (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1 == True and choix_systeme == 3 :
                             if condition_panne_det == False :
-                                dete1 = sous_marin.larguer_drone(carte, sous_marin_ennemi, dete1)
-                                input("SUIVANT")
-                                return fin, arme1, emplacement_mines, arme2, mine_cap, dete1, dete2, position_sm, spe
+                                dete1, condition_boucle_det1 = sous_marin.larguer_drone(carte, sous_marin_ennemi, dete1)
+                                if condition_boucle_det1 == False :
+                                    input("SUIVANT")
+                                    return fin, arme1, emplacement_mines, arme2, mine_cap, dete1, dete2, position_sm, spe
                             
                             else :
                                 print("\n\n❌ Votre système DET détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas larguer de drone !")
