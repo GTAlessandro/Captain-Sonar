@@ -411,16 +411,16 @@ class SousMarin:
     #=====================================#
 
     def def_systeme(self) :
-        a1 = "#"
-        a2 = "#"
-        a3 = "#"
+        a1 = "0"
+        a2 = "0"
+        a3 = "0"
         a4 = "0"
         a5 = "0"
         a6 = "0"
 
-        b1 = "#"
-        b2 = "#"
-        b3 = "#"
+        b1 = "0"
+        b2 = "0"
+        b3 = "0"
         b4 = "0"
         b5 = "0"
         b6 = "0"
@@ -533,7 +533,7 @@ class SousMarin:
             if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" :
                 self.a2 = True
 
-            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#":
+            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#" :
                 self.d1 = True
 
             if dete2[0] == "#" and dete2[1] == "#" and dete2[2] == "#" :
@@ -605,7 +605,7 @@ class SousMarin:
             if arme1[0] == "#" and arme1[1] == "#" and arme1[2] == "#" :
                 self.a1 = True
             
-            if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" and arme2[3] == "#":
+            if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" and arme2[3] == "#" :
                 self.a2 = True
 
             if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#" :
@@ -1290,6 +1290,7 @@ class SousMarin:
                                 
                                 y_given = lettre_to_chiffre(y_lettre)
                                 
+                                #si je met False a la place d'alpha, alors A ne marche pas car 0 (A=0) est égale a False.
                                 if y_given != "alpha" :
                                     if y_lettre != y_self :
                                         if 0 <= y_given <= ord(derniere_colonne) - ord('A') : 
@@ -1370,7 +1371,7 @@ class SousMarin:
         for i in range(6):
             dete2[i] = "0"
 
-        self.dete2 = False
+        self.d2 = False
 
         #On renvoie la réponse de l'ennemi aléatoirement.
         print(changement)
@@ -1588,7 +1589,7 @@ def lettre_to_chiffre(lettre):
         return ord(lettre.upper()) - ord('A')
     
     else :
-        return False 
+        return "alpha" 
 
 def chiffre_to_lettre(chiffre):
     return chr(chiffre + ord('A'))

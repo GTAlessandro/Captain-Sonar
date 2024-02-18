@@ -423,7 +423,7 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
 
 #convertire une lettre en chiffre, A = 0, B = 1 etc ...
 def lettre_to_chiffre(lettre):
-        return ord(lettre.upper()) - ord('A')
+    return ord(lettre.upper()) - ord('A')
 
 def traiter_entree(entree):
     if len(entree) < 2:
