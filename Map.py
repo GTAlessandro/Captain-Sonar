@@ -209,17 +209,17 @@ class Carte :
 '''Création des cartes'''
 #=======================#
 
-C1_e1 = Carte("Mer Noir", 10, 10, 1, "îles", None) #Carte mer noir de l'équipe numéro 1
-C1_e1_d1 = Carte("Transparent Mer Noir", 10, 10, 1, "îles", None) #Carte transparent mer noir équipe
+C1_e1 = Carte("Mer Noir", 10, 10, 1, "îles épars", None) #Carte mer noir de l'équipe numéro 1
+C1_e1_d1 = Carte("Transparent Mer Noir", 10, 10, 1, "îles épars", None) #Carte transparent mer noir équipe
 
-C1_e2 = Carte("Mer Noir", 10, 10, 1, "îles", None) #Carte mer noir de l'équipe numéro 2
-C1_e2_d2 = Carte("Transparent Mer Noir", 10, 10, 1, "îles", None) #Carte transparent mer noir équipe 2
+C1_e2 = Carte("Mer Noir", 10, 10, 1, "île épars", None) #Carte mer noir de l'équipe numéro 2
+C1_e2_d2 = Carte("Transparent Mer Noir", 10, 10, 1, "îles épars", None) #Carte transparent mer noir équipe 2
 
-C2_e1 = Carte("Mer Rouge", 12, 12, 2, "îles", None) #Carte numéro 2
-C2_e1_d1 = Carte("Transparent Mer Rouge", 16, 16, 2, "îles", None) #Carte transparent mer rouge équipe 1
+C2_e1 = Carte("Mer Rouge", 12, 12, 2, "grandes îles", None) #Carte numéro 2
+C2_e1_d1 = Carte("Transparent Mer Rouge", 16, 16, 2, "grandes îles", None) #Carte transparent mer rouge équipe 1
 
-C2_e2 = Carte("Mer Rouge", 12, 12, 2, "îles", None) #Carte numéro 2
-C2_e2_d2 = Carte("Transparent Mer Rouge", 16, 16, 2, "îles", None) #Carte transparent mer rouge équipe 2
+C2_e2 = Carte("Mer Rouge", 12, 12, 2, "grandes îles", None) #Carte numéro 2
+C2_e2_d2 = Carte("Transparent Mer Rouge", 16, 16, 2, "grandes îles", None) #Carte transparent mer rouge équipe 2
 
 
 #convertie un chiffre en lettre, 0 = A etc...

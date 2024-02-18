@@ -545,7 +545,7 @@ aff_map = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
         longueur = 10               longueur = 12
         largeur = 10                largeur = 12
         difficulté = 1/10           difficulté = 2/10
-        terrain = îles              terrain = îles
+        terrain = îles épars        terrain = grandes îles
 
     '''
 
