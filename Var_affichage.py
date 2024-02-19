@@ -402,7 +402,9 @@ regles = """
         celle-ci explose en même temps que la torpille cumulant les dégâts de la zone d'effet. 
 
     ➟ LARGAGE D'UNE MINE 💣 :
-        Le Capitaine largue une M (Mine) sur une case adjacente à son sous-marin. 
+        Le Capitaine largue une Mine sur une case adjacente à son sous-marin. 
+        Si la mine est largué sur un emplacement où le vaisseau a déjà naviguer, elle sera indiquer avec un M majuscule.
+        Si la mine est largué sur un emplacement non découvert par le sous-marin, elle sera indiquer avec un m minuscule.
         Il annonce ensuite « MINE LARGUÉE ! » et le jeu continue. 
         La jauge de Mine est donc effacer pour le second (puisqu'elle vient d'être utilisée). 
         Les effets de la mine dépendent du type de mine largué.
@@ -423,8 +425,7 @@ regles = """
               • Lorsqu'un sous-marin navigue sur l'emplacement de la mine, un message apparaîtra pour prévenir le sous-marin en question.
               • Surpris par cette explosion, le sous-marin ennemi ne pourra pas déclencher de système ce tour-ci.
               • Elle infligera : 
-                - 2 points de dégâts si l'impact est exactement sur la même case.
-                - 1 point sur une case adjacent au sous-marin ennemi.
+                - 1 points de dégâts si l'impact est sur la même case et sur une case adjacent au sous-marin ennemi.
                 - 0 point au-delà.
 
             
@@ -441,11 +442,11 @@ regles = """
 ╰┈➤ SYSTEME DE DETECTION :
         ➟ LARGAGE D'UN DRONE 🤖:
             TIGRE :
-                Les effets du drone varient d'un sous-marin à l'autre, pour le sous-marin TIGRE :
-                Un drone permet de demander à l'équipage adverse une information sur le secteur dans lequel il se trouve 
-                (la carte est découpée en 9 secteurs en mode simultané et en 4 secteurs en tour par tour).
-              • Le Capitaine interroge donc l'adversaire sur un secteur (« ÊTES VOUS EN SECTEUR : 5 ? »).
-              • Le Capitaine adverse DOIT répondre sans tricher par OUI ou par NON.
+                Le drone se largue dans un des 4 secteurs de la map et reviendra indiquer si oui ou non
+                le sous-marin ennemi se trouve dans ce secteur (la carte est découpée en 4 par des lignes, 
+                le 1er se trouve en haut à gauche et ainsi de suite).
+              • Le Capitaine choisis le secteur dans lequel il largue le drone.
+              • Le drone retournera sa réponse par OUI ou par NON.
                 La jauge de Drone est ensuite totalement réinitialiser (puisqu'elle vient d'être utilisée).
                 Puis la partie reprend normalement.
 
@@ -453,10 +454,11 @@ regles = """
 
         ➟ ACTIVATION DU SONAR 🔍:
             TIGRE :
-                Les effets du sonar peuvent varier d'un sous-marin à un autre, pour le sous-marin TIGRE :
-                Lorsque vous activez votre sonar, l'équipage adverse doit vous donner DEUX coordonnées sur sa position : 
+                Lorsque vous activez votre sonar, celui-ci va pouvoir vous récupéré une bonne information sur la position ennemie.
+                Malheureusement, le sonar étant en parti contré par le sous-marin ennemie, il donnera récuperera aussi une mauvaise information.
+                Ce sera à l'équipage adverse de vous donner DEUX coordonnées sur sa position : 
                 Le Capitaine peut choisir par exemple parmi la ligne, la colonne ou le secteur où se situe son sous-marin.
-              • UNE SEULE de ces deux coordonnées DOIT être fausse.
+              • UNE SEULE de ces deux coordonnées DOIT être vrai et l'autre sera fausse.
               • Les deux coordonnées DOIVENT être différentes (ligne, colonne ou secteur).
                 La jauge de Sonar est alors réinitialisée (puisqu'elle vient d'être utilisée).
                 Puis la partie reprend normalement.
@@ -540,10 +542,10 @@ aff_map = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
 
     1 - Mer Noir :              2 - Mer Rouge :
-        longueur = 15               longueur = 15
-        largeur = 15                largeur = 15
-        difficulté = 1/10           difficulté = 1/10
-        terrain = vide              terrain = île
+        longueur = 10               longueur = 12
+        largeur = 10                largeur = 12
+        difficulté = 1/10           difficulté = 2/10
+        terrain = îles épars        terrain = grandes îles
 
     '''
 
@@ -558,10 +560,10 @@ aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
 
     1 - Tigre :        
-        vie = 4❤️           
+        vie = 4❤️
         difficulté = 1               
-        armement 1 = Mine a déclanchement       
-        armement 2 = Torpille électrique à guidage acoustique actif  
+        armement 1 = Mine a déclenchement manuelle      
+        armement 2 = Torpille thermique à guidage acoustique passif  
         détection 1 = Sonar passif  
         détection 2 = Drone par magnétométrie     
         spéciale = Silence
@@ -569,10 +571,10 @@ aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     2 - Ecureille :        
         vie = 3❤️
         difficulté = 1               
-        armement 1 = Mine a déclanchement       
-        armement 2 = Torpille thermique à guidage acoustique passif  
+        armement 1 = Mine a déclenchement automatique ou manuelle      
+        armement 2 = Torpille électrique à guidage acoustique actif  
         détection 1 = Sonar actif  
-        détection 2 = Drone électomagnétique    
+        détection 2 = Drone électromagnétique    
         spéciale = Leurre
     '''
 
@@ -589,7 +591,7 @@ start = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
                            '''
 
 changement = '''
-\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
     _________ .__                                                         __   
     \_   ___ \|  |__  _____    ____    ____   ____   _____   ____   _____/  |_ 
     /    \  \/|  |  \ \__  \  /    \  / ___\_/ __ \ /     \_/ __ \ /    \   __\ 
