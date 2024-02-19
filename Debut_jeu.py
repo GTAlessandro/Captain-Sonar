@@ -460,7 +460,7 @@ def plongerT(carte, sous_marin, capitaine, nom_e, derniere_colonne, derniere_lig
                         y = lettre_to_chiffre(position[0])
                         x = position[1]
 
-                        if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                        if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) - 1 :
                             if carte.carte[x][y] == "." :
                                 x, y = carte.placer_sous_marin((x,y), sous_marin)
                                 input("\nSUIVANT")
@@ -984,7 +984,7 @@ def deplacer_transparent(detecteur, nom, cap, Carte, derniere_colonne, derniere_
                 position = x, y
 
                 if y != "alpha" :
-                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) - 1 :
                         x_transparent, y_transparent = Carte.start_trans(cap, position) #ici, x et y corresponde au coordonnée de l'empacement du premier déplacement du sous marin ennemi sur le transparent adverse.
                         input("\nSUIVANT")
                         return x_transparent, y_transparent

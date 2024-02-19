@@ -890,7 +890,7 @@ class SousMarin:
 
 
                                 if traverser_ile == False :
-                                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) - 1 :
                                         if (self.nom == "Tigre" and distance_totale <= 4) or (self.nom == "Ecureille" and distance_totale <= 5) :
                                             #on reset graphiquement le chargement de l'arme
                                             for i in range(6):
@@ -1004,7 +1004,7 @@ class SousMarin:
                             x = position[1]
                             emplacement_mine = x, y
 
-                            if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) :
+                            if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) - 1 :
                                 if ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
                                     if carte.carte[x][y] != "■" :
                                         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
@@ -1433,7 +1433,7 @@ class SousMarin:
                                     break
 
                                 elif x_given != x + 1 :
-                                    if 0 <= x_given <= int(derniere_ligne) : 
+                                    if 0 <= x_given <= int(derniere_ligne) - 1 : 
                                         faux = "Le sous-marin ennemi se trouve ligne : " + str(x_given)
                                         break
                                     
@@ -1525,7 +1525,7 @@ class SousMarin:
 
                                 if cap_silence == "OUEST" :
                                     #on vérifie si le sm ne sort pas de la map
-                                    if 0 <= y - distance <= ord(derniere_colonne) - ord('A') :
+                                    if 0 <= y - distance :
                                         y_ouest = y
                                             
                                         #le sous-marin ne peut se déplacer que sur des cases valides non exploré
@@ -1564,7 +1564,7 @@ class SousMarin:
                                         print("\n\n❌ Vous ne pouvez pas sortir de la map !")
                                         
                                 if cap_silence == "EST" :
-                                    if 0 <= y + distance <= ord(derniere_colonne) - ord('A') :
+                                    if y + distance <= ord(derniere_colonne) - ord('A') :
                                         y_est = y
                                             
                                         for _ in range(distance) :
@@ -1601,7 +1601,7 @@ class SousMarin:
                                         print("\n\n❌ Vous ne pouvez pas sortir de la map !")
 
                                 if cap_silence == "NORD" :
-                                    if 0 <= x - distance <= int(derniere_ligne) :
+                                    if 0 <= x - distance :
                                         x_nord = x
                                             
                                         for _ in range(distance) :
@@ -1638,7 +1638,7 @@ class SousMarin:
                                         print("\n\n❌ Vous ne pouvez pas sortir de la map !")
                                         
                                 if cap_silence == "SUD" :
-                                    if 0 <= x + distance <= int(derniere_ligne) :
+                                    if x + distance <= int(derniere_ligne) - 1 :
                                         x_sud = x
                                             
                                         for _ in range(distance) :
