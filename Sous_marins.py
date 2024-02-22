@@ -1515,16 +1515,16 @@ class SousMarin:
                 cap_silence = cap_silence.upper()
 
                 if cap_silence == "O" :
-                    cap_silence == "OUEST"
+                    cap_silence = "OUEST"
 
                 elif cap_silence == "N" :
-                    cap_silence == "NORD"
+                    cap_silence = "NORD"
 
                 elif cap_silence == "E" :
-                    cap_silence == "EST"
+                    cap_silence = "EST"
 
                 elif cap_silence == "S" :
-                    cap_silence == "SUD"
+                    cap_silence = "SUD"
 
                 if cap_silence == "OUEST" or cap_silence == "EST" or cap_silence == "NORD" or cap_silence == "SUD" :
                     while True :

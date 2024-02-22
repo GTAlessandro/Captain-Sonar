@@ -578,16 +578,16 @@ def annonce_cap(position, capitaine, carte, sous_marin, emplacement_mines) :
             cap = cap.upper()
 
             if cap == "O" :
-                cap == "OUEST"
+                cap = "OUEST"
 
             elif cap == "N" :
-                cap == "NORD"
+                cap = "NORD"
 
             elif cap == "E" :
-                cap == "EST"
+                cap = "EST"
 
             elif cap == "S" :
-                cap == "SUD"
+                cap = "SUD"
 
             #si le cap est = a ouest et est supérière à 0 étant la limite de la map
             if cap == "OUEST" and y > 0 :
