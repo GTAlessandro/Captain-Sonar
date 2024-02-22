@@ -118,7 +118,6 @@ def def_ekip(nb_joueur):
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second, Mécano et Détecteur : {j1}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second, Mécano et Détecteur : {j2}\n")
         input("\nSUIVANT")
 
-        return j1, nom_e1, j2, nom_e2
 
     # Partie a 3 joueurs 
     elif nb_joueur == 3 :
@@ -137,7 +136,6 @@ def def_ekip(nb_joueur):
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second, Mécano et Détecteur : {j1}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j2}\nDétecteur : {j3}\n")
         input("\nSUIVANT")
 
-        return j1, nom_e1, j2, nom_e2, j3
 
     # Partie a 4 joueurs 
     elif nb_joueur == 4 :
@@ -157,7 +155,6 @@ def def_ekip(nb_joueur):
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine, Second et Mécano : {j3}\nDétecteur : {j4}\n")
         input("\nSUIVANT")
 
-        return j1, nom_e1, j2, nom_e2, j3, j4
 
     # Partie a 5 joueurs 
     elif nb_joueur == 5 :
@@ -178,8 +175,6 @@ def def_ekip(nb_joueur):
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine, Second et Mécano : {j1}\nDétecteur : {j2}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j3}\nMécano : {j4}\nDétecteur : {j5}")
         input("\nSUIVANT")
 
-        return j1, j2, j3, j4, j5, nom_e1, nom_e2
-
     # Partie a 6 joueurs 
     elif nb_joueur == 6 :
         print("\n-> Chaque équipe comporte 3 membres.\nPour les deux équipes, un joueur cumule le rôle de Capitaine et de Second.\n")
@@ -199,8 +194,6 @@ def def_ekip(nb_joueur):
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine et Second : {j4}\nMécano : {j5}\nDétecteur : {j6}")
         input("\nSUIVANT")
-
-        return j1, j2, j3, j4, j5, j6, nom_e1, nom_e2
 
     # Partie a 7 joueurs 
     elif nb_joueur == 7 :
@@ -223,8 +216,6 @@ def def_ekip(nb_joueur):
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine et Second : {j1}\nMécano : {j2}\nDétecteur : {j3}\n\n===== EQUIPE {nom_e2} =====\nCapitaine :{j4}\nSecond : {j5}\nMécano : {j6}\nDétecteur : {j7}")
         input("\nSUIVANT")
 
-        return j1, j2, j3, j4, j5, j6, nom_e1, nom_e2, j7
-
     # Partie a 8 joueurs 
     elif nb_joueur == 8 :
         print("\n-> Parfait, chaque équipe comporte 4 membres. Un pour chaque rôle\n")
@@ -246,8 +237,6 @@ def def_ekip(nb_joueur):
         #Récapitulatif
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine : {j1}\nSecond : {j2}\nMécano : {j3}\nDétecteur : {j4}\n\n===== EQUIPE {nom_e2} =====\nCapitaine : {j5}\nSecond : {j6}\nMécano : {j7}\nDétecteur : {j8}")
         input("\nSUIVANT")
-
-        return j1, j2, j3, j4, j5, j6, nom_e1, nom_e2, j7, j8
 
 
 
@@ -587,6 +576,18 @@ def annonce_cap(position, capitaine, carte, sous_marin, emplacement_mines) :
         try :
             cap = input(f"\n{capitaine}, annoncez un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner en arrière (0): ")
             cap = cap.upper()
+
+            if cap == "O" :
+                cap == "OUEST"
+
+            elif cap == "N" :
+                cap == "NORD"
+
+            elif cap == "E" :
+                cap == "EST"
+
+            elif cap == "S" :
+                cap == "SUD"
 
             #si le cap est = a ouest et est supérière à 0 étant la limite de la map
             if cap == "OUEST" and y > 0 :
