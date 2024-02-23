@@ -542,8 +542,11 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
             #============#
             '''EQUIPE 1'''
             #============#
+            print(changement)
+            print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine : '{capitaine}', de l'équipe '{nom_e1}' de jouer.")
+            input("\nSUIVANT\n")
             #1) le capitaine de l'équipe 1 déplace son vaisseau
-            position_e1, cap_e1, surface_e1, nombre_tour_attendu_e1, fin, emplacement_mines_e2, mine_cap_e2, mine_cap_e1, emplacement_mines_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1, surface_e1, nombre_tour_attendu_e1, emplacement_mines_e1, sous_marin_e2,  emplacement_mines_e1, mine_cap_e1, fin, emplacement_mines_e2, mine_cap_e2, C_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
+            position_e1, cap_e1, surface_e1, nombre_tour_attendu_e1, fin, emplacement_mines_e2, mine_cap_e2, mine_cap_e1, emplacement_mines_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1, surface_e1, nombre_tour_attendu_e1, sous_marin_e2,  emplacement_mines_e1, mine_cap_e1, fin, emplacement_mines_e2, mine_cap_e2, C_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1)
             
             #2) le mecano de l'équipe 1 rentre une panne dans le cadran associer au cap
             cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, surface_e1, nombre_tour_attendu_e1, capitaine_e1, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1)
@@ -552,7 +555,7 @@ def jeu(capitaine, second, mecano, detecteur, mode, carte, sous_marin_e1, sous_m
             arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1, cap_e1, nombre_tour_attendu_e1, surface_e1, capitaine_e1)
             
             #4) l'équipe 1 peut déclencher une compétence
-            surface_e1, nombre_tour_attendu_e1, fin, arme1_e1, emplacement_mines_e1, arme2_e1, mine_cap_e1, dete1_e1, dete2_e1, position_e1, spe_e1 = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1, emplacement_mines_e1, mine_cap_e1, fin, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1, C_e2, position_e1, nombre_tour_attendu_e1, surface_e1)
+            surface_e1, nombre_tour_attendu_e1, fin, arme1_e1, emplacement_mines_e1, arme2_e1, mine_cap_e1, dete1_e1, dete2_e1, position_e1, spe_e1 = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1, emplacement_mines_e1, mine_cap_e1, fin, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1, C_e2, position_e1, nombre_tour_attendu_e1, surface_e1, mine_cap_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, emplacement_mines_e2)
             
             #5) le detecteur adverse rentre le cap ennemi
 
@@ -650,10 +653,7 @@ def faire_surface(carte) :
 '''1) Déplacement 1er équipe'''
 #=============================#
 
-def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tour_attendu, emplacement_mines, sous_marin_ennemi, emplacement_mines_self, mine_cap_self, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
-    print(changement)
-    print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine : '{capitaine}', de l'équipe '{nom}' de jouer.")
-    input("\nSUIVANT\n")
+def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tour_attendu, sous_marin_ennemi, emplacement_mines_self, mine_cap_self, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
 
     Carte.Afficher_carte()
 
@@ -663,7 +663,7 @@ def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tou
             entete_deplacement = int(input("\n  1 - Choisir un cap\n  2 - Faire surface\n  3 - Demander au Mecano d'afficher la baie moteur\n\n  Sélectionner une action : "))
 
             if entete_deplacement == 1 :
-                position, cap = annonce_cap(position, capitaine, Carte, sous_marin, emplacement_mines)
+                position, cap = annonce_cap(position, capitaine, Carte, sous_marin, emplacement_mines_self)
                 
                 if cap != "0" : 
                     #si le  sous marin se déplace sur une mine posé par un sm Ecureille
@@ -829,7 +829,7 @@ def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom, cap,
 '''4) déclenchement de compétencee'''
 #====================================#
 
-def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemi, nom_ennemi, nom_self, emplacement_mines, mine_cap, fin, condition_panne_arm, condition_panne_spe, condition_panne_det, carte_ennemi, position_sm, nombre_tour_attendu, surface) :
+def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemi, nom_ennemi, nom_self, emplacement_mines, mine_cap, fin, condition_panne_arm, condition_panne_spe, condition_panne_det, carte_ennemi, position_sm, nombre_tour_attendu, surface, mine_cap_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est, emplacement_mines_ennemi) :
     if nombre_tour_attendu != 0 or surface == True :
         if nombre_tour_attendu == 2 :
             nombre_tour_attendu = 0
@@ -937,10 +937,11 @@ def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_mar
                             else : 
                                 print("\n\n❌ Votre système SPE détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas déclencher votre silence !")
 
+                        #larguer le leurre
                         elif sous_marin.nom == "Ecureille" and sous_marin.spe == True and choix_systeme == 5 :
                             if condition_panne_spe == False :
-                                #fonction lancer leurre si le sm est un ecureille
-                                print("sous_marin.lancer_leurre(capitaine, carte, spe)")
+                                position_sm, cap, surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap, emplacement_mines = sous_marin.lancer_leurre(position_sm, capitaine, carte, sous_marin, nom_self, surface, nombre_tour_attendu, emplacement_mines, sous_marin_ennemi, emplacement_mines, mine_cap, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est)
+                                
                                 return surface, nombre_tour_attendu, fin, arme1, emplacement_mines, arme2, mine_cap, dete1, dete2, position_sm, spe
                             
                             else :
