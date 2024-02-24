@@ -1172,7 +1172,7 @@ class SousMarin:
                 print("\n\n❌ choisissez une valeur valide.")
 
 
-    def explosion_auto(self, sous_marin_ennemi, nom_self, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, sous_marin_self, leurre_larguer):
+    def explosion_auto(self, sous_marin_ennemi, nom_self, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi):
 
         if sous_marin_ennemi.nom == "Ecureille" :
             if emplacement_mines_ennemi :
@@ -1214,7 +1214,7 @@ class SousMarin:
                                 
                         return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer
 
-        if self.nom == "Ecureille" or (self.nom == "leurre" and sous_marin_self.nom == "Ecureille"):
+        if self.nom == "Ecureille" :
             if emplacement_mines_self :
                 for i in range(len(emplacement_mines_self)) :
                     x, y = emplacement_mines_self[i - 1]

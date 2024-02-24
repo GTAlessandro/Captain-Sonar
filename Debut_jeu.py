@@ -130,7 +130,7 @@ def lancer_jeu() :
             print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine : '{capitaine_e1}', de l'équipe '{nom_e1}' de jouer.")
             input("\nSUIVANT\n")
             #1) le capitaine de l'équipe 1 déplace son vaisseau
-            position_e1, cap_e1, surface_e1, nombre_tour_attendu_e1, fin, emplacement_mines_e2, mine_cap_e2, mine_cap_e1, emplacement_mines_e1, leurre_larguer_e1, position_leurre = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1, surface_e1, nombre_tour_attendu_e1, sous_marin_e2,  emplacement_mines_e1, mine_cap_e1, fin, emplacement_mines_e2, mine_cap_e2, C_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, leurre_larguer_e1)
+            position_e1, cap_e1, surface_e1, nombre_tour_attendu_e1, fin, emplacement_mines_e2, mine_cap_e2, mine_cap_e1, emplacement_mines_e1, leurre_larguer_e1, position_leurre_e1 = deplacement(position_e1, capitaine_e1, C_e1, sous_marin_e1, nom_e1, surface_e1, nombre_tour_attendu_e1, sous_marin_e2,  emplacement_mines_e1, mine_cap_e1, fin, emplacement_mines_e2, mine_cap_e2, C_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, leurre_larguer_e1, position_leurre_e1)
             
             #2) le mecano de l'équipe 1 rentre une panne dans le cadran associer au cap
             cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1 = panne(mecano_e1, cap_e1, nom_e1, sous_marin_e1, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, surface_e1, nombre_tour_attendu_e1, capitaine_e1, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1)
@@ -139,7 +139,7 @@ def lancer_jeu() :
             arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1 = choix_systeme(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, second_e1, nom_e1, cap_e1, nombre_tour_attendu_e1, surface_e1, capitaine_e1)
             
             #4) l'équipe 1 peut déclencher une compétence
-            surface_e1, nombre_tour_attendu_e1, fin, arme1_e1, emplacement_mines_e1, arme2_e1, mine_cap_e1, dete1_e1, dete2_e1, position_e1, spe_e1, leurre_e1 = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1, emplacement_mines_e1, mine_cap_e1, fin, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1, C_e2, position_e1, nombre_tour_attendu_e1, surface_e1, mine_cap_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, emplacement_mines_e2)
+            surface_e1, nombre_tour_attendu_e1, fin, arme1_e1, emplacement_mines_e1, arme2_e1, mine_cap_e1, dete1_e1, dete2_e1, position_e1, spe_e1, leurre_e1, position_leurre_e1 = declenchement_systemes(arme1_e1, arme2_e1, dete1_e1, dete2_e1, spe_e1, sous_marin_e1, sous_marin_e2, second_e1, capitaine_e1, C_e1, derniere_colonne, derniere_ligne, capitaine_e2, nom_e2, nom_e1, emplacement_mines_e1, mine_cap_e1, fin, condition_panne_arm_e1, condition_panne_spe_e1, condition_panne_det_e1, C_e2, position_e1, nombre_tour_attendu_e1, surface_e1, mine_cap_e2, cadran_ouest_e1, cadran_nord_e1, cadran_sud_e1, cadran_est_e1, emplacement_mines_e2)
             
             #5) le detecteur adverse rentre le cap ennemi
             
@@ -655,35 +655,35 @@ def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tou
                 if cap != "0" : 
                     #si le  sous marin se déplace sur une mine posé par un sm Ecureille
                     if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
-                        fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer = sous_marin.explosion_auto(sous_marin_ennemi, nom, emplacement_mines_self, mine_cap_self, Carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, sous_marin, leurre_larguer)
+                        fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self = sous_marin.explosion_auto(sous_marin_ennemi, nom, emplacement_mines_self, mine_cap_self, Carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi)
                     input("\nSUIVANT")
 
-                if leurre_larguer == True :
-                    #définition du cap du leurre
-                    if cap == "OUEST" :
-                        cap_leurre = "EST"
+                # if leurre_larguer == True :
+                #     #définition du cap du leurre
+                #     if cap == "OUEST" :
+                #         cap_leurre = "EST"
 
-                    elif cap == "NORD" :
-                        cap_leurre = "SUD"
+                #     elif cap == "NORD" :
+                #         cap_leurre = "SUD"
 
-                    elif cap == "EST" :
-                        cap_leurre = "OUEST"
+                #     elif cap == "EST" :
+                #         cap_leurre = "OUEST"
 
-                    elif cap == "SUD" :
-                        cap_leurre = "NORD"
+                #     elif cap == "SUD" :
+                #         cap_leurre = "NORD"
 
-                    #on déplace le leurre en fonction de son cap
-                    position_leurre = carte.deplacement_sm(position_leurre, leurre, cap_leurre, emplacement_mines)
-                    #si le leurre se déplace sur une mine automatique
-                    if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
-                        fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer = leurre.explosion_auto(sous_marin_ennemi, nom, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, self)
+                    # #on déplace le leurre en fonction de son cap
+                    # position_leurre = carte.deplacement_sm(position_leurre, leurre, cap_leurre, emplacement_mines)
+                    # #si le leurre se déplace sur une mine automatique
+                    # if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
+                    #     fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer = leurre.explosion_auto(sous_marin_ennemi, nom, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, self)
                 
-                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer
+                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer, position_leurre
                 
             elif entete_deplacement == 2 :
                 surface = faire_surface(Carte)
                 cap = "AUCUN"
-                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer
+                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer, position_leurre
             
             elif entete_deplacement == 3 :
                 sous_marin.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
@@ -706,10 +706,10 @@ def deplacement(position, capitaine, Carte, sous_marin, nom, surface, nombre_tou
             if nombre_tour_attendu == 2 :
                 print("\nVous avez passez vos 3 tours à la surface et vous replongez dans les eaux profondes !\n")
                 input("SUIVANT")
-                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer
+                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer, position_leurre
 
             else :
-                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer
+                return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer, position_leurre
 
 
 #===============================#
@@ -836,7 +836,7 @@ def choix_systeme(arme1, arme2, dete1, dete2, spe, sous_marin, second, nom, cap,
 '''12) déclenchement de compétencee'''
 #=====================================#
 
-def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemi, nom_ennemi, nom_self, emplacement_mines, mine_cap, fin, condition_panne_arm, condition_panne_spe, condition_panne_det, carte_ennemi, position_sm, nombre_tour_attendu, surface, mine_cap_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est, emplacement_mines_ennemi) :
+def declenchement_systemes(arme1, arme2, dete1, dete2, spe, sous_marin, sous_marin_ennemi, second, capitaine, carte, derniere_colonne, derniere_ligne, capitaine_ennemi, nom_ennemi, nom_self, emplacement_mines, mine_cap, fin, condition_panne_arm, condition_panne_spe, condition_panne_det, carte_ennemi, position_sm, nombre_tour_attendu, surface, mine_cap_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est, emplacement_mines_ennemi, leurre, position_leurre) :
     if nombre_tour_attendu != 0 or surface == True :
         if nombre_tour_attendu == 2 :
             nombre_tour_attendu = 0
