@@ -1,7 +1,6 @@
 import random
 
 from Var_affichage import changement
-from Debut_jeu import deplacement
 
 #====================#
 '''Class Sous-Marin'''
@@ -412,17 +411,17 @@ class SousMarin:
     #=====================================#
 
     def def_systeme(self) :
-        a1 = "#"
-        a2 = "#"
-        a3 = "#"
+        a1 = "0"
+        a2 = "0"
+        a3 = "0"
         a4 = "0"
         a5 = "0"
         a6 = "0"
 
-        b1 = "0"
-        b2 = "0"
-        b3 = "0"
-        b4 = "0"
+        b1 = "#"
+        b2 = "#"
+        b3 = "#"
+        b4 = "#"
         b5 = "0"
         b6 = "0"
 
@@ -440,12 +439,12 @@ class SousMarin:
         d5 = "0"
         d6 = "0"
 
-        e1 = "0"
-        e2 = "0"
-        e3 = "0"
-        e4 = "0"
-        e5 = "0"
-        e6 = "0"
+        e1 = "#"
+        e2 = "#"
+        e3 = "#"
+        e4 = "#"
+        e5 = "#"
+        e6 = "#"
 
         f1 = "0"
         f2 = "0"
@@ -959,7 +958,7 @@ class SousMarin:
                                             #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
                                             else :
                                                 print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 RAS !🚨") 
-                                                print(f"\nVous avez tirer une torpille dans le vide !\n")
+                                                print(f"\nVous avez tirer une torpille pour rien !\n")
                                                 print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                                 input("\nSUIVANT")
                                                 return fin, arme1
@@ -1160,7 +1159,7 @@ class SousMarin:
                     #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
                     else :
                         print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 RAS !🚨") 
-                        print(f"\nVous avez fait exploser une mine dans le vide !\n")
+                        print(f"\nVous avez fait exploser une mine pour rien !\n")
                         print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                         input("\nSUIVANT")
                         return fin, emplacement_mines, mine_cap, condition_boucle_explo
@@ -1173,7 +1172,7 @@ class SousMarin:
                 print("\n\n❌ choisissez une valeur valide.")
 
 
-    def explosion_auto(self, sous_marin_ennemi, nom_self, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi):
+    def explosion_auto(self, sous_marin_ennemi, nom_self, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, sous_marin_self, leurre_larguer):
 
         if sous_marin_ennemi.nom == "Ecureille" :
             if emplacement_mines_ennemi :
@@ -1199,18 +1198,23 @@ class SousMarin:
                         emplacement_mines_ennemi.remove(emplacement_mine_explose)
                         mine_cap_ennemi.remove(mine_cap_explose)
 
-                        print(f"\nUne mine ennemi à déjà été larguée sur votre nouvelle position et celle-ci à exploser au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
                         self.vie -= 1
-                        print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
-                        
-                        #si c'est un sm et pas un leurre
-                        if self.nom == "Ecureille" or self.nom == "Tigre" :
+
+                        if self.nom != "Leurre" :
+                            print(f"\nUne mine ennemi à déjà été larguée sur votre nouvelle position et celle-ci a explosé au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
+                            print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+
                             if self.vie <= 0 :
                                 #fin de game
                                 fin = True
+                        
+                        else :
+                            print(f"\nUne mine ennemi a déjà été larguée sur la nouvelle position de votre leurre et celle-ci a explosé à son contact ! 💥 \nVotre leurre a été détruit !\n")
+                            leurre_larguer = False
                                 
-                        return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
+                        return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer
 
+        if self.nom == "Ecureille" or (self.nom == "leurre" and sous_marin_self.nom == "Ecureille"):
             if emplacement_mines_self :
                 for i in range(len(emplacement_mines_self)) :
                     x, y = emplacement_mines_self[i - 1]
@@ -1234,13 +1238,17 @@ class SousMarin:
                         emplacement_mines_self.remove(emplacement_mine_explose)
                         mine_cap_self.remove(mine_cap_explose)
 
-                        print(f"\nVous aviez déjà posé une mine sur cette position et celle-ci à exploser au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
                         self.vie -= 1
-                        print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
 
-                        if self.nom == "Ecureille" or self.nom == "Tigre" :        
+                        if self.nom != "Leurre" :
+                            print(f"\nVous aviez déjà posé une mine sur cette position et celle-ci à exploser au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
+                            print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+            
                             if self.vie <= 0 :
                                 fin = True
+                        
+                        else :
+                            print(f"\nVotre mine a déjà été larguée sur la nouvelle position de votre leurre et celle-ci a explosé à son contact ! 💥 \nVotre leurre a été détruit !\n")
                                 
                         return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
         
@@ -1712,20 +1720,20 @@ class SousMarin:
                 print("\n\n❌ Veuillez entrer un cap valide !")
 
 
-    def lancer_leurre(position, capitaine, carte, sous_marin, nom, surface, nombre_tour_attendu, emplacement_mines, sous_marin_ennemi, emplacement_mines_self, mine_cap_self, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
+    def lancer_leurre(self, position, capitaine, carte, sous_marin, nom, surface, nombre_tour_attendu, emplacement_mines, sous_marin_ennemi, emplacement_mines_self, mine_cap_self, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
         leurre_larguer = True
         
         #creation d'un objet leurre (pour pouvoir utiliser la fonction déplacement_sm de l'objet map)
         class Leurre(SousMarin):
-            def __init__(self, nom, position_leurre, vie) :
+            def __init__(self, nom, position, vie) :
                 self.nom = nom
-                self.position_leurre = position_leurre
+                self.pos = position
                 self.vie = vie
 
         leurre = Leurre("Leurre", position, 1)
 
         #Vous lancer votre leurre, vous pouvez vous déplacer de nouveau et le leurre se déplacera dans la position oposé. Attention, le leurre pourra se déplacer dans des endroits déjà explorer (les ennemis se rendront compte que c'était le leurre)\n si le leurre traverse une île il explose et ne sera plus effectif.
-        print("Vous venez de larguer votre leurre dans la mer.")
+        print("Vous venez de larguer votre leurre dans la mer.\n Vous pouvez vous redéplacer.")
         
         position, cap, surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self = deplacement(position, capitaine, carte, sous_marin, nom, surface, nombre_tour_attendu, emplacement_mines, sous_marin_ennemi, emplacement_mines_self, mine_cap_self, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est)
         
@@ -1743,17 +1751,12 @@ class SousMarin:
             cap_leurre = "NORD"
 
         #on déplace le leurre en fonction de son cap
-        if cap_leurre == "OUEST" :
-            position_leurre = carte.deplacement_sm(position_leurre, leurre, cap_leurre, emplacement_mines)
-            #si le leurre se déplace sur une mine posé par un sm Ecureille
-            if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
-                fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self = leurre.explosion_auto(sous_marin_ennemi, nom, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi)
+        position_leurre = carte.deplacement_sm(position_leurre, leurre, cap_leurre, emplacement_mines)
+        #si le leurre se déplace sur une mine automatique
+        if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
+            fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer = leurre.explosion_auto(sous_marin_ennemi, nom, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, self)
 
-            return position, cap #retour de la nouvelle position contenant x, y ainsi que son cap pour les fonctions panne et choix_systeme
-
-        return position, cap.upper(), surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
-    
-    #check si le leurre passe sur une mine de l'écureille et finir son déplacement puis check si tout marche
+        return position, cap, surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer, position_leurre, leurre, position_leurre
 
 
 
