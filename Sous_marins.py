@@ -7,10 +7,14 @@ from Var_affichage import changement
 #====================#
 
 class SousMarin:
-    def __init__(self, nom, vie, baie_moteur, armement1, armement2, detection1, detection2, speciale, position):
+    def __init__(self, nom, vie, baie_moteur, cadran_ouest, cadran_est, cadran_nord, cadran_sud, armement1, armement2, detection1, detection2, speciale, position):
         self.nom = nom
         self.vie = vie
         self.baie = baie_moteur
+        self.cadran_ouest = cadran_ouest
+        self.cadran_est = cadran_est
+        self.cadran_nord = cadran_nord
+        self.cadran_sud = cadran_sud
         self.a1 = armement1 #idée : mine à detection magnétique, 
         self.a2 = armement2 #idée : torpille Guidage par satellite, Guidage électromagnétique, Guidage par intelligence artificielle
         self.d1 = detection1 #sonar de tout les adjectifs, Magnétométrie, Capteurs électromagnétiques, Imagerie acoustique, gravimétrie
@@ -62,53 +66,49 @@ class SousMarin:
             NONE2ERAD = " NONE  6 RAD"
 
             # Définition des cadrans avec des listes
-            cadran_ouest = [JAUNE_ARM, JAUNE_SPE, JAUNE_DET, NONE_ODET, NONE1ORAD, NONE2ORAD]
-            cadran_nord = [VERT__SPE, VERT__DET, VERT__ARM, NONE_NDET, NONE_NARM, NONE_NRAD]
-            cadran_sud = [BLEU__DET, BLEU__SPE, BLEU__ARM, NONE_SARM, NONE_SSPE, NONE_SRAD]
-            cadran_est = [JAUNE1ARM, VERT1_SPE, BLEU1_SPE, NONE_EDET, NONE1ERAD, NONE2ERAD]
-
-            self.baie_moteur = cadran_ouest, cadran_nord, cadran_sud, cadran_est
-
-            return cadran_ouest, cadran_nord, cadran_sud, cadran_est
+            self.cadran_ouest = [JAUNE_ARM, JAUNE_SPE, JAUNE_DET, NONE_ODET, NONE1ORAD, NONE2ORAD]
+            self.cadran_nord = [VERT__SPE, VERT__DET, VERT__ARM, NONE_NDET, NONE_NARM, NONE_NRAD]
+            self.cadran_sud = [BLEU__DET, BLEU__SPE, BLEU__ARM, NONE_SARM, NONE_SSPE, NONE_SRAD]
+            self.cadran_est = [JAUNE1ARM, VERT1_SPE, BLEU1_SPE, NONE_EDET, NONE1ERAD, NONE2ERAD]
         
         elif self.baie == 2 : 
             #fonction d'une baie moteur numéro 2
             print("r pour le moment")
 
 
-    def afficher_baie_moteur(self, cadran_ouest, cadran_nord, cadran_sud, cadran_est):
+    def afficher_baie_moteur(self):
 
         #cadran ouest
-        JAUNE_ARM = cadran_ouest[0]
-        JAUNE_SPE = cadran_ouest[1]
-        JAUNE_DET = cadran_ouest[2]
-        NONE_ODET = cadran_ouest[3]
-        NONE1ORAD = cadran_ouest[4]
-        NONE2ORAD = cadran_ouest[5]
+        JAUNE_ARM = self.cadran_ouest[0]
+        JAUNE_SPE = self.cadran_ouest[1]
+        JAUNE_DET = self.cadran_ouest[2]
+        NONE_ODET = self.cadran_ouest[3]
+        NONE1ORAD = self.cadran_ouest[4]
+        NONE2ORAD = self.cadran_ouest[5]
     
         #cadran nord
-        VERT__SPE = cadran_nord[0]
-        VERT__DET = cadran_nord[1]
-        VERT__ARM = cadran_nord[2]
-        NONE_NDET = cadran_nord[3]
-        NONE_NARM = cadran_nord[4]
-        NONE_NRAD = cadran_nord[5]
+        VERT__SPE = self.cadran_nord[0]
+        VERT__DET = self.cadran_nord[1]
+        VERT__ARM = self.cadran_nord[2]
+        NONE_NDET = self.cadran_nord[3]
+        NONE_NARM = self.cadran_nord[4]
+        NONE_NRAD = self.cadran_nord[5]
 
         #cadran sud
-        BLEU__DET = cadran_sud[0]
-        BLEU__SPE = cadran_sud[1]
-        BLEU__ARM = cadran_sud[2]
-        NONE_SARM = cadran_sud[3]
-        NONE_SSPE = cadran_sud[4]
-        NONE_SRAD = cadran_sud[5]
+        BLEU__DET = self.cadran_sud[0]
+        BLEU__SPE = self.cadran_sud[1]
+        BLEU__ARM = self.cadran_sud[2]
+        NONE_SARM = self.cadran_sud[3]
+        NONE_SSPE = self.cadran_sud[4]
+        NONE_SRAD = self.cadran_sud[5]
 
         #cadran est
-        JAUNE1ARM = cadran_est[0]
-        VERT1_SPE = cadran_est[1]
-        BLEU1_SPE = cadran_est[2]
-        NONE_EDET = cadran_est[3]
-        NONE1ERAD = cadran_est[4]
-        NONE2ERAD = cadran_est[5]
+        JAUNE1ARM = self.cadran_est[0]
+        VERT1_SPE = self.cadran_est[1]
+        BLEU1_SPE = self.cadran_est[2]
+        NONE_EDET = self.cadran_est[3]
+        NONE1ERAD = self.cadran_est[4]
+        NONE2ERAD = self.cadran_est[5]
 
         baie_moteur = f'''
         ============================================= Baie moteur ====================================================
@@ -117,13 +117,13 @@ class SousMarin:
                      : O :         ~         : N :         ~         : S :         ~         : E :
                      \===/         ~         \===/         ~         \===/         ~         \===/
                 /―――――――――――――\    ~    /―――――――――――――\    ~    /―――――――――――――\    ~    /―――――――――――――\ 
-                |{ JAUNE_ARM} |    ~    |{ VERT__SPE} |    ~    |{ BLEU__DET} |    ~    |{ JAUNE1ARM} |
-                |{ JAUNE_SPE} |    ~    |{ VERT__DET} |    ~    |{ BLEU__SPE} |    ~    |{ VERT1_SPE} |
-                \{ JAUNE_DET} /    ~    \{ VERT__ARM} /    ~    \{ BLEU__ARM} /    ~    \{ BLEU1_SPE} /
+                |{ self.cadran_ouest[0]} |    ~    |{ self.cadran_nord[0]} |    ~    |{ self.cadran_sud[0]} |    ~    |{ self.cadran_est[0]} |
+                |{ self.cadran_ouest[1]} |    ~    |{ self.cadran_nord[1]} |    ~    |{ self.cadran_sud[1]} |    ~    |{ self.cadran_est[1]} |
+                \{ self.cadran_ouest[2]} /    ~    \{ self.cadran_nord[2]} /    ~    \{ self.cadran_sud[2]} /    ~    \{ self.cadran_est[2]} /
                  |―――――――――――|     ~     |―――――――――――|     ~     |―――――――――――|     ~     |―――――――――――|
-                /{ NONE_ODET} \    ~    /{ NONE_NDET} \    ~    /{ NONE_SARM} \    ~    /{ NONE_EDET} \ 
-                |{ NONE1ORAD} |    ~    |{ NONE_NARM} |    ~    |{ NONE_SSPE} |    ~    |{ NONE1ERAD} |
-                |{ NONE2ORAD} |    ~    |{ NONE_NRAD} |    ~    |{ NONE_SRAD} |    ~    |{ NONE2ERAD} |
+                /{ self.cadran_ouest[3]} \    ~    /{ self.cadran_nord[3]} \    ~    /{ self.cadran_sud[3]} \    ~    /{ self.cadran_est[3]} \ 
+                |{ self.cadran_ouest[4]} |    ~    |{ self.cadran_nord[4]} |    ~    |{ self.cadran_sud[4]} |    ~    |{ self.cadran_est[4]} |
+                |{ self.cadran_ouest[5]} |    ~    |{ self.cadran_nord[5]} |    ~    |{ self.cadran_sud[5]} |    ~    |{ self.cadran_est[5]} |
                 \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/    ~    \―――――――――――――/
                                    ~                       ~                       ~  
         '''
@@ -143,37 +143,37 @@ class SousMarin:
         print(baie_moteur)
 
 
-    def choisir_une_panne(self, choix_meca, cadran_ouest, cadran_nord, cadran_sud, cadran_est, cap, condition_panne_arm, condition_panne_spe, condition_panne_det):
+    def choisir_une_panne(self, choix_meca, cap, condition_panne_arm, condition_panne_spe, condition_panne_det):
         condition_voyant = False
 
         if cap == "OUEST" :
 
-            if choix_meca == 1 and cadran_ouest[0] == " JAUNE 1 ARM":
-                cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
+            if choix_meca == 1 and self.cadran_ouest[0] == " JAUNE 1 ARM":
+                self.cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
                 condition_voyant = True
 
-            elif choix_meca == 2 and cadran_ouest[1] == " JAUNE 2 SPE" :
-                cadran_ouest[1] = " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E"
+            elif choix_meca == 2 and self.cadran_ouest[1] == " JAUNE 2 SPE" :
+                self.cadran_ouest[1] = " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
                 condition_voyant = True
 
-            elif choix_meca == 3 and cadran_ouest[2] == " JAUNE 3 DET" :
-                cadran_ouest[2] = " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T"
+            elif choix_meca == 3 and self.cadran_ouest[2] == " JAUNE 3 DET" :
+                self.cadran_ouest[2] = " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
                 condition_voyant = True
 
-            elif choix_meca == 4 and cadran_ouest[3] == " NONE  4 DET" :
-                cadran_ouest[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+            elif choix_meca == 4 and self.cadran_ouest[3] == " NONE  4 DET" :
+                self.cadran_ouest[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
                 condition_voyant = True
 
-            elif choix_meca == 5 and cadran_ouest[4] == " NONE  5 RAD" :
-                cadran_ouest[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+            elif choix_meca == 5 and self.cadran_ouest[4] == " NONE  5 RAD" :
+                self.cadran_ouest[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
                 condition_voyant = True
 
-            elif choix_meca == 6 and cadran_ouest[5] == " NONE  6 RAD" :
-                cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+            elif choix_meca == 6 and self.cadran_ouest[5] == " NONE  6 RAD" :
+                self.cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
                 condition_voyant = True
 
             else : 
@@ -181,33 +181,33 @@ class SousMarin:
 
         elif cap == "NORD" :
 
-            if choix_meca == 1 and cadran_nord[0] == " VERT  1 SPE" :
-                cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
+            if choix_meca == 1 and self.cadran_nord[0] == " VERT  1 SPE" :
+                self.cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
                 condition_voyant = True
         
-            elif choix_meca == 2 and cadran_nord[1] == " VERT  2 DET" :
-                cadran_nord[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T"
+            elif choix_meca == 2 and self.cadran_nord[1] == " VERT  2 DET" :
+                self.cadran_nord[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
                 condition_voyant = True
 
-            elif choix_meca == 3 and cadran_nord[2] == " VERT  3 ARM" :
-                cadran_nord[2] = " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M"
+            elif choix_meca == 3 and self.cadran_nord[2] == " VERT  3 ARM" :
+                self.cadran_nord[2] = " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
                 condition_voyant = True
 
-            elif choix_meca == 4 and cadran_nord[3] == " NONE  4 DET" :
-                cadran_nord[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+            elif choix_meca == 4 and self.cadran_nord[3] == " NONE  4 DET" :
+                self.cadran_nord[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
                 condition_voyant = True
 
-            elif choix_meca == 5 and cadran_nord[4] == " NONE  5 ARM" :
-                cadran_nord[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
+            elif choix_meca == 5 and self.cadran_nord[4] == " NONE  5 ARM" :
+                self.cadran_nord[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
                 condition_voyant = True
 
-            elif choix_meca == 6 and cadran_nord[5] == " NONE  6 RAD" :
-                cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+            elif choix_meca == 6 and self.cadran_nord[5] == " NONE  6 RAD" :
+                self.cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
                 condition_voyant = True
 
             else : 
@@ -215,33 +215,33 @@ class SousMarin:
 
         elif cap == "SUD" :
 
-            if choix_meca == 1 and cadran_sud[0] == " BLEU  1 DET" :
-                cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T"
+            if choix_meca == 1 and self.cadran_sud[0] == " BLEU  1 DET" :
+                self.cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
                 condition_voyant = True
         
-            elif choix_meca == 2 and cadran_sud[1] == " BLEU  2 SPE" :
-                cadran_sud[1] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
+            elif choix_meca == 2 and self.cadran_sud[1] == " BLEU  2 SPE" :
+                self.cadran_sud[1] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
                 condition_voyant = True
 
-            elif choix_meca == 3 and cadran_sud[2] == " BLEU  3 ARM" :
-                cadran_sud[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M"
+            elif choix_meca == 3 and self.cadran_sud[2] == " BLEU  3 ARM" :
+                self.cadran_sud[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
                 condition_voyant = True
 
-            elif choix_meca == 4 and cadran_sud[3] == " NONE  4 ARM" :
-                cadran_sud[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
+            elif choix_meca == 4 and self.cadran_sud[3] == " NONE  4 ARM" :
+                self.cadran_sud[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
                 condition_voyant = True
 
-            elif choix_meca == 5 and cadran_sud[4] == " NONE  5 SPE" :
-                cadran_sud[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
+            elif choix_meca == 5 and self.cadran_sud[4] == " NONE  5 SPE" :
+                self.cadran_sud[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
                 condition_voyant = True
 
-            elif choix_meca == 6 and cadran_sud[5] == " NONE  6 RAD" :
-                cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+            elif choix_meca == 6 and self.cadran_sud[5] == " NONE  6 RAD" :
+                self.cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
                 condition_voyant = True
 
             else : 
@@ -249,32 +249,32 @@ class SousMarin:
 
         elif cap == "EST" :
 
-            if choix_meca == 1 and cadran_est[0] == " JAUNE 1 ARM" :
-                cadran_est[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
+            if choix_meca == 1 and self.cadran_est[0] == " JAUNE 1 ARM" :
+                self.cadran_est[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
                 condition_voyant = True
         
-            elif choix_meca == 2 and cadran_est[1] == " VERT  2 SPE" :
-                cadran_est[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
+            elif choix_meca == 2 and self.cadran_est[1] == " VERT  2 SPE" :
+                self.cadran_est[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
                 condition_voyant = True
 
-            elif choix_meca == 3 and cadran_est[2] == " BLEU  3 SPE" :
-                cadran_est[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
+            elif choix_meca == 3 and self.cadran_est[2] == " BLEU  3 SPE" :
+                self.cadran_est[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
                 condition_voyant = True
 
-            elif choix_meca == 4 and cadran_est[3] == " NONE  4 DET" :
-                cadran_est[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
+            elif choix_meca == 4 and self.cadran_est[3] == " NONE  4 DET" :
+                self.cadran_est[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
                 condition_voyant = True
 
-            elif choix_meca == 5 and cadran_est[4] == " NONE  5 RAD" :
-                cadran_est[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+            elif choix_meca == 5 and self.cadran_est[4] == " NONE  5 RAD" :
+                self.cadran_est[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
                 condition_voyant = True
 
-            elif choix_meca == 6 and cadran_est[5] == " NONE  6 RAD" :
-                cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
+            elif choix_meca == 6 and self.cadran_est[5] == " NONE  6 RAD" :
+                self.cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
                 condition_voyant = True
 
             else : 
@@ -282,129 +282,128 @@ class SousMarin:
 
         # Si le sous marin fait surface, toutes les pannes sont réparées.
         elif cap == "AUCUN" :
-            cadran_ouest[0] = " JAUNE 1 ARM"
-            cadran_ouest[1] = " JAUNE 2 SPE"
-            cadran_ouest[2] = " JAUNE 3 DET"
-            cadran_ouest[3] = " NONE  4 DET"
-            cadran_ouest[4] = " NONE  5 RAD"
-            cadran_ouest[5] = " NONE  6 RAD"
+            self.cadran_ouest[0] = " JAUNE 1 ARM"
+            self.cadran_ouest[1] = " JAUNE 2 SPE"
+            self.cadran_ouest[2] = " JAUNE 3 DET"
+            self.cadran_ouest[3] = " NONE  4 DET"
+            self.cadran_ouest[4] = " NONE  5 RAD"
+            self.cadran_ouest[5] = " NONE  6 RAD"
 
-            cadran_nord[0] = " VERT  1 SPE"
-            cadran_nord[1] = " VERT  2 DET"
-            cadran_nord[2] = " VERT  3 ARM"
-            cadran_nord[3] = " NONE  4 DET"
-            cadran_nord[4] = " NONE  5 ARM"
-            cadran_nord[5] = " NONE  6 RAD"
+            self.cadran_nord[0] = " VERT  1 SPE"
+            self.cadran_nord[1] = " VERT  2 DET"
+            self.cadran_nord[2] = " VERT  3 ARM"
+            self.cadran_nord[3] = " NONE  4 DET"
+            self.cadran_nord[4] = " NONE  5 ARM"
+            self.cadran_nord[5] = " NONE  6 RAD"
 
-            cadran_sud[0] = " BLEU  1 DET"
-            cadran_sud[1] = " BLEU  2 SPE"
-            cadran_sud[2] = " BLEU  3 ARM"
-            cadran_sud[3] = " NONE  4 ARM"
-            cadran_sud[4] = " NONE  5 SPE"
-            cadran_sud[5] = " NONE  6 RAD"
+            self.cadran_sud[0] = " BLEU  1 DET"
+            self.cadran_sud[1] = " BLEU  2 SPE"
+            self.cadran_sud[2] = " BLEU  3 ARM"
+            self.cadran_sud[3] = " NONE  4 ARM"
+            self.cadran_sud[4] = " NONE  5 SPE"
+            self.cadran_sud[5] = " NONE  6 RAD"
 
-            cadran_est[0] = " JAUNE 1 ARM"
-            cadran_est[1] = " VERT  2 SPE"
-            cadran_est[2] = " BLEU  3 SPE"
-            cadran_est[3] = " NONE  4 DET"
-            cadran_est[4] = " NONE  5 RAD"
-            cadran_est[5] = " NONE  6 RAD"
+            self.cadran_est[0] = " JAUNE 1 ARM"
+            self.cadran_est[1] = " VERT  2 SPE"
+            self.cadran_est[2] = " BLEU  3 SPE"
+            self.cadran_est[3] = " NONE  4 DET"
+            self.cadran_est[4] = " NONE  5 RAD"
+            self.cadran_est[5] = " NONE  6 RAD"
 
 
         # Si toutes les pannes des couleurs sont cochés, alors tout est réparé
-        if cadran_est[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" :
-            cadran_est[0] = " JAUNE 1 ARM"
-            cadran_ouest[0] = " JAUNE 1 ARM"
-            cadran_ouest[1] = " JAUNE 2 SPE"
-            cadran_ouest[2] = " JAUNE 3 DET"
+        if self.cadran_est[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and self.cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and self.cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and self.cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" :
+            self.cadran_est[0] = " JAUNE 1 ARM"
+            self.cadran_ouest[0] = " JAUNE 1 ARM"
+            self.cadran_ouest[1] = " JAUNE 2 SPE"
+            self.cadran_ouest[2] = " JAUNE 3 DET"
             print("\n\nVous avez réparé les pannes jaune !")
         
-        if cadran_nord[0] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" and cadran_nord[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T" and cadran_nord[2] == " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M" and cadran_est[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" :
-            cadran_nord[0] = " VERT  1 SPE"
-            cadran_nord[1] = " VERT  2 DET"
-            cadran_nord[2] = " VERT  3 ARM"
-            cadran_est[1] = " VERT  2 SPE"
+        if self.cadran_nord[0] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" and self.cadran_nord[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T" and self.cadran_nord[2] == " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M" and self.cadran_est[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" :
+            self.cadran_nord[0] = " VERT  1 SPE"
+            self.cadran_nord[1] = " VERT  2 DET"
+            self.cadran_nord[2] = " VERT  3 ARM"
+            self.cadran_est[1] = " VERT  2 SPE"
             print("\n\nVous avez réparé les pannes vertes !")
 
-        if cadran_sud[0] != " BLEU  1 DET" and cadran_sud[1] != " BLEU  2 SPE" and cadran_sud[2] != " BLEU  3 ARM" and cadran_est[2] != " BLEU  3 SPE" :
-            cadran_sud[0] = " BLEU  1 DET"
-            cadran_sud[1] = " BLEU  2 SPE"
-            cadran_sud[2] = " BLEU  3 ARM"
-            cadran_est[2] = " BLEU  3 SPE"
+        if self.cadran_sud[0] != " BLEU  1 DET" and self.cadran_sud[1] != " BLEU  2 SPE" and self.cadran_sud[2] != " BLEU  3 ARM" and self.cadran_est[2] != " BLEU  3 SPE" :
+            self.cadran_sud[0] = " BLEU  1 DET"
+            self.cadran_sud[1] = " BLEU  2 SPE"
+            self.cadran_sud[2] = " BLEU  3 ARM"
+            self.cadran_est[2] = " BLEU  3 SPE"
             print("\n\nVous avez réparé les pannes bleu !")
         
         # Si toutes les pannes d'un cadran son coché, alors elles sont toutes réparé mais le sous marin prend un de dégat !
-        if cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and cadran_ouest[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T" and cadran_ouest[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_ouest[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
-            cadran_ouest[0] = " JAUNE 1 ARM"
-            cadran_ouest[1] = " JAUNE 2 SPE"
-            cadran_ouest[2] = " JAUNE 3 DET"
-            cadran_ouest[3] = " NONE  4 DET"
-            cadran_ouest[4] = " NONE  5 RAD"
-            cadran_ouest[5] = " NONE  6 RAD"
+        if self.cadran_ouest[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and self.cadran_ouest[1] == " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E" and self.cadran_ouest[2] == " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T" and self.cadran_ouest[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T" and self.cadran_ouest[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and self.cadran_ouest[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
+            self.cadran_ouest[0] = " JAUNE 1 ARM"
+            self.cadran_ouest[1] = " JAUNE 2 SPE"
+            self.cadran_ouest[2] = " JAUNE 3 DET"
+            self.cadran_ouest[3] = " NONE  4 DET"
+            self.cadran_ouest[4] = " NONE  5 RAD"
+            self.cadran_ouest[5] = " NONE  6 RAD"
             print("\n\nToutes les pannes du cadran OUEST ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
-        if cadran_nord[0] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" and cadran_nord[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T" and cadran_nord[2] == " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M" and cadran_nord[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T" and cadran_nord[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M" and cadran_nord[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
-            cadran_nord[0] = " VERT  1 SPE"
-            cadran_nord[1] = " VERT  2 DET"
-            cadran_nord[2] = " VERT  3 ARM"
-            cadran_nord[3] = " NONE  4 DET"
-            cadran_nord[4] = " NONE  5 ARM"
-            cadran_nord[5] = " NONE  6 RAD"
+        if self.cadran_nord[0] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" and self.cadran_nord[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T" and self.cadran_nord[2] == " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M" and self.cadran_nord[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T" and self.cadran_nord[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M" and self.cadran_nord[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
+            self.cadran_nord[0] = " VERT  1 SPE"
+            self.cadran_nord[1] = " VERT  2 DET"
+            self.cadran_nord[2] = " VERT  3 ARM"
+            self.cadran_nord[3] = " NONE  4 DET"
+            self.cadran_nord[4] = " NONE  5 ARM"
+            self.cadran_nord[5] = " NONE  6 RAD"
             print("\n\nToutes les pannes du cadran NORD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
-        if cadran_sud[0] == " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T" and cadran_sud[1] == " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E" and cadran_sud[2] == " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M" and cadran_sud[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M" and cadran_sud[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E" and cadran_sud[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
-            cadran_sud[0] = " BLEU  1 DET"
-            cadran_sud[1] = " BLEU  2 SPE"
-            cadran_sud[2] = " BLEU  3 ARM"
-            cadran_sud[3] = " NONE  4 ARM"
-            cadran_sud[4] = " NONE  5 SPE"
-            cadran_sud[5] = " NONE  6 RAD"
+        if self.cadran_sud[0] == " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T" and self.cadran_sud[1] == " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E" and self.cadran_sud[2] == " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M" and self.cadran_sud[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M" and self.cadran_sud[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E" and self.cadran_sud[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
+            self.cadran_sud[0] = " BLEU  1 DET"
+            self.cadran_sud[1] = " BLEU  2 SPE"
+            self.cadran_sud[2] = " BLEU  3 ARM"
+            self.cadran_sud[3] = " NONE  4 ARM"
+            self.cadran_sud[4] = " NONE  5 SPE"
+            self.cadran_sud[5] = " NONE  6 RAD"
             print("\n\nToutes les pannes du cadran SUD ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
-        if cadran_est[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and cadran_est[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" and cadran_est[2] == " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E" and cadran_est[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T" and cadran_est[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_est[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
-            cadran_est[0] = " JAUNE 1 ARM"
-            cadran_est[1] = " VERT  2 SPE"
-            cadran_est[2] = " BLEU  3 SPE"
-            cadran_est[3] = " NONE  4 DET"
-            cadran_est[4] = " NONE  5 RAD"
-            cadran_est[5] = " NONE  6 RAD"
+        if self.cadran_est[0] == " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M" and self.cadran_est[1] == " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E" and self.cadran_est[2] == " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E" and self.cadran_est[3] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T" and self.cadran_est[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and self.cadran_est[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" :
+            self.cadran_est[0] = " JAUNE 1 ARM"
+            self.cadran_est[1] = " VERT  2 SPE"
+            self.cadran_est[2] = " BLEU  3 SPE"
+            self.cadran_est[3] = " NONE  4 DET"
+            self.cadran_est[4] = " NONE  5 RAD"
+            self.cadran_est[5] = " NONE  6 RAD"
             print("\n\nToutes les pannes du cadran EST ont été cochées, toutes vos pannes de ce cadran sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
         # Si toutes les pannes RAD sont cochées, alors elles sont réparées et le sous-marin perd 1 pv
-        if cadran_ouest[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_ouest[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_nord[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_sud[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_est[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and cadran_est[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D":
-            cadran_ouest[4] = " NONE  5 RAD"
-            cadran_ouest[5] = " NONE  6 RAD"
-            cadran_nord[5] = " NONE  6 RAD"
-            cadran_sud[5] = " NONE  6 RAD"
-            cadran_est[4] = " NONE  5 RAD"
-            cadran_est[5] = " NONE  6 RAD"
+        if self.cadran_ouest[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and self.cadran_ouest[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and self.cadran_nord[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and self.cadran_sud[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and self.cadran_est[4] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D" and self.cadran_est[5] == " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D":
+            self.cadran_ouest[4] = " NONE  5 RAD"
+            self.cadran_ouest[5] = " NONE  6 RAD"
+            self.cadran_nord[5] = " NONE  6 RAD"
+            self.cadran_sud[5] = " NONE  6 RAD"
+            self.cadran_est[4] = " NONE  5 RAD"
+            self.cadran_est[5] = " NONE  6 RAD"
             print("\n\nToutes les pannes RAD ont été cochées, toutes vos pannes RAD sont réparées mais vous subissez un de dégât ! 💥")
             self.vie -= 1
             print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}")
 
         #Changement d'état des variables de conditions pour savoir si l'on peut lancer ou non une capacité
         #ARM
-        if cadran_ouest[0] == " JAUNE 1 ARM" and cadran_nord[2] == " VERT  3 ARM" and cadran_nord[4] == " NONE  5 ARM" and cadran_sud[2] == " BLEU  3 ARM" and cadran_sud[3] == " NONE  4 ARM" and cadran_est[0] == " JAUNE 1 ARM" :
+        if self.cadran_ouest[0] == " JAUNE 1 ARM" and self.cadran_nord[2] == " VERT  3 ARM" and self.cadran_nord[4] == " NONE  5 ARM" and self.cadran_sud[2] == " BLEU  3 ARM" and self.cadran_sud[3] == " NONE  4 ARM" and self.cadran_est[0] == " JAUNE 1 ARM" :
             condition_panne_arm = False
         
-        if cadran_ouest[1] == " JAUNE 2 SPE" and cadran_nord[0] == " VERT  1 SPE" and cadran_sud[1] == " BLEU  2 SPE" and cadran_sud[4] == " NONE  5 SPE" and cadran_est[1] == " VERT  2 SPE" and cadran_est[2] == " BLEU  3 SPE" :
+        if self.cadran_ouest[1] == " JAUNE 2 SPE" and self.cadran_nord[0] == " VERT  1 SPE" and self.cadran_sud[1] == " BLEU  2 SPE" and self.cadran_sud[4] == " NONE  5 SPE" and self.cadran_est[1] == " VERT  2 SPE" and self.cadran_est[2] == " BLEU  3 SPE" :
             condition_panne_spe = False
         
-        if cadran_ouest[2] == " JAUNE 3 DET" and cadran_ouest[3] == " NONE  4 DET" and cadran_nord[1] == " VERT  2 DET" and cadran_nord[3] == " NONE  4 DET" and cadran_sud[0] == " BLEU  1 DET" and cadran_est[3] == " NONE  4 DET" :
+        if self.cadran_ouest[2] == " JAUNE 3 DET" and self.cadran_ouest[3] == " NONE  4 DET" and self.cadran_nord[1] == " VERT  2 DET" and self.cadran_nord[3] == " NONE  4 DET" and self.cadran_sud[0] == " BLEU  1 DET" and self.cadran_est[3] == " NONE  4 DET" :
             condition_panne_det = False
 
-        self.baie_moteur = cadran_ouest, cadran_nord, cadran_sud, cadran_est
-        self.afficher_baie_moteur(cadran_ouest, cadran_nord, cadran_sud, cadran_est)
+        self.afficher_baie_moteur()
 
-        return cadran_ouest, cadran_nord, cadran_sud, cadran_est, condition_panne_arm, condition_panne_spe, condition_panne_det, condition_voyant
+        return condition_panne_arm, condition_panne_spe, condition_panne_det, condition_voyant
 
     #=====================================#
     '''=============SYSTEMES============'''
@@ -1200,19 +1199,14 @@ class SousMarin:
 
                         self.vie -= 1
 
-                        if self.nom != "Leurre" :
-                            print(f"\nUne mine ennemi à déjà été larguée sur votre nouvelle position et celle-ci a explosé au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
-                            print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+                        print(f"\nUne mine ennemi à déjà été larguée sur votre nouvelle position et celle-ci a explosé au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
+                        print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
 
-                            if self.vie <= 0 :
-                                #fin de game
-                                fin = True
-                        
-                        else :
-                            print(f"\nUne mine ennemi a déjà été larguée sur la nouvelle position de votre leurre et celle-ci a explosé à son contact ! 💥 \nVotre leurre a été détruit !\n")
-                            leurre_larguer = False
+                        if self.vie <= 0 :
+                            #fin de game
+                            fin = True
                                 
-                        return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer
+                        return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
 
         if self.nom == "Ecureille" :
             if emplacement_mines_self :
@@ -1240,15 +1234,11 @@ class SousMarin:
 
                         self.vie -= 1
 
-                        if self.nom != "Leurre" :
-                            print(f"\nVous aviez déjà posé une mine sur cette position et celle-ci à exploser au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
-                            print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
+                        print(f"\nVous aviez déjà posé une mine sur cette position et celle-ci à exploser au contact de votre sous-marin ! 💥 \nVous prenez 1 point de dégats !\n")
+                        print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
             
-                            if self.vie <= 0 :
-                                fin = True
-                        
-                        else :
-                            print(f"\nVotre mine a déjà été larguée sur la nouvelle position de votre leurre et celle-ci a explosé à son contact ! 💥 \nVotre leurre a été détruit !\n")
+                        if self.vie <= 0 :
+                            fin = True
                                 
                         return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
         
@@ -1720,45 +1710,19 @@ class SousMarin:
                 print("\n\n❌ Veuillez entrer un cap valide !")
 
 
-    def lancer_leurre(self, position, capitaine, carte, sous_marin, nom, surface, nombre_tour_attendu, emplacement_mines, sous_marin_ennemi, emplacement_mines_self, mine_cap_self, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est) :
-        leurre_larguer = True
-        
-        #creation d'un objet leurre (pour pouvoir utiliser la fonction déplacement_sm de l'objet map)
-        class Leurre(SousMarin):
-            def __init__(self, nom, position, vie) :
-                self.nom = nom
-                self.pos = position
-                self.vie = vie
-
-        leurre = Leurre("Leurre", position, 1)
-
-        #Vous lancer votre leurre, vous pouvez vous déplacer de nouveau et le leurre se déplacera dans la position oposé. Attention, le leurre pourra se déplacer dans des endroits déjà explorer (les ennemis se rendront compte que c'était le leurre)\n si le leurre traverse une île il explose et ne sera plus effectif.
-        print("Vous venez de larguer votre leurre dans la mer.\n Vous pouvez vous redéplacer.")
-        
-        position, cap, surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self = deplacement(position, capitaine, carte, sous_marin, nom, surface, nombre_tour_attendu, emplacement_mines, sous_marin_ennemi, emplacement_mines_self, mine_cap_self, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, cadran_ouest, cadran_nord, cadran_sud, cadran_est)
-        
-        #définition du cap du leurre
-        if cap == "OUEST" :
-            cap_leurre = "EST"
-
-        elif cap == "NORD" :
-            cap_leurre = "SUD"
-
-        elif cap == "EST" :
-            cap_leurre = "OUEST"
-
-        elif cap == "SUD" :
-            cap_leurre = "NORD"
-
-        #on déplace le leurre en fonction de son cap
-        position_leurre = carte.deplacement_sm(position_leurre, leurre, cap_leurre, emplacement_mines)
-        #si le leurre se déplace sur une mine automatique
-        if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
-            fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer = leurre.explosion_auto(sous_marin_ennemi, nom, emplacement_mines_self, mine_cap_self, carte, fin, emplacement_mines_ennemi, mine_cap_ennemi, carte_ennemi, self)
-
-        return position, cap, surface, nombre_tour_attendu, fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self, leurre_larguer, position_leurre, leurre, position_leurre
+    def lancer_leurre(self, leurre) :
+        leurre.vivant = True
 
 
+#creation d'un objet leurre (pour pouvoir utiliser la fonction déplacement_sm de l'objet map)
+class Leurre(SousMarin):
+    def __init__(self, nom, position, vie, vivant) :
+        self.nom = nom
+        self.pos = position
+        self.vie = vie
+        self.vivant = vivant
+
+leurre = Leurre("Leurre", "position", 1, False)
 
 def lettre_to_chiffre(lettre):
     if len(lettre) == 1 and lettre.isalpha() :
