@@ -7,7 +7,7 @@ from Var_affichage import changement
 #====================#
 
 class SousMarin:
-    def __init__(self, nom, vie, baie_moteur, cadran_ouest, cadran_est, cadran_nord, cadran_sud, armement1, armement2, detection1, detection2, speciale, position):
+    def __init__(self, nom, vie, baie_moteur, cadran_ouest, cadran_est, cadran_nord, cadran_sud, voyant_deja_panne, armement1, armement2, detection1, detection2, speciale, position):
         self.nom = nom
         self.vie = vie
         self.baie = baie_moteur
@@ -15,6 +15,7 @@ class SousMarin:
         self.cadran_est = cadran_est
         self.cadran_nord = cadran_nord
         self.cadran_sud = cadran_sud
+        self.voyant_deja_panne = voyant_deja_panne
         self.a1 = armement1 #idée : mine à detection magnétique, 
         self.a2 = armement2 #idée : torpille Guidage par satellite, Guidage électromagnétique, Guidage par intelligence artificielle
         self.d1 = detection1 #sonar de tout les adjectifs, Magnétométrie, Capteurs électromagnétiques, Imagerie acoustique, gravimétrie
@@ -78,38 +79,6 @@ class SousMarin:
 
     def afficher_baie_moteur(self):
 
-        #cadran ouest
-        JAUNE_ARM = self.cadran_ouest[0]
-        JAUNE_SPE = self.cadran_ouest[1]
-        JAUNE_DET = self.cadran_ouest[2]
-        NONE_ODET = self.cadran_ouest[3]
-        NONE1ORAD = self.cadran_ouest[4]
-        NONE2ORAD = self.cadran_ouest[5]
-    
-        #cadran nord
-        VERT__SPE = self.cadran_nord[0]
-        VERT__DET = self.cadran_nord[1]
-        VERT__ARM = self.cadran_nord[2]
-        NONE_NDET = self.cadran_nord[3]
-        NONE_NARM = self.cadran_nord[4]
-        NONE_NRAD = self.cadran_nord[5]
-
-        #cadran sud
-        BLEU__DET = self.cadran_sud[0]
-        BLEU__SPE = self.cadran_sud[1]
-        BLEU__ARM = self.cadran_sud[2]
-        NONE_SARM = self.cadran_sud[3]
-        NONE_SSPE = self.cadran_sud[4]
-        NONE_SRAD = self.cadran_sud[5]
-
-        #cadran est
-        JAUNE1ARM = self.cadran_est[0]
-        VERT1_SPE = self.cadran_est[1]
-        BLEU1_SPE = self.cadran_est[2]
-        NONE_EDET = self.cadran_est[3]
-        NONE1ERAD = self.cadran_est[4]
-        NONE2ERAD = self.cadran_est[5]
-
         baie_moteur = f'''
         ============================================= Baie moteur ====================================================
 
@@ -144,37 +113,36 @@ class SousMarin:
 
 
     def choisir_une_panne(self, choix_meca, cap, condition_panne_arm, condition_panne_spe, condition_panne_det):
-        condition_voyant = False
+        self.voyant_deja_panne = False
 
         if cap == "OUEST" :
-
             if choix_meca == 1 and self.cadran_ouest[0] == " JAUNE 1 ARM":
                 self.cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 2 and self.cadran_ouest[1] == " JAUNE 2 SPE" :
                 self.cadran_ouest[1] = " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_ouest[2] == " JAUNE 3 DET" :
                 self.cadran_ouest[2] = " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_ouest[3] == " NONE  4 DET" :
                 self.cadran_ouest[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_ouest[4] == " NONE  5 RAD" :
                 self.cadran_ouest[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_ouest[5] == " NONE  6 RAD" :
                 self.cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran OUEST comprise entre 1 et 6")
@@ -184,31 +152,31 @@ class SousMarin:
             if choix_meca == 1 and self.cadran_nord[0] == " VERT  1 SPE" :
                 self.cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
         
             elif choix_meca == 2 and self.cadran_nord[1] == " VERT  2 DET" :
                 self.cadran_nord[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_nord[2] == " VERT  3 ARM" :
                 self.cadran_nord[2] = " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_nord[3] == " NONE  4 DET" :
                 self.cadran_nord[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_nord[4] == " NONE  5 ARM" :
                 self.cadran_nord[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_nord[5] == " NONE  6 RAD" :
                 self.cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran NORD comprise entre 1 et 6")
@@ -218,31 +186,31 @@ class SousMarin:
             if choix_meca == 1 and self.cadran_sud[0] == " BLEU  1 DET" :
                 self.cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
         
             elif choix_meca == 2 and self.cadran_sud[1] == " BLEU  2 SPE" :
                 self.cadran_sud[1] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_sud[2] == " BLEU  3 ARM" :
                 self.cadran_sud[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_sud[3] == " NONE  4 ARM" :
                 self.cadran_sud[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_sud[4] == " NONE  5 SPE" :
                 self.cadran_sud[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_sud[5] == " NONE  6 RAD" :
                 self.cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran SUD comprise entre 1 et 6")
@@ -252,30 +220,30 @@ class SousMarin:
             if choix_meca == 1 and self.cadran_est[0] == " JAUNE 1 ARM" :
                 self.cadran_est[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
                 condition_panne_arm = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
         
             elif choix_meca == 2 and self.cadran_est[1] == " VERT  2 SPE" :
                 self.cadran_est[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_est[2] == " BLEU  3 SPE" :
                 self.cadran_est[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
                 condition_panne_spe = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_est[3] == " NONE  4 DET" :
                 self.cadran_est[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
                 condition_panne_det = True
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_est[4] == " NONE  5 RAD" :
                 self.cadran_est[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_est[5] == " NONE  6 RAD" :
                 self.cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                condition_voyant = True
+                self.voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran EST comprise entre 1 et 6")
@@ -403,7 +371,7 @@ class SousMarin:
 
         self.afficher_baie_moteur()
 
-        return condition_panne_arm, condition_panne_spe, condition_panne_det, condition_voyant
+        return condition_panne_arm, condition_panne_spe, condition_panne_det
 
     #=====================================#
     '''=============SYSTEMES============'''

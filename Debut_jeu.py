@@ -441,11 +441,11 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
             choix_e1 = int(input(f"{capitaine_e1}, sélectionnez votre sous-marin : "))
 
             if choix_e1 == 1 :
-                sous_marin_e1 = SousMarin("Tigre", 4, 1, None, None, None, None, False, False, False, False, False, None)
+                sous_marin_e1 = SousMarin("Tigre", 4, 1, None, None, None, None, None, False, False, False, False, False, None)
                 break
 
             elif choix_e1 == 2 :
-                sous_marin_e1 = SousMarin("Ecureille", 3, 1, None, None, None, None, False, False, False, False, False, None)
+                sous_marin_e1 = SousMarin("Ecureille", 3, 1, None, None, None, None, None, False, False, False, False, False, None)
                 break
 
             else:
@@ -459,11 +459,11 @@ def selection_sous_marins(capitaine_e1, capitaine_e2) :
             choix_e2 = int(input(f"\n{capitaine_e2}, sélectionnez votre sous-marin : "))
             
             if choix_e2 == 1 :
-                sous_marin_e2 = SousMarin("Tigre", 4, 1, None, None, None, None, False, False, False, False, False, None)
+                sous_marin_e2 = SousMarin("Tigre", 4, 1, None, None, None, None, False, False, False, False, False, False, None)
                 return sous_marin_e1, sous_marin_e2
 
             elif choix_e2 == 2 :
-                sous_marin_e2 = SousMarin("Ecureille", 3, 1, None, None, None, None, False, False, False, False, False, None)
+                sous_marin_e2 = SousMarin("Ecureille", 3, 1, None, None, None, None, False, False, False, False, False, False, None)
                 return sous_marin_e1, sous_marin_e2
 
             else:
@@ -732,9 +732,9 @@ def panne(mecano, cap, nom, sous_marin, surface, nombre_tour_attendu, capitaine,
                 if 1 <= choix_meca <= 6 :
                     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                     print(f"\n\nVous avez choisis la panne {choix_meca} du cadran '{cap}' ")
-                    condition_panne_arm, condition_panne_spe, condition_panne_det, condition_voyant = sous_marin.choisir_une_panne(choix_meca, cap, condition_panne_arm, condition_panne_spe, condition_panne_det)
+                    condition_panne_arm, condition_panne_spe, condition_panne_det = sous_marin.choisir_une_panne(choix_meca, cap, condition_panne_arm, condition_panne_spe, condition_panne_det)
                     
-                    if condition_voyant :    
+                    if sous_marin.voyant_deja_panne :    
                         input("\nSUIVANT")
                         return condition_panne_arm, condition_panne_spe, condition_panne_det
 
@@ -754,7 +754,7 @@ def panne(mecano, cap, nom, sous_marin, surface, nombre_tour_attendu, capitaine,
         if surface == True and nombre_tour_attendu == 0:
             print(f"\n\nVotre capitaine a fait surface et n'annoncera pas de cap pendant 3 tours !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont toutes réparées.")
             choix_meca = "AUCUN"
-            condition_panne_arm, condition_panne_spe, condition_panne_det, condition_voyant = sous_marin.choisir_une_panne(choix_meca, cap, condition_panne_arm, condition_panne_spe, condition_panne_det)
+            condition_panne_arm, condition_panne_spe, condition_panne_det = sous_marin.choisir_une_panne(choix_meca, cap, condition_panne_arm, condition_panne_spe, condition_panne_det)
         
         if nombre_tour_attendu >= 1 :
             print(f"\n\nVotre sous-marin est à la surface et votre capitaine ne peut annoncer de cap !\n{mecano}, vous n'avez pas besoin de choisir une panne et celles-ci sont déjà toutes réparées.")
