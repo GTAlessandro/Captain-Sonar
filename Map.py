@@ -11,6 +11,8 @@ class Carte :
         self.difficulte = difficulte
         self.terrain = terrain
         self.pos_cible = pos_cible
+        self.derniere_colonne = None
+        self.derniere_ligne = None
         self.carte = [['.' for _ in range(largeur)] for _ in range(hauteur)] #gpt : premier tableau affiche . le nombre de fois = largeur et la valeur _ après le for = la largeur aussi prend
 
     #on affiche la carte
@@ -66,10 +68,10 @@ class Carte :
         print(' ' * 2 + '+-' + '-'.join(['-' for _ in range(len(lettres) // 2)]) + '-+')
 
         # Retourner la première et la dernière colonne, ainsi que la première et la dernière ligne (gpt)
-        derniere_colonne = chr(65 + self.largeur - 1)
-        derniere_ligne = str(self.hauteur)
+        self.derniere_colonne = chr(65 + self.largeur - 1)
+        self.derniere_ligne = str(self.hauteur)
         
-        return derniere_colonne, derniere_ligne
+        return
     
     
     def placer_sous_marin(self, position, sous_marin):
@@ -78,7 +80,7 @@ class Carte :
         self.carte[x][y] = sous_marin.nom[0]   #le sous marin est signaler par la première valeur de son nom.
         sous_marin.pos = position
         y_l = chiffre_to_lettre(y)
-        print("\n-> Sous-marin placé en : ", y_l ,x+1, "\n")
+        print("\n-> Sous-marin placé en : ", y_l , x+1, "\n")
         self.Afficher_carte()
         
         return x, y
@@ -96,9 +98,9 @@ class Carte :
         self.Afficher_carte()
 
     #on déplace le sous marin
-    def deplacement_sm(self, position, sous_marin, cap, emplacement_mines):
+    def deplacement_sm(self, sous_marin, cap, emplacement_mines):
         
-        x, y = position
+        x, y = sous_marin.pos
         cap = cap.upper()   
 
         if cap == "OUEST" :
@@ -107,7 +109,7 @@ class Carte :
 
             #si une mine alliée existe sur la case du sm avant le déplacement, on la réaffiche avec un "M" majuscule.
             for i in emplacement_mines :
-                if position == i : 
+                if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
             #changement de position
@@ -125,7 +127,7 @@ class Carte :
             self.carte[x][y] = "→"
 
             for i in emplacement_mines :
-                if position == i : 
+                if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
             y += 1
@@ -140,7 +142,7 @@ class Carte :
             self.carte[x][y] = "↑"
 
             for i in emplacement_mines :
-                if position == i : 
+                if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
             x -= 1   
@@ -155,7 +157,7 @@ class Carte :
             self.carte[x][y] = "↓"
 
             for i in emplacement_mines :
-                if position == i : 
+                if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
             x += 1

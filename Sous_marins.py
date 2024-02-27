@@ -7,24 +7,36 @@ from Var_affichage import changement
 #====================#
 
 class SousMarin:
-    def __init__(self, nom, vie, baie_moteur, cadran_ouest, cadran_est, cadran_nord, cadran_sud, voyant_deja_panne, armement1, armement2, detection1, detection2, speciale, position):
+    def __init__(self, capitaine, second, mecano, detecteur, nom, vie, baie_moteur):
+        self.capitaine = capitaine
+        self.second = second
+        self.mecano = mecano
+        self.detecteur = detecteur
         self.nom = nom
         self.vie = vie
         self.baie = baie_moteur
-        self.cadran_ouest = cadran_ouest
-        self.cadran_est = cadran_est
-        self.cadran_nord = cadran_nord
-        self.cadran_sud = cadran_sud
-        self.voyant_deja_panne = voyant_deja_panne
-        self.a1 = armement1 #idée : mine à detection magnétique, 
-        self.a2 = armement2 #idée : torpille Guidage par satellite, Guidage électromagnétique, Guidage par intelligence artificielle
-        self.d1 = detection1 #sonar de tout les adjectifs, Magnétométrie, Capteurs électromagnétiques, Imagerie acoustique, gravimétrie
-        self.d2 = detection2 #Détection optique, Capteurs infrarouges, Surveillance satellite
-        self.spe = speciale #fade up, leurre, explosion
-        self.pos = position
+        self.cadran_ouest = None
+        self.cadran_est = None
+        self.cadran_nord = None
+        self.cadran_sud = None
+        self.condition_panne_arm = None
+        self.condition_panne_det = None
+        self.condition_panne_spe = None
+        self.a1_charge = False #idée : mine à detection magnétique, 
+        self.a2_charge = False #idée : torpille Guidage par satellite, Guidage électromagnétique, Guidage par intelligence artificielle
+        self.d1_charge = False #sonar de tout les adjectifs, Magnétométrie, Capteurs électromagnétiques, Imagerie acoustique, gravimétrie
+        self.d2_charge = False #Détection optique, Capteurs infrarouges, Surveillance satellite
+        self.spe_charge = False #fade up, leurre
+        self.arme1 = ["0", "0", "0", "0", "0", "0"]
+        self.arme2 = ["0", "0", "0", "0", "0", "0"]
+        self.dete1 = ["0", "0", "0", "0", "0", "0"]
+        self.dete2 = ["0", "0", "0", "0", "0", "0"]
+        self.spe1 = ["0", "0", "0", "0", "0", "0"]
+        self.competence_charger = None
+        self.pos = [None, None]
     
     def infos(self):
-        print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}\n- Armement : {self.a1}, {self.a2} \n- Moyen de detection : {self.d1}, {self.d2}\n- Spéciale : {self.spe}\n- Difficulté : {self.baie}\n")
+        print(f"\n========== Sous-marin {self.nom} ==========\n- Vie : {self.vie}\n- Armement : {self.a1_charge}, {self.a2_charge} \n- Moyen de detection : {self.d1_charge}, {self.d2_charge}\n- Spéciale : {self.spe_charge}\n- Difficulté : {self.baie}\n")
 
     #===================================#
     '''============CADRAN============='''
@@ -34,43 +46,10 @@ class SousMarin:
 
         if self.baie == 1 :
             # Définition des valeurs spécifiques à chaque position
-            #cadran ouest
-            JAUNE_ARM = " JAUNE 1 ARM"
-            JAUNE_SPE = " JAUNE 2 SPE"
-            JAUNE_DET = " JAUNE 3 DET"
-            NONE_ODET = " NONE  4 DET"
-            NONE1ORAD = " NONE  5 RAD"
-            NONE2ORAD = " NONE  6 RAD"
-    
-            #cadran nord
-            VERT__SPE = " VERT  1 SPE"
-            VERT__DET = " VERT  2 DET"
-            VERT__ARM = " VERT  3 ARM"
-            NONE_NDET = " NONE  4 DET"
-            NONE_NARM = " NONE  5 ARM"
-            NONE_NRAD = " NONE  6 RAD"
-
-            #cadran sud
-            BLEU__DET = " BLEU  1 DET"
-            BLEU__SPE = " BLEU  2 SPE"
-            BLEU__ARM = " BLEU  3 ARM"
-            NONE_SARM = " NONE  4 ARM"
-            NONE_SSPE = " NONE  5 SPE"
-            NONE_SRAD = " NONE  6 RAD"
-
-            #cadran est
-            JAUNE1ARM = " JAUNE 1 ARM"
-            VERT1_SPE = " VERT  2 SPE"
-            BLEU1_SPE = " BLEU  3 SPE"
-            NONE_EDET = " NONE  4 DET"
-            NONE1ERAD = " NONE  5 RAD"
-            NONE2ERAD = " NONE  6 RAD"
-
-            # Définition des cadrans avec des listes
-            self.cadran_ouest = [JAUNE_ARM, JAUNE_SPE, JAUNE_DET, NONE_ODET, NONE1ORAD, NONE2ORAD]
-            self.cadran_nord = [VERT__SPE, VERT__DET, VERT__ARM, NONE_NDET, NONE_NARM, NONE_NRAD]
-            self.cadran_sud = [BLEU__DET, BLEU__SPE, BLEU__ARM, NONE_SARM, NONE_SSPE, NONE_SRAD]
-            self.cadran_est = [JAUNE1ARM, VERT1_SPE, BLEU1_SPE, NONE_EDET, NONE1ERAD, NONE2ERAD]
+            self.cadran_ouest = [" JAUNE 1 ARM", " JAUNE 2 SPE", " JAUNE 3 DET", " NONE  4 DET", " NONE  5 RAD", " NONE  6 RAD"]
+            self.cadran_nord = [" VERT  1 SPE", " VERT  2 DET", " VERT  3 ARM", " NONE  4 DET", " NONE  5 ARM", " NONE  6 RAD"]
+            self.cadran_sud = [" BLEU  1 DET", " BLEU  2 SPE", " BLEU  3 ARM", " NONE  4 ARM", " NONE  5 SPE", " NONE  6 RAD"]
+            self.cadran_est = [" JAUNE 1 ARM", " VERT  2 SPE",  " BLEU  3 SPE", " NONE  4 DET", " NONE  5 RAD", " NONE  6 RAD"]
         
         elif self.baie == 2 : 
             #fonction d'une baie moteur numéro 2
@@ -112,37 +91,37 @@ class SousMarin:
         print(baie_moteur)
 
 
-    def choisir_une_panne(self, choix_meca, cap, condition_panne_arm, condition_panne_spe, condition_panne_det):
-        self.voyant_deja_panne = False
+    def choisir_une_panne(self, choix_meca, cap):
+        voyant_deja_panne = False
 
         if cap == "OUEST" :
             if choix_meca == 1 and self.cadran_ouest[0] == " JAUNE 1 ARM":
                 self.cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
-                condition_panne_arm = True
-                self.voyant_deja_panne = True
+                self.condition_panne_arm = True
+                voyant_deja_panne = True
 
             elif choix_meca == 2 and self.cadran_ouest[1] == " JAUNE 2 SPE" :
                 self.cadran_ouest[1] = " ̷J̷A̷U̷N̷E̷-̷ ̷S̷P̷E"
-                condition_panne_spe = True
-                self.voyant_deja_panne = True
+                self.condition_panne_spe = True
+                voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_ouest[2] == " JAUNE 3 DET" :
                 self.cadran_ouest[2] = " ̷J̷A̷U̷N̷E̷-̷ ̷D̷E̷T"
-                condition_panne_det = True
-                self.voyant_deja_panne = True
+                self.condition_panne_det = True
+                voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_ouest[3] == " NONE  4 DET" :
                 self.cadran_ouest[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
-                condition_panne_det = True
-                self.voyant_deja_panne = True
+                self.condition_panne_det = True
+                voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_ouest[4] == " NONE  5 RAD" :
                 self.cadran_ouest[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                self.voyant_deja_panne = True
+                voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_ouest[5] == " NONE  6 RAD" :
                 self.cadran_ouest[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                self.voyant_deja_panne = True
+                voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran OUEST comprise entre 1 et 6")
@@ -151,32 +130,32 @@ class SousMarin:
 
             if choix_meca == 1 and self.cadran_nord[0] == " VERT  1 SPE" :
                 self.cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
-                condition_panne_spe = True
-                self.voyant_deja_panne = True
+                self.condition_panne_spe = True
+                voyant_deja_panne = True
         
             elif choix_meca == 2 and self.cadran_nord[1] == " VERT  2 DET" :
                 self.cadran_nord[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷D̷E̷T"
-                condition_panne_det = True
-                self.voyant_deja_panne = True
+                self.condition_panne_det = True
+                voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_nord[2] == " VERT  3 ARM" :
                 self.cadran_nord[2] = " ̷V̷E̷R̷T̷ ̷-̷ ̷A̷R̷M"
-                condition_panne_arm = True
-                self.voyant_deja_panne = True
+                self.condition_panne_arm = True
+                voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_nord[3] == " NONE  4 DET" :
                 self.cadran_nord[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
-                condition_panne_det = True
-                self.voyant_deja_panne = True
+                self.condition_panne_det = True
+                voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_nord[4] == " NONE  5 ARM" :
                 self.cadran_nord[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
-                condition_panne_arm = True
-                self.voyant_deja_panne = True
+                self.condition_panne_arm = True
+                voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_nord[5] == " NONE  6 RAD" :
                 self.cadran_nord[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                self.voyant_deja_panne = True
+                voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran NORD comprise entre 1 et 6")
@@ -185,32 +164,32 @@ class SousMarin:
 
             if choix_meca == 1 and self.cadran_sud[0] == " BLEU  1 DET" :
                 self.cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T"
-                condition_panne_det = True
-                self.voyant_deja_panne = True
+                self.condition_panne_det = True
+                voyant_deja_panne = True
         
             elif choix_meca == 2 and self.cadran_sud[1] == " BLEU  2 SPE" :
                 self.cadran_sud[1] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
-                condition_panne_spe = True
-                self.voyant_deja_panne = True
+                self.condition_panne_spe = True
+                voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_sud[2] == " BLEU  3 ARM" :
                 self.cadran_sud[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷A̷R̷M"
-                condition_panne_arm = True
-                self.voyant_deja_panne = True
+                self.condition_panne_arm = True
+                voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_sud[3] == " NONE  4 ARM" :
                 self.cadran_sud[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷A̷R̷M"
-                condition_panne_arm = True
-                self.voyant_deja_panne = True
+                self.condition_panne_arm = True
+                voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_sud[4] == " NONE  5 SPE" :
                 self.cadran_sud[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷S̷P̷E"
-                condition_panne_spe = True
-                self.voyant_deja_panne = True
+                self.condition_panne_spe = True
+                voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_sud[5] == " NONE  6 RAD" :
                 self.cadran_sud[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                self.voyant_deja_panne = True
+                voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran SUD comprise entre 1 et 6")
@@ -219,31 +198,31 @@ class SousMarin:
 
             if choix_meca == 1 and self.cadran_est[0] == " JAUNE 1 ARM" :
                 self.cadran_est[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
-                condition_panne_arm = True
-                self.voyant_deja_panne = True
+                self.condition_panne_arm = True
+                voyant_deja_panne = True
         
             elif choix_meca == 2 and self.cadran_est[1] == " VERT  2 SPE" :
                 self.cadran_est[1] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
-                condition_panne_spe = True
-                self.voyant_deja_panne = True
+                self.condition_panne_spe = True
+                voyant_deja_panne = True
 
             elif choix_meca == 3 and self.cadran_est[2] == " BLEU  3 SPE" :
                 self.cadran_est[2] = " ̷B̷L̷E̷U̷ ̷-̷ ̷S̷P̷E"
-                condition_panne_spe = True
-                self.voyant_deja_panne = True
+                self.condition_panne_spe = True
+                voyant_deja_panne = True
 
             elif choix_meca == 4 and self.cadran_est[3] == " NONE  4 DET" :
                 self.cadran_est[3] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷D̷E̷T"
-                condition_panne_det = True
-                self.voyant_deja_panne = True
+                self.condition_panne_det = True
+                voyant_deja_panne = True
 
             elif choix_meca == 5 and self.cadran_est[4] == " NONE  5 RAD" :
                 self.cadran_est[4] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                self.voyant_deja_panne = True
+                voyant_deja_panne = True
 
             elif choix_meca == 6 and self.cadran_est[5] == " NONE  6 RAD" :
                 self.cadran_est[5] = " ̷N̷O̷N̷E̷ ̷ ̷-̷ ̷R̷A̷D"
-                self.voyant_deja_panne = True
+                voyant_deja_panne = True
 
             else : 
                 print("Sélectionnez une panne du cadran EST comprise entre 1 et 6")
@@ -361,78 +340,25 @@ class SousMarin:
         #Changement d'état des variables de conditions pour savoir si l'on peut lancer ou non une capacité
         #ARM
         if self.cadran_ouest[0] == " JAUNE 1 ARM" and self.cadran_nord[2] == " VERT  3 ARM" and self.cadran_nord[4] == " NONE  5 ARM" and self.cadran_sud[2] == " BLEU  3 ARM" and self.cadran_sud[3] == " NONE  4 ARM" and self.cadran_est[0] == " JAUNE 1 ARM" :
-            condition_panne_arm = False
+            self.condition_panne_arm = False
         
         if self.cadran_ouest[1] == " JAUNE 2 SPE" and self.cadran_nord[0] == " VERT  1 SPE" and self.cadran_sud[1] == " BLEU  2 SPE" and self.cadran_sud[4] == " NONE  5 SPE" and self.cadran_est[1] == " VERT  2 SPE" and self.cadran_est[2] == " BLEU  3 SPE" :
-            condition_panne_spe = False
+            self.condition_panne_spe = False
         
         if self.cadran_ouest[2] == " JAUNE 3 DET" and self.cadran_ouest[3] == " NONE  4 DET" and self.cadran_nord[1] == " VERT  2 DET" and self.cadran_nord[3] == " NONE  4 DET" and self.cadran_sud[0] == " BLEU  1 DET" and self.cadran_est[3] == " NONE  4 DET" :
-            condition_panne_det = False
+            self.condition_panne_det = False
 
         self.afficher_baie_moteur()
 
-        return condition_panne_arm, condition_panne_spe, condition_panne_det
+        return voyant_deja_panne
 
     #=====================================#
     '''=============SYSTEMES============'''
     #=====================================#
 
-    def def_systeme(self) :
-        a1 = "0"
-        a2 = "0"
-        a3 = "0"
-        a4 = "0"
-        a5 = "0"
-        a6 = "0"
-
-        b1 = "#"
-        b2 = "#"
-        b3 = "#"
-        b4 = "#"
-        b5 = "0"
-        b6 = "0"
-
-        c1 = "0"
-        c2 = "0"
-        c3 = "0"
-        c4 = "0"
-        c5 = "0"
-        c6 = "0"
-
-        d1 = "0"
-        d2 = "0"
-        d3 = "0"
-        d4 = "0"
-        d5 = "0"
-        d6 = "0"
-
-        e1 = "#"
-        e2 = "#"
-        e3 = "#"
-        e4 = "#"
-        e5 = "#"
-        e6 = "#"
-
-        f1 = "0"
-        f2 = "0"
-        f3 = "0"
-        f4 = "0"
-        f5 = "0"
-        f6 = "0"
-
-        arme1 = [a1, a2, a3, a4, a5, a6]
-        arme2 = [b1, b2, b3, b4, b5, b6]
-        dete1 = [c1, c2, c3, c4, c5, c6]
-        dete2 = [d1, d2, d3, d4, d5, d6]
-        spe = [e1, e2, e3, e4, e5, e6]
-        spe2 = [f1, f2, f3, f4, f5, f6]
-
-        return arme1, arme2, dete1, dete2, spe
-
-
-    def charger_systeme(self, choix, arme1, arme2, dete1, dete2, spe):
+    def charger_systeme(self, choix):
         
-        condition_charge = True 
+        self.competence_charger = True 
 
         #=========#
         '''Tigre'''
@@ -441,73 +367,63 @@ class SousMarin:
         if self.nom == "Tigre" :
             if choix == 1 :
                 for i in range(3) :
-                    if arme1[i] == "0" :
-                        arme1[i] = "#"
-                        break
+                    if self.arme1[i] == "0" :
+                        self.arme1[i] = "#"
+                        return
 
-                    elif self.a1 == True : 
+                    elif self.a1_charge == True : 
                         print("Votre torpille est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return
             
             elif choix == 2 :
                 for i in range(3) :
-                    if arme2[i] == "0" :
-                        arme2[i] = "#"
-                        break
+                    if self.arme2[i] == "0" :
+                        self.arme2[i] = "#"
+                        return
 
-                    elif self.a2 == True : 
+                    elif self.a2_charge == True : 
                         print("Votre mine est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return
 
             elif choix == 3 :
                 for i in range(4) :
-                    if dete1[i] == "0" :
-                        dete1[i] = "#" 
-                        break
+                    if self.dete1[i] == "0" :
+                        self.dete1[i] = "#" 
+                        return
 
-                    elif self.d1 == True : 
+                    elif self.d1_charge == True : 
                         print("Votre drone est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return
 
             elif choix == 4 :
                 for i in range(3) :
-                    if dete2[i] == "0" :
-                        dete2[i] = "#" 
-                        break
+                    if self.dete2[i] == "0" :
+                        self.dete2[i] = "#" 
+                        return
 
-                    elif self.d2 == True : 
+                    elif self.d2_charge == True : 
                         print("Votre sonar est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return
 
             elif choix == 5 :
                 for i in range(6) :
-                    if spe[i] == "0" :
-                        spe[i] = "#" 
-                        break
+                    if self.spe1[i] == "0" :
+                        self.spe1[i] = "#" 
+                        return
 
-                    elif self.spe == True : 
+                    elif self.spe_charge == True : 
                         print("Votre silence est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
-
-            if arme1[0] == "#" and arme1[1] == "#" and arme1[2] == "#" :
-                self.a1 = True
-            
-            if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" :
-                self.a2 = True
-
-            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#" :
-                self.d1 = True
-
-            if dete2[0] == "#" and dete2[1] == "#" and dete2[2] == "#" :
-                self.d2 = True
-
-            if spe[0] == "#" and spe[1] == "#" and spe[2] == "#" and spe[3] == "#" and spe[4] == "#" and spe[5] == "#" :
-                self.spe = True
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return
 
         #=============#
         '''Ecureille'''
@@ -516,73 +432,99 @@ class SousMarin:
         if self.nom == "Ecureille" :
             if choix == 1 :
                 for i in range(3) :
-                    if arme1[i] == "0" :
-                        arme1[i] = "#"
-                        break
+                    if self.arme1[i] == "0" :
+                        self.arme1[i] = "#"
+                        return
 
-                    elif self.a1 == True : 
+                    elif self.a1_charge == True : 
                         print("Votre torpille est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return
             
             elif choix == 2 :
                 for i in range(4) :
-                    if arme2[i] == "0" :
-                        arme2[i] = "#"
-                        break
+                    if self.arme2[i] == "0" :
+                        self.arme2[i] = "#"
+                        return
 
-                    elif self.a2 == True : 
+                    elif self.a2_charge == True : 
                         print("Votre mine est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return 
 
             elif choix == 3 :
                 for i in range(4) :
-                    if dete1[i] == "0" :
-                        dete1[i] = "#" 
-                        break
+                    if self.dete1[i] == "0" :
+                        self.dete1[i] = "#" 
+                        return
 
-                    elif self.d1 == True : 
+                    elif self.d1_charge == True : 
                         print("Votre drone est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return 
 
             elif choix == 4 :
                 for i in range(3) :
-                    if dete2[i] == "0" :
-                        dete2[i] = "#" 
-                        break
+                    if self.dete2[i] == "0" :
+                        self.dete2[i] = "#" 
+                        return
 
-                    elif self.d2 == True : 
+                    elif self.d2_charge == True : 
                         print("Votre sonar est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return
 
             elif choix == 5 :
                 for i in range(6) :
-                    if spe[i] == "0" :
-                        spe[i] = "#" 
-                        break
+                    if self.spe1[i] == "0" :
+                        self.spe1[i] = "#" 
+                        return
                     
-                    elif self.spe == True : 
+                    elif self.spe_charge == True : 
                         print("Votre leurre est déjà chargée !")
-                        condition_charge = False
-                        return condition_charge, arme1, arme2, dete1, dete2, spe
+                        input("\nSUIVANT")
+                        self.competence_charger = False
+                        return 
 
-            if arme1[0] == "#" and arme1[1] == "#" and arme1[2] == "#" :
-                self.a1 = True
             
-            if arme2[0] == "#" and arme2[1] == "#" and arme2[2] == "#" and arme2[3] == "#" :
-                self.a2 = True
+    def check_systeme_charger(self, choix) :
 
-            if dete1[0] == "#" and dete1[1] == "#" and dete1[2] == "#" and dete1[3] == "#" :
-                self.d1 = True
+        if self.nom == "Tigre" :
+            if self.arme1[0] == "#" and self.arme1[1] == "#" and self.arme1[2] == "#" :
+                self.a1_charge = True
+            
+            if self.arme2[0] == "#" and self.arme2[1] == "#" and self.arme2[2] == "#" :
+                self.a2_charge = True
 
-            if dete2[0] == "#" and dete2[1] == "#" and dete2[2] == "#" :
-                self.d2 = True
+            if self.dete1[0] == "#" and self.dete1[1] == "#" and self.dete1[2] == "#" and self.dete1[3] == "#" :
+                self.d1_charge = True
 
-            if spe[0] == "#" and spe[1] == "#" and spe[2] == "#" and spe[3] == "#" and spe[4] == "#" and spe[5] == "#" :
-                self.spe = True
+            if self.dete2[0] == "#" and self.dete2[1] == "#" and self.dete2[2] == "#" :
+                self.d2_charge = True
+
+            if self.spe1[0] == "#" and self.spe1[1] == "#" and self.spe1[2] == "#" and self.spe1[3] == "#" and self.spe1[4] == "#" and self.spe1[5] == "#" :
+                self.spe_charge = True
+
+
+        if self.nom == "Ecureille" :
+            if self.arme1[0] == "#" and self.arme1[1] == "#" and self.arme1[2] == "#" :
+                self.a1_charge = True
+            
+            if self.arme2[0] == "#" and self.arme2[1] == "#" and self.arme2[2] == "#" and self.arme2[3] == "#" :
+                self.a2_charge = True
+
+            if self.dete1[0] == "#" and self.dete1[1] == "#" and self.dete1[2] == "#" and self.dete1[3] == "#" :
+                self.d1_charge = True
+
+            if self.dete2[0] == "#" and self.dete2[1] == "#" and self.dete2[2] == "#" :
+                self.d2_charge = True
+
+            if self.spe1[0] == "#" and self.spe1[1] == "#" and self.spe1[2] == "#" and self.spe1[3] == "#" and self.spe1[4] == "#" and self.spe1[5] == "#" :
+                self.spe_charge = True
 
         if choix == 1 :
             choix = "la torpille 🚀"
@@ -604,46 +546,46 @@ class SousMarin:
 
         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         print(f"Vous avez chargé {choix} :")
-        self.afficher_systeme(arme1, arme2, dete1, dete2, spe)
+        self.afficher_systeme()
 
-        return condition_charge, arme1, arme2, dete1, dete2, spe
+        return
 
 
-    def afficher_systeme(self, arme1, arme2, dete1, dete2, spe) :
-        a1 = arme1[0]
-        a2 = arme1[1]
-        a3 = arme1[2]
-        a4 = arme1[3]
-        a5 = arme1[4]
-        a6 = arme1[5]
+    def afficher_systeme(self) :
+        a1 = self.arme1[0]
+        a2 = self.arme1[1]
+        a3 = self.arme1[2]
+        a4 = self.arme1[3]
+        a5 = self.arme1[4]
+        a6 = self.arme1[5]
 
-        b1 = arme2[0]
-        b2 = arme2[1]
-        b3 = arme2[2]
-        b4 = arme2[3]
-        b5 = arme2[4]
-        b6 = arme2[5]
+        b1 = self.arme2[0]
+        b2 = self.arme2[1]
+        b3 = self.arme2[2]
+        b4 = self.arme2[3]
+        b5 = self.arme2[4]
+        b6 = self.arme2[5]
 
-        c1 = dete1[0]
-        c2 = dete1[1]
-        c3 = dete1[2]
-        c4 = dete1[3]
-        c5 = dete1[4]
-        c6 = dete1[5]
+        c1 = self.dete1[0]
+        c2 = self.dete1[1]
+        c3 = self.dete1[2]
+        c4 = self.dete1[3]
+        c5 = self.dete1[4]
+        c6 = self.dete1[5]
 
-        d1 = dete2[0]
-        d2 = dete2[1]
-        d3 = dete2[2]
-        d4 = dete2[3]
-        d5 = dete2[4]
-        d6 = dete2[5]
+        d1 = self.dete2[0]
+        d2 = self.dete2[1]
+        d3 = self.dete2[2]
+        d4 = self.dete2[3]
+        d5 = self.dete2[4]
+        d6 = self.dete2[5]
 
-        e1 = spe[0]
-        e2 = spe[1]
-        e3 = spe[2]
-        e4 = spe[3]
-        e5 = spe[4]
-        e6 = spe[5]
+        e1 = self.spe1[0]
+        e2 = self.spe1[1]
+        e3 = self.spe1[2]
+        e4 = self.spe1[3]
+        e5 = self.spe1[4]
+        e6 = self.spe1[5]
 
 
         if self.nom == "Tigre" :
@@ -720,7 +662,7 @@ class SousMarin:
     '''============ACTIVATION SYSTEMES============='''
     #================================================#
 
-    def larguer_torpille(self, sous_marin_ennemi, carte, derniere_colonne, derniere_ligne, capitaine_ennemi, nom_e, nom_self, arme1, fin):
+    def larguer_torpille(self, sous_marin_ennemi, carte, nom_ennemi, nom_self, fin):
 
         #=====================#
         '''Tigre - Ecureille'''
@@ -816,6 +758,7 @@ class SousMarin:
                                         if carte.carte[self.pos[0] - 4][self.pos[1]] == "■" :
                                             if x == self.pos[0] - 5 and y == self.pos[1] :
                                                 traverser_ile = True
+
                                     except IndexError :
                                         pass
                                     
@@ -828,6 +771,7 @@ class SousMarin:
                                         if carte.carte[self.pos[0] + 4][self.pos[1]] == "■" :
                                             if x == self.pos[0] + 5 and y == self.pos[1] :
                                                 traverser_ile = True
+
                                     except IndexError :
                                         pass
                                     
@@ -840,6 +784,7 @@ class SousMarin:
                                         if carte.carte[self.pos[0]][self.pos[1] - 4] == "■" :
                                             if y == self.pos[1] - 5 and x == self.pos[0] :
                                                 traverser_ile = True
+
                                     except IndexError :
                                         pass
 
@@ -852,19 +797,20 @@ class SousMarin:
                                         if carte.carte[self.pos[0]][self.pos[1] + 4] == "■" :
                                             if y == self.pos[1] + 5 and x == self.pos[0] :
                                                 traverser_ile = True
+
                                     except IndexError :
                                         pass
 
 
                                 if traverser_ile == False :
-                                    if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) - 1 :
+                                    if 0 <= y <= ord(carte.derniere_colonne) - ord('A') and 0 <= x <= int(carte.derniere_ligne) - 1 :
                                         if (self.nom == "Tigre" and distance_totale <= 4) or (self.nom == "Ecureille" and distance_totale <= 5) :
                                             #on reset graphiquement le chargement de l'arme
                                             for i in range(6):
-                                                arme1[i] = "0"
+                                                self.arme1[i] = "0"
 
                                             #on reset la valeur de l'armement1 à False pour que le jeu comprenne que la torpille a été tirée
-                                            self.a1 = False
+                                            self.a1_charge = False
 
                                             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
@@ -872,7 +818,7 @@ class SousMarin:
                                             if carte.carte[x][y] == "■" :
                                                 print(f"\nVous avez tirer une torpille sur une île ! 💥\nElle explose dessus et ne fait aucun dégât alentour...\n")
                                                 input("\nSUIVANT")
-                                                return fin, arme1
+                                                return fin
 
                                             #le sous-marin se tir dessus
                                             if emplacement_tir == self.pos :
@@ -896,39 +842,39 @@ class SousMarin:
 
                                             #si l'emplacement du tir est égale à la position du sous marin ennemi.
                                             if emplacement_tir == sous_marin_ennemi.pos :
-                                                print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT DIRECT !🚨")
-                                                print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_e}' ! 💥\nIl prend 2 points de dégats !!!\n")
+                                                print(f"\n\nLe capitaine adverse '{sous_marin_ennemi.capitaine}' annonce : \n🚨 IMPACT DIRECT !🚨")
+                                                print(f"\nVous avez tirer une torpille en plein sur le sous-marin ennemi '{nom_ennemi}' ! 💥\nIl prend 2 points de dégats !!!\n")
                                                 sous_marin_ennemi.vie -= 2
-                                                print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                                                print(f"========== Sous-marin '{nom_ennemi}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                                     
                                                 if sous_marin_ennemi.vie <= 0 :
                                                     #fin de game
                                                     fin = True
 
                                                 input("SUIVANT")
-                                                return fin, arme1
+                                                return fin
 
                                             #La première condition and (les deux premières parenthèses) vérifie si l'emplacement du tir est dans la diagonale du sous marin ennemi. Le deux suivante check si le tir se situe à côté horizontalement du sm ennemi. Et les deux dernières check si le tir a été fait à côté verticalement du sm ennemi. Un peu indigeste, mais ca marche
                                             elif ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1)) or ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1])) or ((y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) and (x == sous_marin_ennemi.pos[0])):
-                                                print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT INDIRECT !🚨")
-                                                print(f"\nVous avez tirer une torpille juste à côté sous-marin ennemi '{nom_e}' ! 💥\nIl prend tout de même 1 point de dégats !\n")
+                                                print(f"\n\nLe capitaine adverse '{sous_marin_ennemi.capitaine}' annonce : \n🚨 IMPACT INDIRECT !🚨")
+                                                print(f"\nVous avez tirer une torpille juste à côté sous-marin ennemi '{nom_ennemi}' ! 💥\nIl prend tout de même 1 point de dégats !\n")
                                                 sous_marin_ennemi.vie -= 1
-                                                print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                                                print(f"========== Sous-marin '{nom_ennemi}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                                     
                                                 if sous_marin_ennemi.vie <= 0 :
                                                     #fin de game
                                                     fin = True
                                                     
                                                 input("SUIVANT")
-                                                return fin, arme1
+                                                return fin
 
                                             #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
                                             else :
-                                                print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 RAS !🚨") 
+                                                print(f"\n\nLe capitaine adverse '{sous_marin_ennemi.capitaine}' annonce : \n🚨 RAS !🚨") 
                                                 print(f"\nVous avez tirer une torpille pour rien !\n")
-                                                print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                                                print(f"========== Sous-marin '{nom_ennemi}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                                 input("\nSUIVANT")
-                                                return fin, arme1
+                                                return fin
 
                                         else :
                                             if self.nom == "Tigre" :
@@ -955,7 +901,7 @@ class SousMarin:
                     print("\n\n❌ Veuillez choisir des valeurs valides.")
 
 
-    def larguer_mine(self, carte, derniere_colonne, derniere_ligne, arme2):
+    def larguer_mine(self, carte):
         print("\nSelectionner un emplacement sur la map :")
         carte.Afficher_carte()
         
@@ -971,13 +917,13 @@ class SousMarin:
                             x = position[1]
                             emplacement_mine = x, y
 
-                            if 0 <= y <= ord(derniere_colonne) - ord('A') and 0 <= x <= int(derniere_ligne) - 1 :
+                            if 0 <= y <= ord(carte.derniere_colonne) - ord('A') and 0 <= x <= int(carte.derniere_ligne) - 1 :
                                 if ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
                                     if carte.carte[x][y] != "■" :
                                         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
                                         for i in range(6):
-                                                arme2[i] = "0"
+                                                self.arme2[i] = "0"
                                         
                                         #Si le sm a déjà naviguer là ou la mine est posé, alors le signalement de la mine sera en majuscule est le sm ne pourra pas naviguer dessus;
                                         if carte.carte[x][y] == '←':
@@ -1000,12 +946,12 @@ class SousMarin:
                                             carte.carte[x][y] = "m"
                                             mine_cap = None
 
-                                        self.a2 = False
+                                        self.a2_charge = False
                                         print("\nVotre mine a été placé en : ", position[0], x+1, "\n")
                                         carte.Afficher_carte()
                                         input("SUIVANT")
 
-                                        return emplacement_mine, arme2, mine_cap
+                                        return emplacement_mine, mine_cap
                                     
                                     else :
                                         print("\n\n❌ Vous ne pouvez pas poser une mine sur une île !")
@@ -1029,7 +975,7 @@ class SousMarin:
                 print("\n\n❌ Veuillez choisir des valeurs valides.")
 
 
-    def exploser_mine(self, sous_marin_ennemi,  capitaine_ennemi, nom_e, nom_self, emplacement_mines, mine_cap, carte, fin) :
+    def exploser_mine(self, sous_marin_ennemi, nom_ennemi, nom_self, emplacement_mines, mine_cap, carte, fin) :
         nb_mines = len(emplacement_mines)
         condition_boucle_explo = False
         
@@ -1097,10 +1043,10 @@ class SousMarin:
                             fin = True
 
                     if emplacement_mine_choisis == sous_marin_ennemi.pos :
-                        print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT DIRECT !🚨")
-                        print(f"\nVotre mine a explosé en plein sur le sous-marin ennemi '{nom_e}' ! 💥\nIl prend 2 points de dégats !!!\n")
+                        print(f"\n\nLe capitaine adverse '{sous_marin_ennemi.capitaine}' annonce : \n🚨 IMPACT DIRECT !🚨")
+                        print(f"\nVotre mine a explosé en plein sur le sous-marin ennemi '{nom_ennemi}' ! 💥\nIl prend 2 points de dégats !!!\n")
                         sous_marin_ennemi.vie -= 2
-                        print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                        print(f"========== Sous-marin '{nom_ennemi}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 
                         if sous_marin_ennemi.vie <= 0 :
                             #fin de game
@@ -1111,10 +1057,10 @@ class SousMarin:
 
                     #La première condition and (les deux premières parenthèses) vérifie si l'emplacement du tir est dans la diagonale du sous marin ennemi. Le deux suivante check si le tir se situe à côté horizontalement du sm ennemi. Et les deux dernières check si le tir a été fait à côté verticalement du sm ennemi. Un peu indigeste, mais ca marche
                     elif ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1)) or ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1])) or ((y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) and (x == sous_marin_ennemi.pos[0])):
-                        print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 IMPACT INDIRECT !🚨")
-                        print(f"\nVotre mine a explosé juste à côté sous-marin ennemi '{nom_e}' ! 💥\nIl prend tout de même 1 point de dégats !\n")
+                        print(f"\n\nLe capitaine adverse '{sous_marin_ennemi.capitaine}' annonce : \n🚨 IMPACT INDIRECT !🚨")
+                        print(f"\nVotre mine a explosé juste à côté sous-marin ennemi '{nom_ennemi}' ! 💥\nIl prend tout de même 1 point de dégats !\n")
                         sous_marin_ennemi.vie -= 1
-                        print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                        print(f"========== Sous-marin '{nom_ennemi}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                                 
                         if sous_marin_ennemi.vie <= 0 :
                             #fin de game
@@ -1125,9 +1071,9 @@ class SousMarin:
 
                     #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
                     else :
-                        print(f"\n\nLe capitaine adverse '{capitaine_ennemi}' annonce : \n🚨 RAS !🚨") 
+                        print(f"\n\nLe capitaine adverse '{sous_marin_ennemi.capitaine}' annonce : \n🚨 RAS !🚨") 
                         print(f"\nVous avez fait exploser une mine pour rien !\n")
-                        print(f"========== Sous-marin '{nom_e}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
+                        print(f"========== Sous-marin '{nom_ennemi}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                         input("\nSUIVANT")
                         return fin, emplacement_mines, mine_cap, condition_boucle_explo
 
@@ -1213,7 +1159,7 @@ class SousMarin:
         return fin, emplacement_mines_ennemi, mine_cap_ennemi, mine_cap_self, emplacement_mines_self
     
 
-    def larguer_drone(self, carte, sous_marin_ennemi, dete1) :
+    def larguer_drone(self, carte, sous_marin_ennemi) :
         #si le sm est l'ecureille, alors on check si le sm ennemie se trouve autour d'une ile, si oui on renvoie un msg, si non on renvoie un msg
         milieu_largeur = carte.largeur // 2
         milieu_hauteur = carte.hauteur // 2
@@ -1232,10 +1178,10 @@ class SousMarin:
             try : 
                 choix = int(input("Vous larguez votre drone secteur (1 - 4) ou changé de compétence (0): "))
                 if 1 <= choix <= 4 :
-                    self.d1 = False
+                    self.d1_charge = False
                     #on reset graphiquement le chargement du drone
                     for i in range(6):
-                        dete1[i] = "0"
+                        self.dete1[i] = "0"
                     
                     #le joueur a selectionner le secteur 1 et la position du sm ennemi est dans le secteur 1
                     if choix == 1 and x < milieu_hauteur and y < milieu_largeur :
@@ -1247,7 +1193,7 @@ class SousMarin:
                         else :
                             print(rep)
                             
-                        return dete1, condition_boucle_det1
+                        return condition_boucle_det1
                     
                     #le joueur a selectionner le secteur 2 et la position du sm ennemi est dans le secteur 2
                     elif choix == 2 and x < milieu_hauteur and y >= milieu_largeur:
@@ -1259,7 +1205,7 @@ class SousMarin:
                         else :
                             print(rep)
                             
-                        return dete1, condition_boucle_det1
+                        return condition_boucle_det1
 
                     elif choix == 3 and x >= milieu_hauteur and y < milieu_largeur :
                         rep = "\nVotre drone vous retourne : '✅ OUI ✅' "
@@ -1270,7 +1216,7 @@ class SousMarin:
                         else :
                             print(rep)
                             
-                        return dete1, condition_boucle_det1
+                        return condition_boucle_det1
 
                     elif choix == 4 and x >= milieu_hauteur and y >= milieu_largeur :
                         rep = "\nVotre drone vous retourne : '✅ OUI ✅' "
@@ -1281,15 +1227,15 @@ class SousMarin:
                         else :
                             print(rep)
 
-                        return dete1, condition_boucle_det1
+                        return condition_boucle_det1
 
                     else :
                         print("\nVotre drone vous retourne : '🚫 NON 🚫' ")
-                        return dete1
+                        return 
 
                 elif choix == 0 :
                     condition_boucle_det1 = True
-                    return dete1, condition_boucle_det1
+                    return condition_boucle_det1
                 
                 else :
                     print("\n\n❌ choisissez un secteur existant.")
@@ -1297,9 +1243,9 @@ class SousMarin:
             except ValueError :
                 print("\n\n❌ choisissez une valeur valide.")
 
-    def lancer_sonar(self, carte, sous_marin_ennemi, dete2, capitaine_ennemi, nom_ennemi, derniere_colonne, derniere_ligne, capitaine_self, nom_self, carte_ennemi) :
+    def lancer_sonar(self, carte, sous_marin_ennemi, nom_ennemi, nom_self, carte_ennemi) :
         print(changement)
-        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Capitaine : '{capitaine_ennemi}', de l'équipe '{nom_ennemi}' de jouer.")
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Capitaine : '{sous_marin_ennemi.capitaine}', de l'équipe '{nom_ennemi}' de jouer.")
         input("\nSUIVANT")
 
         print("\n\nLe sous-marin adverse a lancé un sonar, vous êtes obligé de leur communiquer DEUX informations concernant la position de votre sous-marin. \nLa première information à choisir sera la bonne et la deuxième sera la mauvaise. \nLes informations seront communiquées aux ennemis dans un ordre aléatoire.")
@@ -1365,7 +1311,7 @@ class SousMarin:
                     if faux == 1 :
                         while faux == 1 :
                             try :
-                                y_lettre = input(f"Choisissez une colonne sur laquelle votre sous-marin n'est pas (A - {derniere_colonne}) ou revenir en arrière (0) : ")
+                                y_lettre = input(f"Choisissez une colonne sur laquelle votre sous-marin n'est pas (A - {carte.derniere_colonne}) ou revenir en arrière (0) : ")
                                 
                                 if y_lettre == "0" :
                                     break
@@ -1375,7 +1321,7 @@ class SousMarin:
                                 #si je met False a la place d'alpha, alors A ne marche pas car 0 (A=0) est égale a False.
                                 if y_given != "alpha" :
                                     if y_lettre != y_self :
-                                        if 0 <= y_given <= ord(derniere_colonne) - ord('A') : 
+                                        if 0 <= y_given <= ord(carte.derniere_colonne) - ord('A') : 
                                             faux = "Le sous-marin ennemi se trouve colonne : " + y_lettre
                                             break
                                         
@@ -1396,13 +1342,13 @@ class SousMarin:
                     elif faux == 2 :
                         while faux == 2 :
                             try :
-                                x_given = int(input(f"Choisissez une ligne sur laquelle votre sous-marin n'est pas (1 - {derniere_ligne}) ou revenir en arrière (0) : "))
+                                x_given = int(input(f"Choisissez une ligne sur laquelle votre sous-marin n'est pas (1 - {carte.derniere_ligne}) ou revenir en arrière (0) : "))
                                 
                                 if x_given == 0 :
                                     break
 
                                 elif x_given != x + 1 :
-                                    if 0 <= x_given <= int(derniere_ligne) - 1 : 
+                                    if 0 <= x_given <= int(carte.derniere_ligne) - 1 : 
                                         faux = "Le sous-marin ennemi se trouve ligne : " + str(x_given)
                                         break
                                     
@@ -1451,13 +1397,13 @@ class SousMarin:
 
         #reset de la compétence
         for i in range(6):
-            dete2[i] = "0"
+            self.dete2[i] = "0"
 
-        self.d2 = False
+        self.d2_charge = False
 
         #On renvoie la réponse de l'ennemi aléatoirement.
         print(changement)
-        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Capitaine : '{capitaine_self}', de l'équipe '{nom_self}' de jouer.")
+        print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au Capitaine : '{self.capitaine}', de l'équipe '{nom_self}' de jouer.")
         input("\nSUIVANT")
 
         print("\n\n==================== Résultat du drone ====================")
@@ -1471,16 +1417,16 @@ class SousMarin:
         print("\nVous ne savez pas laquelle est vrai ou fausse...")
         input("\n\nSUIVANT")
 
-        return dete2
+        return
     
-    def lancer_silence(self, capitaine, carte, spe, derniere_colonne, derniere_ligne) :
+    def lancer_silence(self, carte) :
         x, y = self.pos
         print("\n\n")
         carte.Afficher_carte()
         
         while True :
             try :
-                cap_silence = input(f"\n{capitaine}, annoncez discretement un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner à la sélection des compétences (0): ")
+                cap_silence = input(f"\n{self.capitaine}, annoncez discretement un cap à votre équipe (OUEST, NORD, EST, SUD) ou retourner à la sélection des compétences (0): ")
                 cap_silence = cap_silence.upper()
 
                 if cap_silence == "O" :
@@ -1498,7 +1444,7 @@ class SousMarin:
                 if cap_silence == "OUEST" or cap_silence == "EST" or cap_silence == "NORD" or cap_silence == "SUD" :
                     while True :
                         try :
-                            distance = int(input(f"\n{capitaine}, choisissez une distance à parcourir (0 - 4) ou choisir un autre cap (9): "))
+                            distance = int(input(f"\n{self.capitaine}, choisissez une distance à parcourir (0 - 4) ou choisir un autre cap (9): "))
                             if 0 <= distance <= 4 :
                                 condition_boucle_spe = False 
                                 condition_impossible = False
@@ -1532,20 +1478,19 @@ class SousMarin:
                                             y -= distance
                                             carte.carte[x][y] = self.nom[0]
                                             self.pos = x, y
-                                            position = x, y
 
                                             for i in range(6) :
-                                                spe[i] = "0"
+                                                self.spe1[i] = "0"
 
-                                            self.spe = False
+                                            self.spe_charge = False
 
-                                            return position, spe, condition_boucle_spe
+                                            return condition_boucle_spe
                                         
                                     else :
                                         print("\n\n❌ Vous ne pouvez pas sortir de la map !")
                                         
                                 if cap_silence == "EST" :
-                                    if y + distance <= ord(derniere_colonne) - ord('A') :
+                                    if y + distance <= ord(carte.derniere_colonne) - ord('A') :
                                         y_est = y
                                             
                                         for _ in range(distance) :
@@ -1569,14 +1514,13 @@ class SousMarin:
                                             y += distance
                                             carte.carte[x][y] = self.nom[0]
                                             self.pos = x, y
-                                            position = x, y
 
                                             for i in range(6) :
-                                                spe[i] = "0"
+                                                self.spe1[i] = "0"
 
-                                            self.spe = False
+                                            self.spe_charge = False
 
-                                            return position, spe, condition_boucle_spe
+                                            return condition_boucle_spe
                                         
                                     else :
                                         print("\n\n❌ Vous ne pouvez pas sortir de la map !")
@@ -1606,20 +1550,19 @@ class SousMarin:
                                             x -= distance
                                             carte.carte[x][y] = self.nom[0]
                                             self.pos = x, y
-                                            position = x, y
 
                                             for i in range(6) :
-                                                spe[i] = "0"
+                                                self.spe1[i] = "0"
 
-                                            self.spe = False
+                                            self.spe_charge = False
 
-                                            return position, spe, condition_boucle_spe
+                                            return condition_boucle_spe
                                         
                                     else :
                                         print("\n\n❌ Vous ne pouvez pas sortir de la map !")
                                         
                                 if cap_silence == "SUD" :
-                                    if x + distance <= int(derniere_ligne) - 1 :
+                                    if x + distance <= int(carte.derniere_ligne) - 1 :
                                         x_sud = x
                                             
                                         for _ in range(distance) :
@@ -1643,14 +1586,13 @@ class SousMarin:
                                             x += distance
                                             carte.carte[x][y] = self.nom[0]
                                             self.pos = x, y
-                                            position = x, y
 
                                             for i in range(6) :
-                                                spe[i] = "0"
+                                                self.spe1[i] = "0"
 
-                                            self.spe = False
+                                            self.spe_charge = False
 
-                                            return position, spe, condition_boucle_spe
+                                            return condition_boucle_spe
                                     
                                     else :
                                         print("\n\n❌ Vous ne pouvez pas sortir de la map !")
@@ -1667,9 +1609,9 @@ class SousMarin:
                             print("\n\n❌ Veuillez entrer une distance valide !")
 
                 elif cap_silence == "0" :
-                    position = x, y
+                    self.position = x, y
                     condition_boucle_spe = True
-                    return position, spe, condition_boucle_spe
+                    return condition_boucle_spe
                 
                 else :
                     print("\n\n❌ Veuillez choisir un cap compris dans les options ! ")
@@ -1684,13 +1626,13 @@ class SousMarin:
 
 #creation d'un objet leurre (pour pouvoir utiliser la fonction déplacement_sm de l'objet map)
 class Leurre(SousMarin):
-    def __init__(self, nom, position, vie, vivant) :
-        self.nom = nom
-        self.pos = position
-        self.vie = vie
-        self.vivant = vivant
+    def __init__(self) :
+        self.nom = "leurre"
+        self.pos = None
+        self.vie = 1
+        self.vivant = True
 
-leurre = Leurre("Leurre", "position", 1, False)
+leurre = Leurre()
 
 def lettre_to_chiffre(lettre):
     if len(lettre) == 1 and lettre.isalpha() :

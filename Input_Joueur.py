@@ -12,10 +12,3 @@ j5 = None
 j6 = None 
 j7 = None 
 j8 = None 
-
-#========================#
-'''Variable nom d'équpe'''
-#========================#
-
-nom_e1 = None 
-nom_e2 = None 
