@@ -83,7 +83,7 @@ class Carte :
         print("\n-> Sous-marin placé en : ", y_l , x+1, "\n")
         self.Afficher_carte()
         
-        return x, y
+        return
 
 
     def reset_chemin(self):        
@@ -98,7 +98,7 @@ class Carte :
         self.Afficher_carte()
 
     #on déplace le sous marin
-    def deplacement_sm(self, sous_marin, cap, emplacement_mines):
+    def deplacement_sm(self, sous_marin, cap):
         
         x, y = sous_marin.pos
         cap = cap.upper()   
@@ -108,7 +108,7 @@ class Carte :
             self.carte[x][y] = "←"
 
             #si une mine alliée existe sur la case du sm avant le déplacement, on la réaffiche avec un "M" majuscule.
-            for i in emplacement_mines :
+            for i in sous_marin.emplacement_mines :
                 if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
@@ -126,7 +126,7 @@ class Carte :
         elif cap == "EST" :
             self.carte[x][y] = "→"
 
-            for i in emplacement_mines :
+            for i in sous_marin.emplacement_mines :
                 if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
@@ -141,7 +141,7 @@ class Carte :
         elif cap == "NORD" :
             self.carte[x][y] = "↑"
 
-            for i in emplacement_mines :
+            for i in sous_marin.emplacement_mines :
                 if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
@@ -156,7 +156,7 @@ class Carte :
         elif cap == "SUD" :
             self.carte[x][y] = "↓"
 
-            for i in emplacement_mines :
+            for i in sous_marin.emplacement_mines :
                 if sous_marin.pos == i : 
                     self.carte[x][y] = "M"
 
