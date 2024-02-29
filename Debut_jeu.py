@@ -10,7 +10,7 @@ def lancer_jeu() :
     print(equipe)
 
     #1) définition du nombre de joueurs
-    nb_joueur, nom_e1, nom_e2 = entre_nombre_joueur()
+    nb_joueur, nom_e1, nom_e2, j1, j2, j3, j4, j5, j6, j7, j8 = entre_nombre_joueur()
 
     #2) distribution des rôles pour les joueurs.
     capitaine, second, mecano, detecteur = distribution_role(j1, j2, j3, j4, j5, j6, j7, j8, nb_joueur) #variable des rôles
@@ -113,8 +113,8 @@ def entre_nombre_joueur():
             nb_joueur = int(input("Entrer le nombre de joueurs (2-8) : "))
 
             if 2 <= nb_joueur <= 8 :
-                nom_e1, nom_e2 = def_ekip(nb_joueur) #définition des équipes
-                return nb_joueur, nom_e1, nom_e2 
+                j1, j2, j3, j4, j5, j6, j7, j8, nom_e1, nom_e2 = def_ekip(nb_joueur) #définition des équipes
+                return nb_joueur, nom_e1, nom_e2, j1, j2, j3, j4, j5, j6, j7, j8
 
             else :
                 print("\n\n❌ Le nombre de joueurs doit être compris entre 2 et 8, recommencez.")
@@ -130,8 +130,15 @@ def entre_nombre_joueur():
 
 # Définition des équipe (attribution des variables joueurs et nom d'équipe en fonction du nombre totale de joueur)
 def def_ekip(nb_joueur):
-    
-    global j1, j2, j3, j4, j5, j6, j7, j8
+
+    j1 = None
+    j2 = None
+    j3 = None
+    j4 = None
+    j5 = None
+    j6 = None
+    j7 = None
+    j8 = None
 
     # Partie a 2 joueurs 
     if nb_joueur == 2 :
@@ -269,7 +276,7 @@ def def_ekip(nb_joueur):
         print(f"\n\n\n-> Récapitulatif : \n\n===== EQUIPE {nom_e1} =====\nCapitaine : {j1}\nSecond : {j2}\nMécano : {j3}\nDétecteur : {j4}\n\n===== EQUIPE {nom_e2} =====\nCapitaine : {j5}\nSecond : {j6}\nMécano : {j7}\nDétecteur : {j8}")
         input("\nSUIVANT")
 
-    return nom_e1, nom_e2
+    return j1, j2, j3, j4, j5, j6, j7, j8, nom_e1, nom_e2
 
 
 
