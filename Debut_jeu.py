@@ -71,11 +71,6 @@ def lancer_jeu() :
     nombre_tour_attendu_e1 = 0
     nombre_tour_attendu_e2 = 0
 
-    #initialisation des variables des systèmes
-    mine_cap_e1 = []
-
-    mine_cap_e2 = []
-
     #============================================================================================#
     '''=====================================DEBUT BOUCLE======================================='''
     #============================================================================================#
@@ -89,7 +84,7 @@ def lancer_jeu() :
             print(f"\n⚠⚠⚠ Attention ⚠⚠⚠ : \nC'est au capitaine : '{sous_marin_e1.capitaine}', de l'équipe '{nom_e1}' de jouer.")
             input("\nSUIVANT\n")
             #1) le capitaine de l'équipe 1 déplace son vaisseau
-            cap_e1, surface_e1, nombre_tour_attendu_e1, fin, mine_cap_e2, mine_cap_e1 = deplacement(C_e1, sous_marin_e1, nom_e1, surface_e1, nombre_tour_attendu_e1, sous_marin_e2, mine_cap_e1, fin, mine_cap_e2, C_e2)
+            cap_e1, surface_e1, nombre_tour_attendu_e1, fin = deplacement(C_e1, sous_marin_e1, nom_e1, surface_e1, nombre_tour_attendu_e1, sous_marin_e2, fin, C_e2)
             
             #2) le mecano de l'équipe 1 rentre une panne dans le cadran associer au cap
             panne(cap_e1, nom_e1, sous_marin_e1, surface_e1, nombre_tour_attendu_e1)
@@ -98,7 +93,7 @@ def lancer_jeu() :
             choix_systeme(sous_marin_e1, nom_e1, cap_e1, nombre_tour_attendu_e1, surface_e1)
             
             #4) l'équipe 1 peut déclencher une compétence
-            surface_e1, nombre_tour_attendu_e1, fin, mine_cap_e1 = declenchement_systemes(sous_marin_e1, sous_marin_e2, C_e1, nom_e2, nom_e1, mine_cap_e1, fin, C_e2, nombre_tour_attendu_e1, surface_e1, mine_cap_e2)
+            surface_e1, nombre_tour_attendu_e1, fin = declenchement_systemes(sous_marin_e1, sous_marin_e2, C_e1, nom_e2, nom_e1, fin, C_e2, nombre_tour_attendu_e1, surface_e1)
             #modifier les cadrans !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             #5) le detecteur adverse rentre le cap ennemi
             
@@ -594,7 +589,7 @@ def faire_surface(carte) :
 '''1) Déplacement 1er équipe'''
 #=============================#
 
-def deplacement(carte, sous_marin, nom, surface, nombre_tour_attendu, sous_marin_ennemi, mine_cap_self, fin, mine_cap_ennemi, carte_ennemi) :
+def deplacement(carte, sous_marin, nom, surface, nombre_tour_attendu, sous_marin_ennemi, fin, carte_ennemi) :
 
     carte.Afficher_carte()
 
@@ -609,7 +604,7 @@ def deplacement(carte, sous_marin, nom, surface, nombre_tour_attendu, sous_marin
                 if cap != "0" : 
                     #si le  sous marin se déplace sur une mine posé par un sm Ecureille
                     if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
-                        fin, mine_cap_ennemi, mine_cap_self = sous_marin.explosion_auto(sous_marin_ennemi, nom, mine_cap_self, Carte, fin, mine_cap_ennemi, carte_ennemi)
+                        fin = sous_marin.explosion_auto(sous_marin_ennemi, nom, Carte, fin, carte_ennemi)
                     input("\nSUIVANT")
 
                 # if leurre_larguer == True :
@@ -630,14 +625,14 @@ def deplacement(carte, sous_marin, nom, surface, nombre_tour_attendu, sous_marin
                     # position_leurre = carte.deplacement_sm(position_leurre, leurre, cap_leurre)
                     # #si le leurre se déplace sur une mine automatique
                     # if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
-                    #     fin, mine_cap_ennemi, mine_cap_self, leurre_larguer = leurre.explosion_auto(sous_marin_ennemi, nom, mine_cap_self, carte, fin, mine_cap_ennemi, carte_ennemi, self)
+                    #     fin, leurre_larguer = leurre.explosion_auto(sous_marin_ennemi, nom, carte, fin, carte_ennemi, self)
                 
-                    return cap.upper(), surface, nombre_tour_attendu, fin, mine_cap_ennemi, mine_cap_self
+                    return cap.upper(), surface, nombre_tour_attendu, fin
                 
             elif entete_deplacement == 2 :
                 surface = faire_surface(carte)
                 cap = "AUCUN"
-                return cap.upper(), surface, nombre_tour_attendu, fin, mine_cap_ennemi, mine_cap_self
+                return cap.upper(), surface, nombre_tour_attendu, fin
             
             elif entete_deplacement == 3 :
                 sous_marin.afficher_baie_moteur()
@@ -660,9 +655,9 @@ def deplacement(carte, sous_marin, nom, surface, nombre_tour_attendu, sous_marin
             if nombre_tour_attendu == 2 :
                 print("\nVous avez passez vos 3 tours à la surface et vous replongez dans les eaux profondes !\n")
                 input("SUIVANT")
-                return cap.upper(), surface, nombre_tour_attendu, fin, mine_cap_ennemi, mine_cap_self
+                return cap.upper(), surface, nombre_tour_attendu, fin
             else :
-                return cap.upper(), surface, nombre_tour_attendu, fin, mine_cap_ennemi, mine_cap_self
+                return cap.upper(), surface, nombre_tour_attendu, fin
 
 
 #===============================#
@@ -791,18 +786,18 @@ def choix_systeme(sous_marin, nom, cap, nombre_tour_attendu, surface):
 '''12) déclenchement de compétencee'''
 #=====================================#
 
-def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom_self, mine_cap, fin, carte_ennemi, nombre_tour_attendu, surface, mine_cap_ennemi) :
+def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom_self, fin, carte_ennemi, nombre_tour_attendu, surface) :
     if nombre_tour_attendu != 0 or surface == True :
         if nombre_tour_attendu == 2 :
             nombre_tour_attendu = 0
             surface = False
-        return surface, nombre_tour_attendu, fin, mine_cap
+        return surface, nombre_tour_attendu, fin
 
     #si aucun système n'est déclanchable
     if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1_charge == False and sous_marin.a2_charge == False and sous_marin.d1_charge == False and sous_marin.d2_charge == False and sous_marin.spe_charge == False and not sous_marin.emplacement_mines : 
         print("\n\nAucun système ne peut être déclencher\n")
         input("SUIVANT")
-        return surface, nombre_tour_attendu, fin, mine_cap
+        return surface, nombre_tour_attendu, fin
 
     while True :
         try : 
@@ -842,7 +837,7 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
                         if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1_charge == True and choix_systeme == 1 :
                             if sous_marin.condition_panne_arm == False :
                                 fin = sous_marin.larguer_torpille(sous_marin_ennemi, carte, nom_ennemi, nom_self, fin)
-                                return surface, nombre_tour_attendu, fin, mine_cap
+                                return surface, nombre_tour_attendu, fin
                             
                             else :
                                 print("\n\n❌ Votre système ARM détient une ou plusieurs pannes ! Vous ne pouvez par conséquent pas larguer une torpille !")
@@ -850,18 +845,17 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
                         #mine largable
                         elif (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a2_charge == True and choix_systeme == 2 :
                             if sous_marin.condition_panne_arm == False :
-                                cap_m = sous_marin.larguer_mine(carte)
-                                mine_cap.append(cap_m)
-                                return surface, nombre_tour_attendu, fin, mine_cap
+                                sous_marin.larguer_mine(carte)
+                                return surface, nombre_tour_attendu, fin
                             
                             else :
                                 print("\n\n❌ Votre système ARM détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas larguer de mine !")
 
                         #explosion mine
                         elif (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.emplacement_mines and choix_systeme == 10 :
-                            fin, mine_cap, condition_boucle_explo = sous_marin.exploser_mine(sous_marin_ennemi, nom_ennemi, nom_self, mine_cap, carte, fin)
+                            fin, condition_boucle_explo = sous_marin.exploser_mine(sous_marin_ennemi, nom_ennemi, nom_self, carte, fin)
                             if condition_boucle_explo == False :
-                                return surface, nombre_tour_attendu, fin, mine_cap
+                                return surface, nombre_tour_attendu, fin
 
                         #Larguage du drone
                         elif (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.d1_charge == True and choix_systeme == 3 :
@@ -869,7 +863,7 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
                                 condition_boucle_det1 = sous_marin.larguer_drone(carte, sous_marin_ennemi)
                                 if condition_boucle_det1 == False :
                                     input("SUIVANT")
-                                    return surface, nombre_tour_attendu, fin, mine_cap
+                                    return surface, nombre_tour_attendu, fin
                             
                             else :
                                 print("\n\n❌ Votre système DET détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas larguer de drone !")
@@ -880,7 +874,7 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
                                 print("Vous lancer votre sonar à la recherche du sous-marin ennemi !\nC'est au capitaine ennemi de jouer.")
                                 input("\nSUIVANT")
                                 dete2 = sous_marin.lancer_sonar(carte, sous_marin_ennemi, dete2, nom_ennemi, nom_self, carte_ennemi)
-                                return surface, nombre_tour_attendu, fin, mine_cap
+                                return surface, nombre_tour_attendu, fin
                             
                             else :
                                 print("\n\n❌ Votre système DET détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas déclencher de sonar !")
@@ -893,7 +887,7 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
                                     print("\n\nVoici votre nouvelle emplacement :\n")
                                     carte.Afficher_carte()
                                     input("\nSUIVANT")
-                                    return surface, nombre_tour_attendu, fin, mine_cap
+                                    return surface, nombre_tour_attendu, fin
                             
                             else : 
                                 print("\n\n❌ Votre système SPE détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas déclencher votre silence !")
@@ -903,7 +897,7 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
                             if sous_marin.condition_panne_spe == False :
                                 sous_marin.lancer_leurre()
                                 
-                                return surface, nombre_tour_attendu, fin, mine_cap
+                                return surface, nombre_tour_attendu, fin
                             
                             else :
                                 print("\n\n❌ Votre système SPE détient une ou plusiers pannes ! Vous ne pouvez par conséquent pas larguer votre leurre !")
@@ -918,7 +912,7 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
                         print("\n\n❌ Veuillez entrer un chiffre valide !")
 
             elif choix == 1 :
-                return surface, nombre_tour_attendu, fin, mine_cap
+                return surface, nombre_tour_attendu, fin
             
             else :
                 print("\n\n❌ Veuillez entrer une option valide (1-2) !")

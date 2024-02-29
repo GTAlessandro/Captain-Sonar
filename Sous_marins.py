@@ -34,6 +34,7 @@ class SousMarin:
         self.spe1 = ["0", "0", "0", "0", "0", "0"]
         self.competence_charger = None
         self.emplacement_mines = []
+        self.mine_cap = []
         self.pos = [None, None]
     
     def infos(self):
@@ -916,43 +917,44 @@ class SousMarin:
                         if position != 3 :
                             y = lettre_to_chiffre(position[0])
                             x = position[1]
-                            self.emplacement_mines.append((x, y))
 
                             if 0 <= y <= ord(carte.derniere_colonne) - ord('A') and 0 <= x <= int(carte.derniere_ligne) - 1 :
                                 if ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
                                     if carte.carte[x][y] != "■" :
                                         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
+                                        self.emplacement_mines.append((x, y))
+                                        
                                         for i in range(6):
                                                 self.arme2[i] = "0"
                                         
                                         #Si le sm a déjà naviguer là ou la mine est posé, alors le signalement de la mine sera en majuscule est le sm ne pourra pas naviguer dessus;
                                         if carte.carte[x][y] == '←':
-                                            mine_cap = "OUEST"
+                                            self.mine_cap.append("OUEST")
                                             carte.carte[x][y] = "M"
 
                                         elif carte.carte[x][y] == '→':
-                                            mine_cap = "EST"
+                                            self.mine_cap.append("EST")
                                             carte.carte[x][y] = "M"
 
                                         elif carte.carte[x][y] == '↑':
-                                            mine_cap = "NORD"
+                                            self.mine_cap.append("NORD")
                                             carte.carte[x][y] = "M"
 
                                         elif carte.carte[x][y] == '↓':
-                                            mine_cap = "SUD"
+                                            self.mine_cap.append("SUD")
                                             carte.carte[x][y] = "M"
                                         
                                         else :
                                             carte.carte[x][y] = "m"
-                                            mine_cap = "Rien"
+                                            self.mine_cap.append("Rien")
 
                                         self.a2_charge = False
                                         print("\nVotre mine a été placé en : ", position[0], x+1, "\n")
                                         carte.Afficher_carte()
                                         input("SUIVANT")
 
-                                        return mine_cap
+                                        return
                                     
                                     else :
                                         print("\n\n❌ Vous ne pouvez pas poser une mine sur une île !")
@@ -976,7 +978,7 @@ class SousMarin:
                 print("\n\n❌ Veuillez choisir des valeurs valides.")
 
 
-    def exploser_mine(self, sous_marin_ennemi, nom_ennemi, nom_self, mine_cap, carte, fin) :
+    def exploser_mine(self, sous_marin_ennemi, nom_ennemi, nom_self, carte, fin) :
         nb_mines = len(self.emplacement_mines)
         condition_boucle_explo = False
         
@@ -997,7 +999,7 @@ class SousMarin:
 
                     emplacement_mine_choisis = self.emplacement_mines[choix - 1]
                     x, y = emplacement_mine_choisis
-                    mine_cap_choisis = mine_cap[choix - 1]
+                    mine_cap_choisis = self.mine_cap[choix - 1]
 
                     #si le cap associé à la mine posée égale une valeur de cap alors on remet sur la carte la fléche du cap pour prévenir que le sm est déjà passer par la
                     if mine_cap_choisis == "OUEST" :
@@ -1020,7 +1022,7 @@ class SousMarin:
 
                     #on retire la mine qui a explosée dans le tableau des emplacement_mines ainsi que son cap associé.
                     self.emplacement_mines.remove(emplacement_mine_choisis)
-                    mine_cap.remove(mine_cap_choisis)
+                    self.mine_cap.remove(mine_cap_choisis)
 
                     #le sous-marin explose une mine sur sois
                     if emplacement_mine_choisis == self.pos :
@@ -1053,7 +1055,7 @@ class SousMarin:
                             fin = True
 
                         input("SUIVANT")
-                        return fin, mine_cap, condition_boucle_explo
+                        return fin, condition_boucle_explo
 
                     #La première condition and (les deux premières parenthèses) vérifie si l'emplacement du tir est dans la diagonale du sous marin ennemi. Le deux suivante check si le tir se situe à côté horizontalement du sm ennemi. Et les deux dernières check si le tir a été fait à côté verticalement du sm ennemi. Un peu indigeste, mais ca marche
                     elif ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1)) or ((x == sous_marin_ennemi.pos[0]+1 or x == sous_marin_ennemi.pos[0]-1) and (y == sous_marin_ennemi.pos[1])) or ((y == sous_marin_ennemi.pos[1]+1 or y == sous_marin_ennemi.pos[1]-1) and (x == sous_marin_ennemi.pos[0])):
@@ -1067,7 +1069,7 @@ class SousMarin:
                             fin = True
                                 
                         input("SUIVANT")
-                        return fin, mine_cap, condition_boucle_explo
+                        return fin, condition_boucle_explo
 
                     #l'emplacement du tir est ni sur le sous-marin ennemi ni à ses alentours.
                     else :
@@ -1075,17 +1077,17 @@ class SousMarin:
                         print(f"\nVous avez fait exploser une mine pour rien !\n")
                         print(f"========== Sous-marin '{nom_ennemi}' ==========\n- Vie restante : {sous_marin_ennemi.vie}❤️\n")
                         input("\nSUIVANT")
-                        return fin, mine_cap, condition_boucle_explo
+                        return fin, condition_boucle_explo
 
                 if choix == 0 :
                     condition_boucle_explo = True
-                    return fin, mine_cap, condition_boucle_explo
+                    return fin, condition_boucle_explo
             
             except ValueError :
                 print("\n\n❌ choisissez une valeur valide.")
 
 
-    def explosion_auto(self, sous_marin_ennemi, nom_self, mine_cap_self, carte, fin, mine_cap_ennemi, carte_ennemi):
+    def explosion_auto(self, sous_marin_ennemi, nom_self, carte, fin, carte_ennemi):
 
         if sous_marin_ennemi.nom == "Ecureille" :
             if sous_marin.ennemi.emplacement_mines :
@@ -1094,22 +1096,22 @@ class SousMarin:
                     
                     if self.pos == sous_marin_ennemi.emplacement_mines[i - 1] :
                         
-                        if mine_cap_ennemi[i - 1] == "OUEST" :
+                        if sous_marin_ennemi.mine_cap[i - 1] == "OUEST" :
                             carte_ennemi.carte[x][y] = '←'
 
-                        elif mine_cap_ennemi[i - 1] == "EST" :
+                        elif sous_marin_ennemi.mine_cap[i - 1] == "EST" :
                             carte_ennemi.carte[x][y] = '→'
 
-                        elif mine_cap_ennemi[i - 1] == "NORD" :
+                        elif sous_marin_ennemi.mine_cap[i - 1] == "NORD" :
                             carte_ennemi.carte[x][y] = '↑'
 
-                        elif mine_cap_ennemi[i - 1] == "SUD" :
+                        elif sous_marin_ennemi.mine_cap[i - 1] == "SUD" :
                             carte_ennemi.carte[x][y] = '↓'
 
                         emplacement_mine_explose = sous_marin_ennemi.emplacement_mines[i - 1]
-                        mine_cap_explose = mine_cap_ennemi[i - 1]
+                        mine_cap_explose = sous_marin_ennemi.mine_cap[i - 1]
                         sous_marin_ennemi.emplacement_mines.remove(emplacement_mine_explose)
-                        mine_cap_ennemi.remove(mine_cap_explose)
+                        sous_marin_ennemi.mine_cap.remove(mine_cap_explose)
 
                         self.vie -= 1
 
@@ -1120,7 +1122,7 @@ class SousMarin:
                             #fin de game
                             fin = True
                                 
-                        return fin, mine_cap_ennemi, mine_cap_self
+                        return fin
 
         if self.nom == "Ecureille" :
             if self.emplacement_mines :
@@ -1129,22 +1131,22 @@ class SousMarin:
 
                     if self.pos == self.emplacement_mines[i - 1] :
 
-                        if mine_cap_self[i - 1] == "OUEST" :
+                        if self.mine_cap[i - 1] == "OUEST" :
                             carte.carte[x][y] = '←'
 
-                        elif mine_cap_self[i - 1] == "EST" :
+                        elif self.mine_cap[i - 1] == "EST" :
                             carte.carte[x][y] = '→'
 
-                        elif mine_cap_self[i - 1] == "NORD" :
+                        elif self.mine_cap[i - 1] == "NORD" :
                             carte.carte[x][y] = '↑'
 
-                        elif mine_cap_self[i - 1] == "SUD" :
+                        elif self.mine_cap[i - 1] == "SUD" :
                             carte.carte[x][y] = '↓'
 
                         emplacement_mine_explose = self.emplacement_mines[i - 1]
-                        mine_cap_explose = mine_cap_self[i - 1]
+                        mine_cap_explose = self.mine_cap[i - 1]
                         self.emplacement_mines.remove(emplacement_mine_explose)
-                        mine_cap_self.remove(mine_cap_explose)
+                        self.mine_cap.remove(mine_cap_explose)
 
                         self.vie -= 1
 
@@ -1154,9 +1156,9 @@ class SousMarin:
                         if self.vie <= 0 :
                             fin = True
                                 
-                        return fin, mine_cap_ennemi, mine_cap_self
+                        return fin
         
-        return fin, mine_cap_ennemi, mine_cap_self
+        return fin
     
 
     def larguer_drone(self, carte, sous_marin_ennemi) :
