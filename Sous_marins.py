@@ -15,6 +15,7 @@ class SousMarin:
         self.nom = nom
         self.vie = vie
         self.baie = baie_moteur
+        self.surface = False
         self.cadran_ouest = None
         self.cadran_est = None
         self.cadran_nord = None
