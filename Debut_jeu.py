@@ -575,6 +575,11 @@ def annonce_cap(carte, sous_marin) :
 #====================#
 
 def faire_surface(carte, sous_marin) :
+    #on reset aussi en "rien" le cap des mines
+    if sous_marin.mine_cap :
+        for i in range(len(sous_marin.mine_cap)) :
+            sous_marin.mine_cap[i - 1] = "Rien"
+
     sous_marin.surface = True
     print("\nVous faites surface et passez votre tour 3 fois.\n")
     #continuer la fonction pour faire en sorte que l'équipe passe son tour 3 fois
@@ -920,6 +925,16 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
 
 
         
+
+#RESET EN "AUCUN" LE CAP DE TOUTE LES MINES SI IL Y EN A
+
+
+
+
+
+
+
+
 
 #===========================================#
 '''13) déplacer transparent équipe énnemie'''
