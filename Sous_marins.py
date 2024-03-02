@@ -15,6 +15,7 @@ class SousMarin:
         self.nom = nom
         self.vie = vie
         self.baie = baie_moteur
+        self.cap = None
         self.surface = False
         self.nombre_tour_attendu = 0
         self.cadran_ouest = None
@@ -95,10 +96,10 @@ class SousMarin:
         print(baie_moteur)
 
 
-    def choisir_une_panne(self, choix_meca, cap):
+    def choisir_une_panne(self, choix_meca):
         voyant_deja_panne = False
 
-        if cap == "OUEST" :
+        if self.cap == "OUEST" :
             if choix_meca == 1 and self.cadran_ouest[0] == " JAUNE 1 ARM":
                 self.cadran_ouest[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
                 self.condition_panne_arm = True
@@ -130,7 +131,7 @@ class SousMarin:
             else : 
                 print("Sélectionnez une panne du cadran OUEST comprise entre 1 et 6")
 
-        elif cap == "NORD" :
+        elif self.cap == "NORD" :
 
             if choix_meca == 1 and self.cadran_nord[0] == " VERT  1 SPE" :
                 self.cadran_nord[0] = " ̷V̷E̷R̷T̷ ̷-̷ ̷S̷P̷E"
@@ -164,7 +165,7 @@ class SousMarin:
             else : 
                 print("Sélectionnez une panne du cadran NORD comprise entre 1 et 6")
 
-        elif cap == "SUD" :
+        elif self.cap == "SUD" :
 
             if choix_meca == 1 and self.cadran_sud[0] == " BLEU  1 DET" :
                 self.cadran_sud[0] = " ̷B̷L̷E̷U̷ ̷-̷ ̷D̷E̷T"
@@ -198,7 +199,7 @@ class SousMarin:
             else : 
                 print("Sélectionnez une panne du cadran SUD comprise entre 1 et 6")
 
-        elif cap == "EST" :
+        elif self.cap == "EST" :
 
             if choix_meca == 1 and self.cadran_est[0] == " JAUNE 1 ARM" :
                 self.cadran_est[0] = " ̷J̷A̷U̷N̷E̷-̷ ̷A̷R̷M"
@@ -232,7 +233,7 @@ class SousMarin:
                 print("Sélectionnez une panne du cadran EST comprise entre 1 et 6")
 
         # Si le sous marin fait surface, toutes les pannes sont réparées.
-        elif cap == "AUCUN" :
+        elif self.cap == "AUCUN" :
             self.cadran_ouest[0] = " JAUNE 1 ARM"
             self.cadran_ouest[1] = " JAUNE 2 SPE"
             self.cadran_ouest[2] = " JAUNE 3 DET"
@@ -836,7 +837,7 @@ class SousMarin:
                                                 
                                             #le sous marin tir sur un emplacement à côté de lui
                                             elif ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1]+1 or y == self.pos[1]-1)) or ((x == self.pos[0]+1 or x == self.pos[0]-1) and (y == self.pos[1])) or ((y == self.pos[1]+1 or y == self.pos[1]-1) and (x == self.pos[0])) :
-                                                print(f"\nVous avez tirer une torpille à côté de votre propre sous-marin ! 💥\nVous prennez 1 point de dégats !\n\n")
+                                                print(f"\nVous avez tirer une torpille à côté de votre propre sous-marin ! 💥\nVous prennez 1 point de dégats !\n")
                                                 self.vie -= 1
                                                 print(f"========== Sous-marin '{nom_self}' ==========\n- Vie restante : {self.vie}❤️\n")
                                                     
@@ -1092,7 +1093,7 @@ class SousMarin:
     def explosion_auto(self, sous_marin_ennemi, nom_self, carte, fin, carte_ennemi):
 
         if sous_marin_ennemi.nom == "Ecureille" :
-            if sous_marin.ennemi.emplacement_mines :
+            if sous_marin_ennemi.emplacement_mines :
                 for i in range(len(sous_marin_ennemi.emplacement_mines)) :
                     x, y = sous_marin_ennemi.emplacement_mines[i - 1]
                     

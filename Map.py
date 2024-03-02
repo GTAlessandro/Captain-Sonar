@@ -98,12 +98,11 @@ class Carte :
         self.Afficher_carte()
 
     #on déplace le sous marin
-    def deplacement_sm(self, sous_marin, cap):
+    def deplacement_sm(self, sous_marin):
         
         x, y = sous_marin.pos
-        cap = cap.upper()   
 
-        if cap == "OUEST" :
+        if sous_marin.cap == "OUEST" :
             #l'emplacement avant le déplacement du sm est changer dans la direction du cap
             self.carte[x][y] = "←"
 
@@ -123,7 +122,7 @@ class Carte :
             self.Afficher_carte()
             return x, y #retour de la nouvelle position
 
-        elif cap == "EST" :
+        elif sous_marin.cap == "EST" :
             self.carte[x][y] = "→"
 
             for i in sous_marin.emplacement_mines :
@@ -138,7 +137,7 @@ class Carte :
             self.Afficher_carte()
             return x, y #nouvelle position
 
-        elif cap == "NORD" :
+        elif sous_marin.cap == "NORD" :
             self.carte[x][y] = "↑"
 
             for i in sous_marin.emplacement_mines :
@@ -153,7 +152,7 @@ class Carte :
             self.Afficher_carte()
             return x, y #nouvelle position
 
-        elif cap == "SUD" :
+        elif sous_marin.cap == "SUD" :
             self.carte[x][y] = "↓"
 
             for i in sous_marin.emplacement_mines :
@@ -175,33 +174,6 @@ class Carte :
         self.pos_cible = 0, 0
         
         return 0, 0
-
-    #rentrer un cap sur le transparent.
-    def continuer_trans(self, cap, position):
-        x, y = position
-
-        if cap == "NORD" or cap == "SUD":
-            if cap == "NORD" :
-                self.carte[x][y] = "↑"
-            
-            if cap == "SUD" :
-                self.carte[x][y] = "↓"
-            
-            self.pos_cible = x, y
-            return x, y
-
-        elif cap == "EST" or cap == "OUEST":
-            if cap == "EST" :
-                self.carte[x][y] = "→"
-            
-            if cap == "OUEST" :
-                self.carte[x][y] = "←"
-            self.pos_cible = x, y
-            return x, y
-
-        else:
-            print("Cap invalide.")
-
 
     def infos(self):
         print(f"\n========== Map {self.nom} ==========\n\n- Difficulté : {self.difficulte}\n- Largeur : {self.largeur}\n- Longeur : {self.hauteur}\n- Terrain : {self.terrain}\n")
