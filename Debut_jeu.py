@@ -940,10 +940,12 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
 '''13) déplacer transparent équipe énnemie'''
 #===========================================#
 
-def deplacer_transparent(nom, carte_t, sous_marin) :
+def deplacer_transparent(nom, carte_t, sous_marin, sous_marin_ennemi) :
     print(changement)
     print(f"\nC'est au Second : '{sous_marin.detecteur}', de l'équipe '{nom}' de jouer.")
-    #lui afficher le cap ennemi pris
+    input("\nSUIVANT")
+    
+    print(f"\n\nVous captez le cap du sous marin ennemi : '{sous_marin_ennemi.cap}'")
     #la position du sm ennemi sera afficher par un x sur le transparent
     #après avoir ajouter un cap, le x se déplace sur le nouvelle emplacement
     #le detecteur pourra revenir en arrière sur le dernier cap entrer 
