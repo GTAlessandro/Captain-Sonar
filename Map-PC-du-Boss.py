@@ -4,20 +4,25 @@
 #===============#
 
 class Carte :
-    def __init__(self, nom, hauteur, largeur, difficulte, terrain) :
+    def __init__(self, nom, hauteur, largeur, difficulte, terrain, pos_cible) :
         self.nom = nom
         self.hauteur = hauteur
         self.largeur = largeur
         self.difficulte = difficulte
         self.terrain = terrain
-        self.pos_cible = 0, 0
+        self.pos_cible = pos_cible
         self.derniere_colonne = None
         self.derniere_ligne = None
         self.carte = [['.' for _ in range(largeur)] for _ in range(hauteur)] #gpt : premier tableau affiche . le nombre de fois = largeur et la valeur _ après le for = la largeur aussi prend
 
-    def definition_terrain(self) :
+    #on affiche la carte
+    def Afficher_carte(self) :
+        # Diviser la largeur et la hauteur par 2 pour obtenir les coordonnées du milieu
+        milieu_largeur = self.largeur // 2
+        milieu_hauteur = self.hauteur // 2
+
         #Affichage des îles sur la 1ère map :
-        if self.terrain == "îles épars" :
+        if self.nom == "Mer Noir" or self.nom == "Transparent Mer Noir" :
             self.carte[0][3] = "■"
             self.carte[2][1] = "■"
             self.carte[1][7] = "■"
@@ -27,7 +32,7 @@ class Carte :
             self.carte[8][3] = "■"
             self.carte[8][7] = "■"
 
-        if self.terrain == "grandes îles" :
+        if self.nom == "Mer Rouge" or self.nom == "Transparent Mer Rouge" :
             self.carte[5][3] = "■"
             self.carte[4][2] = "■"
             self.carte[4][3] = "■"
@@ -38,15 +43,6 @@ class Carte :
             self.carte[7][7] = "■"
             self.carte[7][8] = "■"
             self.carte[8][8] = "■"
-        
-        return 
-
-    #on affiche la carte
-    def Afficher_carte(self) :
-        # Diviser la largeur et la hauteur par 2 pour obtenir les coordonnées du milieu
-        milieu_largeur = self.largeur // 2
-        milieu_hauteur = self.hauteur // 2
-
 
         # Afficher les lettres de l'alphabet comme libellés de colonnes
         lettres = '  ' + '  '.join([chr(65 + col) for col in range(self.largeur)])
@@ -100,7 +96,6 @@ class Carte :
                     self.carte[i][j] = "m"
         
         self.Afficher_carte()
-
 
     #on déplace le sous marin
     def deplacement_sm(self, sous_marin):
@@ -172,143 +167,13 @@ class Carte :
             self.Afficher_carte()
             return x, y #nouvelle position
 
-
-    #on place la position de la cible définit dans l'initialisation de la map sur le transparent
+       
+    #on place le premier cap sur le transparent
     def start_trans(self):
-        x, y = self.pos_cible
-        self.carte[x][y] = "X"   #le sous marin ennemi est signalé par une croix.
-        return
-    
-
-    #on déplace la cible du transparent
-    def cap_cible_transpa(self) :
-        h = int(self.hauteur) - 1
-        l = int(self.largeur) - 1
-        x, y = self.pos_cible
-        print("\n\n\n\n")
-        self.Afficher_carte()
-
-        while True :
-            try :
-                cap = input(f"\nDéplacer la cible (OUEST, NORD, EST, SUD) ou retourner en arrière (0): ")
-                cap = cap.upper()
-
-                if cap == "O" :
-                    cap = "OUEST"
-
-                elif cap == "N" :
-                    cap = "NORD"
-
-                elif cap == "E" :
-                    cap = "EST"
-
-                elif cap == "S" :
-                    cap = "SUD"
-
-                #si le cap est égale a ouest et est supérière à 0 étant la limite de la map
-                if cap == "OUEST" and y > 0 :
-                    #alors on déplace la cible
-                    self.deplacement_transpa_valide(cap, x, y)
-                    return
-
-                elif cap == "EST" and y < l :
-                    self.deplacement_transpa_valide(cap, x, y)
-                    return
-
-                elif cap == "NORD" and x > 0 :
-                    self.deplacement_transpa_valide(cap, x, y)
-                    return
-
-                elif cap == "SUD" and x < h :
-                    self.deplacement_transpa_valide(cap, x, y)
-                    return
-
-                elif cap == "0" :
-                    return
-
-                else :
-                    print("\n\n❌ Entrez une valeur valide en restant dans la map !")
-
-            except ValueError :
-                print("\n\n❌ Entrez une valeur valide dans les limites de la map.")
-
-    #on déplace la cible sur le transparent, fonciton a l'intérieur de cap_cible_transpa
-    def deplacement_transpa_valide(self, cap, x, y):
-        if cap == "OUEST" :
-            #si l'emplacement actuelle de la cible est une X
-            if self.carte[x][y] == "X" :
-                #l'emplacement actuelle de la cible est changé dans la direction du cap.
-                self.carte[x][y] = "←"
-
-            #si le nouvelle emplacement est une ile
-            if self.carte[x][y - 1] in ["■", "♦"] :
-                #la nouvelle position de la cible devient ♦ 
-                self.carte[x][y - 1] = "♦"
-
-            else :
-                self.carte[x][y - 1] = "X"
-
-            #changement de position
-            y -= 1
-
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici le nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return
-
-        elif cap == "EST" :
-            if self.carte[x][y] in ["X"] :
-                self.carte[x][y] = "→"
-
-            if self.carte[x][y + 1] in ["■", "♦"] :
-                self.carte[x][y + 1] = "♦"
-
-            else :
-                self.carte[x][y + 1] = "X"
-
-            y += 1
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici le nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return
-
-        elif cap == "NORD" :
-            if self.carte[x][y] in ["X"] :
-                self.carte[x][y] = "↑"
-
-            if self.carte[x - 1][y] in ["■", "♦"] :
-                self.carte[x - 1][y] = "♦"
-
-            else :
-                self.carte[x - 1][y] = "X"
-
-            x -= 1   
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return 
-
-        elif cap == "SUD" :
-            if self.carte[x][y] in ["X"] :
-                self.carte[x][y] = "↓"
-
-            if self.carte[x + 1][y] in ["■", "♦"] :
-                self.carte[x + 1][y] = "♦"
-
-            else :
-                self.carte[x + 1][y] = "X"
-
-            x += 1
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return
+        self.carte[0][0] = "X"   #le sous marin ennemi est signalé par une croix.
+        self.pos_cible = 0, 0
         
-
+        return 0, 0
 
     def infos(self):
         print(f"\n========== Map {self.nom} ==========\n\n- Difficulté : {self.difficulte}\n- Largeur : {self.largeur}\n- Longeur : {self.hauteur}\n- Terrain : {self.terrain}\n")
@@ -318,17 +183,17 @@ class Carte :
 '''Création des cartes'''
 #=======================#
 
-C1_e1 = Carte("Mer Noir", 10, 10, 1, "îles épars") #Carte mer noir de l'équipe numéro 1
-C1_e1_d1 = Carte("Transparent Mer Noir", 10, 10, 1, "îles épars") #Carte transparent mer noir équipe
+C1_e1 = Carte("Mer Noir", 10, 10, 1, "îles épars", None) #Carte mer noir de l'équipe numéro 1
+C1_e1_d1 = Carte("Transparent Mer Noir", 10, 10, 1, "îles épars", None) #Carte transparent mer noir équipe
 
-C1_e2 = Carte("Mer Noir", 10, 10, 1, "îles épars") #Carte mer noir de l'équipe numéro 2
-C1_e2_d2 = Carte("Transparent Mer Noir", 10, 10, 1, "îles épars") #Carte transparent mer noir équipe 2
+C1_e2 = Carte("Mer Noir", 10, 10, 1, "île épars", None) #Carte mer noir de l'équipe numéro 2
+C1_e2_d2 = Carte("Transparent Mer Noir", 10, 10, 1, "îles épars", None) #Carte transparent mer noir équipe 2
 
-C2_e1 = Carte("Mer Rouge", 12, 12, 2, "grandes îles") #Carte numéro 2
-C2_e1_d1 = Carte("Transparent Mer Rouge", 16, 16, 2, "grandes îles") #Carte transparent mer rouge équipe 1
+C2_e1 = Carte("Mer Rouge", 12, 12, 2, "grandes îles", None) #Carte numéro 2
+C2_e1_d1 = Carte("Transparent Mer Rouge", 16, 16, 2, "grandes îles", None) #Carte transparent mer rouge équipe 1
 
-C2_e2 = Carte("Mer Rouge", 12, 12, 2, "grandes îles") #Carte numéro 2
-C2_e2_d2 = Carte("Transparent Mer Rouge", 16, 16, 2, "grandes îles") #Carte transparent mer rouge équipe 2
+C2_e2 = Carte("Mer Rouge", 12, 12, 2, "grandes îles", None) #Carte numéro 2
+C2_e2_d2 = Carte("Transparent Mer Rouge", 16, 16, 2, "grandes îles", None) #Carte transparent mer rouge équipe 2
 
 
 #convertie un chiffre en lettre, 0 = A etc...

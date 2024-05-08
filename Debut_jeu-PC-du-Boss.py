@@ -21,16 +21,6 @@ def lancer_jeu() :
 
     print(aff_map)
 
-    #initialisation terrain des map
-    C1_e1.definition_terrain()
-    C1_e2.definition_terrain()
-    C2_e1.definition_terrain()
-    C2_e2.definition_terrain()
-    C1_e1_d1.definition_terrain()
-    C1_e2_d2.definition_terrain()
-    C2_e1_d1.definition_terrain()
-    C2_e2_d2.definition_terrain()
-
     #4) Selection de la map
     carte = selection_map(j1)
 
@@ -39,6 +29,10 @@ def lancer_jeu() :
     C_e2 = carte[1]
     C_e1_d1 = carte[2]
     C_e2_d2 = carte[3]
+
+    # #initialisation des positions sm ennemies sur le transparent
+    # position_sm_d1 = C_e1_d1.start_trans()
+    # position_sm_d2 = C_e2_d2.start_trans()
 
     print(aff_s)
 
@@ -60,10 +54,6 @@ def lancer_jeu() :
     #initialisation des cadrans des sous-marins
     sous_marin_e1.definition_du_cadran()
     sous_marin_e2.definition_du_cadran()
-
-    #initialisation du transparent
-    C_e1_d1.start_trans()
-    C_e2_d2.start_trans()
 
     #si fin == True alors le jeu est terminer 
     fin = False
@@ -97,7 +87,6 @@ def lancer_jeu() :
             fin = declenchement_systemes(sous_marin_e1, sous_marin_e2, C_e1, nom_e2, nom_e1, fin, C_e2)
 
             #5) le detecteur adverse rentre le cap ennemi
-            deplacer_transparent(nom_e1, C_e1_d1, sous_marin_e1, sous_marin_e2)
             
     print(fin)
     print("BRAVO JEU FINI")
@@ -608,37 +597,57 @@ def deplacement(carte, sous_marin, nom, sous_marin_ennemi, fin, carte_ennemi) :
     carte.Afficher_carte()
 
     #tant que la var surface est égale à False, le sm est sous la mer et peut donc se déplacer
-    if sous_marin.surface == False :
-        while True :
-            try :
-                entete_deplacement = int(input("\n  1 - Choisir un cap\n  2 - Faire surface\n  3 - Demander au Mecano d'afficher la baie moteur\n\n  Sélectionner une action : "))
+    while sous_marin.surface == False :
+        try :
+            entete_deplacement = int(input("\n  1 - Choisir un cap\n  2 - Faire surface\n  3 - Demander au Mecano d'afficher la baie moteur\n\n  Sélectionner une action : "))
 
-                if entete_deplacement == 1 :
-                    annonce_cap(carte, sous_marin)
-                    
-                    if sous_marin.cap != "0" : 
-                        #si le  sous marin se déplace sur une mine posé par un sm Ecureille
-                        if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
-                            fin = sous_marin.explosion_auto(sous_marin_ennemi, nom, Carte, fin, carte_ennemi)
-                        input("\nSUIVANT")
-                        return fin
-                    
-                elif entete_deplacement == 2 :
-                    faire_surface(carte, sous_marin)
-                    sous_marin.cap = "AUCUN"
+            if entete_deplacement == 1 :
+                annonce_cap(carte, sous_marin)
+                
+                if sous_marin.cap != "0" : 
+                    #si le  sous marin se déplace sur une mine posé par un sm Ecureille
+                    if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
+                        fin = sous_marin.explosion_auto(sous_marin_ennemi, nom, Carte, fin, carte_ennemi)
+                    input("\nSUIVANT")
+
+                # if leurre_larguer == True :
+                #     #définition du cap du leurre
+                #     if cap == "OUEST" :
+                #         cap_leurre = "EST"
+
+                #     elif cap == "NORD" :
+                #         cap_leurre = "SUD"
+
+                #     elif cap == "EST" :
+                #         cap_leurre = "OUEST"
+
+                #     elif cap == "SUD" :
+                #         cap_leurre = "NORD"
+
+                    # #on déplace le leurre en fonction de son cap
+                    # position_leurre = carte.deplacement_sm(position_leurre, leurre, cap_leurre)
+                    # #si le leurre se déplace sur une mine automatique
+                    # if sous_marin_ennemi.nom == "Ecureille" or sous_marin.nom == "Ecureille" :
+                    #     fin, leurre_larguer = leurre.explosion_auto(sous_marin_ennemi, nom, carte, fin, carte_ennemi, self)
+                
                     return fin
                 
-                elif entete_deplacement == 3 :
-                    sous_marin.afficher_baie_moteur()
-                    
-                else :
-                    print("\n\n❌ Sélectionnez une action comprise entre 1 et 2.")
+            elif entete_deplacement == 2 :
+                faire_surface(carte, sous_marin)
+                sous_marin.cap = "AUCUN"
+                return fin
+            
+            elif entete_deplacement == 3 :
+                sous_marin.afficher_baie_moteur()
+                
+            else :
+                print("\n\n❌ Sélectionnez une action comprise entre 1 et 2.")
 
-            except ValueError :
-                print("\n\n❌ Sélectionnez une action valide.")
+        except ValueError :
+            print("\n\n❌ Sélectionnez une action valide.")
 
-    #si la var surface est True, alors le sm est en surface et doit attendre trois tours avant de pouvoir faire une action
-    else :
+    #si la var surface est True, alors le sm est en surface et doit attendre trois tours avant de pouvoir se redéplacer
+    if sous_marin.surface == True :
             sous_marin.nombre_tour_attendu += 1
 
             if sous_marin.nombre_tour_attendu == 1 :
@@ -666,8 +675,7 @@ def panne(nom, sous_marin) :
     if sous_marin.mecano != sous_marin.capitaine :
         input("\nSUIVANT")
 
-    #si le sm n'est pas en surface
-    if sous_marin.surface == False :
+    if sous_marin.cap == "SUD" or sous_marin.cap == "NORD" or sous_marin.cap == "OUEST" or sous_marin.cap == "EST" :
         print(f"\nVotre capitaine à annoncé le cap : {sous_marin.cap}\n")
 
         # Affichage de la baie moteur
@@ -727,8 +735,7 @@ def choix_systeme(sous_marin, nom):
     if sous_marin.second != sous_marin.capitaine :
         input("\nSUIVANT")
 
-    #Si le sm n'est pas en surface
-    if sous_marin.surface == False :
+    if sous_marin.cap == "SUD" or sous_marin.cap == "NORD" or sous_marin.cap == "OUEST" or sous_marin.cap == "EST" :
         sous_marin.afficher_systeme()
 
         while True :
@@ -787,14 +794,12 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
         if sous_marin.nombre_tour_attendu == 2 :
             sous_marin.nombre_tour_attendu = 0
             sous_marin.surface = False
-
         return fin
 
     #si aucun système n'est déclanchable
     if (sous_marin.nom == "Tigre" or sous_marin.nom == "Ecureille") and sous_marin.a1_charge == False and sous_marin.a2_charge == False and sous_marin.d1_charge == False and sous_marin.d2_charge == False and sous_marin.spe_charge == False and not sous_marin.emplacement_mines : 
         print("\n\nAucun système ne peut être déclencher\n")
         input("SUIVANT")
-
         return fin
 
     while True :
@@ -919,45 +924,30 @@ def declenchement_systemes(sous_marin, sous_marin_ennemi, carte, nom_ennemi, nom
             print("\n\n❌ Veuillez sélectionner une option valide !")
 
 
+        
+
+#RESET EN "AUCUN" LE CAP DE TOUTE LES MINES SI IL Y EN A
+
+
+
+
+
+
+
+
+
 #===========================================#
 '''13) déplacer transparent équipe énnemie'''
 #===========================================#
 
 def deplacer_transparent(nom, carte_t, sous_marin, sous_marin_ennemi) :
     print(changement)
-    print(f"\nC'est au Detecteur : '{sous_marin.detecteur}', de l'équipe '{nom}' de jouer.")
+    print(f"\nC'est au Second : '{sous_marin.detecteur}', de l'équipe '{nom}' de jouer.")
+    input("\nSUIVANT")
     
-    if sous_marin.detecteur != sous_marin.capitaine :
-        input("\nSUIVANT")
-    
-    print(f"\n\nVous captez le cap du sous marin ennemi : '{sous_marin_ennemi.cap}'\n")
-    #après avoir ajouter un cap, la cible se déplace sur le nouvelle emplacement
-    while True :
-        try :
-            entete_t = int(input("\n1 - Choisir un cap pour la cible\n2 - Déplacer la cible ainsi que son tracé\n3 - Remettre à zero le tracé de la cible\n4 - Revenir sur le dernier tracé\n5 - Passer votre tour\n\n  Sélectionner une action : "))
-
-            #il déplace autant de fois qu'il veut la cible en ajoutant un cap
-            if entete_t == 1 :
-                carte_t.cap_cible_transpa()
-
-            #le detecteur peut déplacer le tracé complet avec zqsd
-            elif entete_t == 2 :
-                deplacer_all_transpa()
-
-            #il pourra reset la carte, comme pour faire surface
-            elif entete_t == 3 :
-                carte_t.reset_chemin()
-
-            elif entete_t == 4 :
-                revenir_dernier_tracer()
-
-            elif entete_t == 5 :
-                return
-            
-            else :
-                print("\n\n❌ Veuillez sélectionner une option valide (1-5) !")
-        
-        except ValueError :
-            print("\n\n❌ Veuillez sélectionner une option valide !")
-
-
+    print(f"\n\nVous captez le cap du sous marin ennemi : '{sous_marin_ennemi.cap}'")
+    #la position du sm ennemi sera afficher par un x sur le transparent
+    #après avoir ajouter un cap, le x se déplace sur le nouvelle emplacement
+    #le detecteur pourra revenir en arrière sur le dernier cap entrer 
+    #il pourra reset la carte, comme pour faire surface
+    #il pourra déplacer le chemin qu'il a fait sur la carte avec les touches 'zqsd'

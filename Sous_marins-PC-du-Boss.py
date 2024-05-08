@@ -31,7 +31,7 @@ class SousMarin:
         self.d2_charge = False #Détection optique, Capteurs infrarouges, Surveillance satellite
         self.spe_charge = False #fade up, leurre
         self.arme1 = ["0", "0", "0", "0", "0", "0"]
-        self.arme2 = ["0", "0", "0", "0", "0", "0"]
+        self.arme2 = ["#", "#", "#", "0", "0", "0"]
         self.dete1 = ["0", "0", "0", "0", "0", "0"]
         self.dete2 = ["0", "0", "0", "0", "0", "0"]
         self.spe1 = ["0", "0", "0", "0", "0", "0"]
@@ -894,13 +894,13 @@ class SousMarin:
                                     print("\n\n❌ Vous ne pouvez pas traverser les îles avec votre torpille !")
 
                             else :
-                                print("\n\n❌ Entrez une ligne correcte.")
+                                print("\n\n❌ Entrée une ligne correcte.")
 
                         else :
-                            print("\n\n❌ Entrez une colonne correcte.")
+                            print("\n\n❌ Entrée une colonne correcte.")
 
                     else :
-                        print("\n\n❌ Entrez des coordonnées correcte, par exemple 'A3'")
+                        print("\n\n❌ Entrée des coordonnées correcte, par exemple 'A3'")
                 
                 except ValueError :
                     print("\n\n❌ Veuillez choisir des valeurs valides.")
@@ -969,13 +969,13 @@ class SousMarin:
                                 print("\n\n❌ Veuillez choisir des valeurs dans la limite de la map.")
 
                         else :
-                            print("\n\n❌ Entrez une ligne correcte.")
+                            print("\n\n❌ Entrée une ligne correcte.")
 
                     else :
-                        print("\n\n❌ Entrez une colonne correcte.")
+                        print("\n\n❌ Entrée une colonne correcte.")
 
                 else :
-                    print("\n\n❌ Entrez des coordonnées correcte.")
+                    print("\n\n❌ Entrée des coordonnées correcte.")
 
             except ValueError : 
                 print("\n\n❌ Veuillez choisir des valeurs valides.")
