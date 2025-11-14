@@ -2,7 +2,7 @@
 '''Menu.py'''
 #===========#
 
-bonjour = """\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+bonjour = """
 ===============================================================================================================================================
 ===============================================================================================================================================
 ======                                                                                                                                   ======
@@ -92,6 +92,7 @@ regles = """
 
     4) Sélection du mode de jeu.
 
+    
     5) Sélection de la map.
 
     6) Sélection du sous-marin.
@@ -509,7 +510,7 @@ regles = """
 '''Debut_jeu.py'''
 #================#
 
-equipe = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+equipe = '''
     ___________            .__               
     \_   _____/ ________ __|__|_____   ____  
      |    __)_ / ____/  |  \  \____ \_/ __ \ 
@@ -518,7 +519,7 @@ equipe = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
             \/    |__|        |__|        \/
         '''
 
-affichage_mode = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+affichage_mode = '''
        _____             .___           .___            __              
       /     \   ____   __| _/____     __| _/____       |__| ____  __ __ 
      /  \ /  \ /  _ \ / __ |/ __ \   / __ |/ __ \      |  |/ __ \|  |  \ 
@@ -531,7 +532,7 @@ affichage_mode = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
     2 - Mode simultané (INDISPONIBLE)\n
                 '''
 
-aff_map = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+aff_map = '''
 
        _____                 
       /     \  _____  ______  
@@ -549,7 +550,7 @@ aff_map = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
 
     '''
 
-aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+aff_s = '''
 
   _________                                _____                 .__        
  /   _____/ ____  __ __  ______           /     \  _____  _______|__| ____  
@@ -578,7 +579,7 @@ aff_s = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
         spéciale = Leurre
     '''
 
-start = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
+start = '''
     =========================================== QUE LA PARTIE COMMENCE ! =================================================
    
    
@@ -591,7 +592,6 @@ start = '''\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n
                            '''
 
 changement = '''
-\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
     _________ .__                                                         __   
     \_   ___ \|  |__  _____    ____    ____   ____   _____   ____   _____/  |_ 
     /    \  \/|  |  \ \__  \  /    \  / ___\_/ __ \ /     \_/ __ \ /    \   __\ 

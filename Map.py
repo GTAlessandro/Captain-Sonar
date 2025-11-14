@@ -1,3 +1,6 @@
+import os
+
+from Sous_marins import chiffre_to_lettre
 
 #===============#
 '''Class Carte'''
@@ -93,11 +96,17 @@ class Carte :
     def reset_chemin(self):        
         for i in range(self.hauteur) :
             for j in range(self.largeur) :
+                RED = "\033[91m"
+                RESET = "\033[0m"
+                
                 if self.carte[i][j] in ['←', '→', '↑', '↓']:
                     self.carte[i][j] = "."
 
                 if self.carte[i][j] == "M" :
                     self.carte[i][j] = "m"
+
+                if self.carte[i][j] in [f"{RED}←{RESET}", f"{RED}→{RESET}", f"{RED}↑{RESET}", f"{RED}↓{RESET}"] :
+                    self.carte[i][j] = "■"
         
         self.Afficher_carte()
 
@@ -118,14 +127,6 @@ class Carte :
 
             #changement de position
             y -= 1
-            #la nouvelle position se transforme en la première lettre du sm
-            self.carte[x][y] = sous_marin.nom[0]
-            #maj de la position du sm
-            sous_marin.pos = x, y
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            return x, y #retour de la nouvelle position
 
         elif sous_marin.cap == "EST" :
             self.carte[x][y] = "→"
@@ -135,12 +136,6 @@ class Carte :
                     self.carte[x][y] = "M"
 
             y += 1
-            self.carte[x][y] = sous_marin.nom[0]
-            sous_marin.pos = x, y
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            return x, y #nouvelle position
 
         elif sous_marin.cap == "NORD" :
             self.carte[x][y] = "↑"
@@ -150,12 +145,6 @@ class Carte :
                     self.carte[x][y] = "M"
 
             x -= 1   
-            self.carte[x][y] = sous_marin.nom[0]
-            sous_marin.pos = x, y
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            return x, y #nouvelle position
 
         elif sous_marin.cap == "SUD" :
             self.carte[x][y] = "↓"
@@ -165,12 +154,15 @@ class Carte :
                     self.carte[x][y] = "M"
 
             x += 1
-            self.carte[x][y] = sous_marin.nom[0]
-            sous_marin.pos = x, y
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            return x, y #nouvelle position
+        
+        #la nouvelle position se transforme en la première lettre du sm
+        self.carte[x][y] = sous_marin.nom[0]
+        #maj de la position du sm
+        sous_marin.pos = x, y
+        clear_terminal() 
+        print("\nVoici votre nouvel emplacement : \n")
+        self.Afficher_carte()
+        return
 
 
     #on place la position de la cible définit dans l'initialisation de la map sur le transparent
@@ -185,8 +177,6 @@ class Carte :
         h = int(self.hauteur) - 1
         l = int(self.largeur) - 1
         x, y = self.pos_cible
-        print("\n\n\n\n")
-        self.Afficher_carte()
 
         while True :
             try :
@@ -232,18 +222,27 @@ class Carte :
             except ValueError :
                 print("\n\n❌ Entrez une valeur valide dans les limites de la map.")
 
-    #on déplace la cible sur le transparent, fonciton a l'intérieur de cap_cible_transpa
+    #on déplace la cible sur le transparent, fonction a l'intérieur de cap_cible_transpa
     def deplacement_transpa_valide(self, cap, x, y):
+        RED = "\033[91m"
+        RESET = "\033[0m"
+        XR = f"{RED}X{RESET}"
+        
         if cap == "OUEST" :
             #si l'emplacement actuelle de la cible est une X
             if self.carte[x][y] == "X" :
                 #l'emplacement actuelle de la cible est changé dans la direction du cap.
                 self.carte[x][y] = "←"
 
+            #ou si l'emplacement actuelle de la cible est un X rouge
+            elif self.carte[x][y] == XR:
+                #l'ancienne emplacement est rouge, indiquant qu'il y a une ile icis
+                self.carte[x][y] = f"{RED}←{RESET}"
+
             #si le nouvelle emplacement est une ile
-            if self.carte[x][y - 1] in ["■", "♦"] :
-                #la nouvelle position de la cible devient ♦ 
-                self.carte[x][y - 1] = "♦"
+            if self.carte[x][y - 1] in ["■"] :
+                #la nouvelle position de la cible devient X rouge
+                self.carte[x][y - 1] = XR
 
             else :
                 self.carte[x][y - 1] = "X"
@@ -251,65 +250,235 @@ class Carte :
             #changement de position
             y -= 1
 
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici le nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return
-
         elif cap == "EST" :
             if self.carte[x][y] in ["X"] :
                 self.carte[x][y] = "→"
 
-            if self.carte[x][y + 1] in ["■", "♦"] :
-                self.carte[x][y + 1] = "♦"
+            #ou si l'emplacement actuelle de la cible est un X rouge
+            elif self.carte[x][y] == XR:
+                #l'ancienne emplacement est rouge, indiquant qu'il y a une ile icis
+                self.carte[x][y] = f"{RED}→{RESET}"
+
+            if self.carte[x][y + 1] in ["■"] :
+                self.carte[x][y + 1] = XR
 
             else :
                 self.carte[x][y + 1] = "X"
 
             y += 1
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici le nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return
 
         elif cap == "NORD" :
             if self.carte[x][y] in ["X"] :
                 self.carte[x][y] = "↑"
 
-            if self.carte[x - 1][y] in ["■", "♦"] :
-                self.carte[x - 1][y] = "♦"
+            #ou si l'emplacement actuelle de la cible est un X rouge
+            elif self.carte[x][y] == XR:
+                #l'ancienne emplacement est rouge, indiquant qu'il y a une ile icis
+                self.carte[x][y] = f"{RED}↑{RESET}"
+
+            if self.carte[x - 1][y] in ["■"] :
+                self.carte[x - 1][y] = XR
 
             else :
                 self.carte[x - 1][y] = "X"
 
             x -= 1   
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return 
 
         elif cap == "SUD" :
             if self.carte[x][y] in ["X"] :
                 self.carte[x][y] = "↓"
 
-            if self.carte[x + 1][y] in ["■", "♦"] :
-                self.carte[x + 1][y] = "♦"
+            #ou si l'emplacement actuelle de la cible est un X rouge
+            elif self.carte[x][y] == XR:
+                #l'ancienne emplacement est rouge, indiquant qu'il y a une ile icis
+                self.carte[x][y] = f"{RED}↓{RESET}"
+
+            if self.carte[x + 1][y] in ["■"] :
+                self.carte[x + 1][y] = XR
 
             else :
                 self.carte[x + 1][y] = "X"
 
             x += 1
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-            print("\nVoici votre nouvel emplacement : \n")
-            self.Afficher_carte()
-            self.pos_cible = x, y
-            return
+            
+        clear_terminal() 
+        print("\nVoici votre nouvel emplacement : \n")
+        self.Afficher_carte()
+        self.pos_cible = x, y
+        return
+    
+    #Cette fonctino déplace toute les flèches de la cible du transparent
+    def deplacer_all_transpa(self) :
+        #demander la direction du déplacement
+        h = int(self.hauteur) - 1
+        l = int(self.largeur) - 1
+        x, y = self.pos_cible
+        direction = ""
+        tableau_fleche = []
+        tableau_ile = []
+        tableau_all_fleche = []
+        RED = "\033[91m"
+        RESET = "\033[0m"
+
+        direction_map = {
+            '←': 'O',
+            '→': 'E',
+            '↑': 'N',
+            '↓': 'S'
+        }
+
+        red_direction_map = {
+            f"{RED}←{RESET}": "O",
+            f"{RED}→{RESET}": "E",
+            f"{RED}↑{RESET}": "N",
+            f"{RED}↓{RESET}": "S"
+        }
+
+        for i in range(self.hauteur):
+            for j in range(self.largeur):
+                # Si il y a une flèche, on met sa position et sa direction dans un tableau
+                if self.carte[i][j] in direction_map:
+                    direction = direction_map[self.carte[i][j]]
+                    tableau_fleche.append([i, j, direction])
+                
+        for i in range(self.hauteur):
+            for j in range(self.largeur):
+                # Si il y a une flèche rouge, on met sa position et sa direction dans un tableau spéciale île
+                if self.carte[i][j] in red_direction_map:
+                    direction = red_direction_map[self.carte[i][j]]
+                    tableau_ile.append([i, j, direction])   
+                
+        tableau_all_fleche = tableau_fleche + tableau_ile
+
+        while True :
+            try :
+                print("tableau fleche : ", tableau_fleche)
+                print("tableau ile  : ", tableau_ile)
+                print("tableau all : ", tableau_all_fleche)
+                cap = input(f"\nDéplacer le tracé complé de la cible (OUEST, NORD, EST, SUD) ou retourner en arrière (0): ")
+                cap = cap.upper()
+
+                if cap == "O" :
+                    cap = "OUEST"
+
+                elif cap == "N" :
+                    cap = "NORD"
+
+                elif cap == "E" :
+                    cap = "EST"
+
+                elif cap == "S" :
+                    cap = "SUD"
+
+                #si le cap est égale a ouest, que la cible a une position y supérieur a la limite de la map et que aucune flèche ne sois a la limite aussi. la fonction all regarde pour toute variable du tableau a la position [1] de chaque variable si chacune des variables à une valeur supérieur a la limite de la map
+                if cap == "OUEST" and y > 0 and all(j[1] > 0 for j in tableau_fleche): 
+                    #on ajoute +1 à chaque j du tableau des flècHes qu'on met dans le new_tableau_fleche
+                    for j in tableau_all_fleche :
+                        j[1] -= 1 
+                    #on supprime chaque ancienne flèche
+                    self.reset_chemin()
+                    #on affiche sur la map pour chaque valeur du new_tableau_fleche une flèche en fonction de sa direction (étant la variable[2] dans le tableau de tuple tableau_fleche)
+                    for var in tableau_all_fleche :
+                        if var[2] == "O" :
+                            self.carte[var[1]][var[0]] = '←'
+                            
+                        if var[2] == "E" :
+                            self.carte[var[1]][var[0]] = '→'
+
+                        if var[2] == "N" :
+                            self.carte[var[1]][var[0]] = '↑'
+
+                        if var[2] == "S" :
+                            self.carte[var[1]][var[0]] = '↓'
+                    #si une des nouvelles flèches afficher à la même position qu'une ancienne flèche du tableau_ile, alors on l'affiche en rouge.
+
+                    return
+
+                elif cap == "EST" and y < l and all(j[1] < l for j in tableau_fleche):
+
+                    new_tableau_all_fleche = []
+
+                    for j in tableau_all_fleche :
+                        new_pos = [j[0], j[1] + 1, j[2]]  # j[1] + 1 pour décaler à l'est
+                        new_tableau_all_fleche.append(new_pos)
+
+                    for j in tableau_all_fleche:
+                        self.carte[j[1]][j[0]] = '.'
+
+                    print(new_tableau_all_fleche)
+
+                    for var in new_tableau_all_fleche :
+                        if var[2] == "O" :
+                            print("fleche ouest")
+                            self.carte[var[0]][var[1]] = '←'
+                            
+                        if var[2] == "E" :
+                            print("fleche e")
+                            self.carte[var[0]][var[1]] = '→'
+
+                        if var[2] == "N" :
+                            print("fleche n")
+                            self.carte[var[0]][var[1]] = '↑'
+
+                        if var[2] == "S" :
+                            print("fleche s")
+                            self.carte[var[0]][var[1]] = '↓'
+
+                    self.Afficher_carte()
+
+                    return
+
+                elif cap == "NORD" and x > 0 and all(i[0] > 0 for i in tableau_fleche):
+                    for j in tableau_all_fleche :
+                        j[0] -= 1 
+                    
+                    self.reset_chemin()
+
+                    for var in tableau_all_fleche :
+                        if var[2] == "O" :
+                            self.carte[var[1]][var[0]] = '←'
+                            
+                        if var[2] == "E" :
+                            self.carte[var[1]][var[0]] = '→'
+
+                        if var[2] == "N" :
+                            self.carte[var[1]][var[0]] = '↑'
+
+                        if var[2] == "S" :
+                            self.carte[var[1]][var[0]] = '↓'
+                    return
+
+                elif cap == "SUD" and x < h and all(i[0] < h for i in tableau_fleche):
+                    for j in tableau_all_fleche :
+                        j[0] += 1 
+                    
+                    self.reset_chemin()
+
+                    for var in tableau_all_fleche :
+                        if var[2] == "O" :
+                            self.carte[var[1]][var[0]] = '←'
+                            
+                        if var[2] == "E" :
+                            self.carte[var[1]][var[0]] = '→'
+
+                        if var[2] == "N" :
+                            self.carte[var[1]][var[0]] = '↑'
+
+                        if var[2] == "S" :
+                            self.carte[var[1]][var[0]] = '↓'
+                    return
+
+                elif cap == "0" :
+                    return
+
+                else :
+                    print("\n\n❌ Entrez une valeur valide en restant dans la map !")
+
+            except ValueError :
+                print("\n\n❌ Entrez une valeur valide dans les limites de la map.")
+        #déplacer toute les flèches et la cible par rapport a la direction
+
         
-
-
     def infos(self):
         print(f"\n========== Map {self.nom} ==========\n\n- Difficulté : {self.difficulte}\n- Largeur : {self.largeur}\n- Longeur : {self.hauteur}\n- Terrain : {self.terrain}\n")
 
@@ -331,6 +500,10 @@ C2_e2 = Carte("Mer Rouge", 12, 12, 2, "grandes îles") #Carte numéro 2
 C2_e2_d2 = Carte("Transparent Mer Rouge", 16, 16, 2, "grandes îles") #Carte transparent mer rouge équipe 2
 
 
-#convertie un chiffre en lettre, 0 = A etc...
-def chiffre_to_lettre(chiffre):
-        return chr(chiffre + ord('A')) #gpt
+def clear_terminal():
+    # Pour Windows
+    if os.name == 'nt':
+        os.system('cls')
+    # Pour Unix
+    else:
+        os.system('clear')
